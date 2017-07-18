@@ -201,9 +201,7 @@ public class Player {
 		}
 	}
 
-/*	players.get(i).placePhase();
-	boolean getBonus = players.get(i).attackPhase();
-	players.get(i).movePhase();
-	if (getBonus) players.get(i).getBonus();*/
-
+	private void bonusPhase(){
+		cntBonus++;
+	}
 }

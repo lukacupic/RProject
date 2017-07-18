@@ -67,11 +67,11 @@ public class Player {
 			System.out.println("invalid name of def territory");
 			return false;
 		}
-		if (attTerritory.getOwner().getName() != this.getName()){
+		if (!attTerritory.getOwner().getName().equals(this.getName())){
 			System.out.println("you can attack only from your territories");
 			return false;
 		}
-		if (attTerritory.getOwner() == defTerritory.getOwner()){
+		if (attTerritory.getOwner().getName().equals(defTerritory.getOwner().getName())){
 			System.out.println("you cant attack yourself");
 			return false;
 		}

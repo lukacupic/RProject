@@ -1,7 +1,6 @@
 package rproject;
 
 public class Territory {
-
 	private String name;
 
 	private Player owner;

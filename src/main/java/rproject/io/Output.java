@@ -16,6 +16,8 @@ public class Output {
 	 * interaction input is requested.
 	 */
 	public static void prompt() {
-		writeln(PROMPT_SYMBOL + " ");
+		write(PROMPT_SYMBOL + " ");
 	}
+
+	public static void newLine() { writeln(""); }
 }

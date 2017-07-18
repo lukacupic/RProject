@@ -44,8 +44,8 @@ public class FileUtil {
 	 * directory.
 	 */
 	private static void readMaps() {
-		File maps_root = new File(MAP_NAMES_PATH);
-		maps = Arrays.asList(maps_root.list());
+		File mapsRoot = new File(MAP_NAMES_PATH);
+		FileUtil.maps = Arrays.asList(mapsRoot.list());
 	}
 
 	/**

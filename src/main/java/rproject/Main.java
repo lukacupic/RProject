@@ -17,12 +17,15 @@ public class Main {
 	public static void main(String[] args) {
 		Output.writeln("RProject v1.0 - Risk game simulator");
 		Output.writeln("**********************************");
+		Output.newLine();
 
-		Output.writeln("Select a map to play:");
+		Output.writeln("Enter the number of the map you wish to play:");
 		String map = getSelectedMap();
+		Output.newLine();
 
 		Output.writeln("Enter the number of players [" + MIN_PLAYERS + ", " + MAX_PLAYERS + "]:");
 		int playersCount = getPlayersCount();
+		Output.newLine();
 
 		String[] playerNames = getPlayerNames(playersCount);
 

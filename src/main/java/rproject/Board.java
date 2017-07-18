@@ -1,6 +1,5 @@
 package rproject;
 
-import java.io.IOException;
 import java.util.Map;
 
 public class Board {
@@ -9,8 +8,7 @@ public class Board {
 
 	private NeighbourhoodMatrix nMatrix;
 
-	public Board(String name) throws IOException {
+	public Board(String name) {
 		nMatrix = new NeighbourhoodMatrix(name);
-
 	}
 }

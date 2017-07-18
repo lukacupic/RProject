@@ -5,13 +5,9 @@ import java.util.Scanner;
 public class Input {
 	private static Scanner sc = new Scanner(System.in);
 
-	public static String readString() {
-		return sc.next();
-	}
+	public static String readString() { return sc.next(); }
 
-	public static int readInt() {
-		return sc.nextInt();
-	}
+	public static int readInt() { return sc.nextInt(); }
 
 	/**
 	 * Returns a character token read from the user input. Each

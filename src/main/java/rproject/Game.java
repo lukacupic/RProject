@@ -45,12 +45,10 @@ public class Game {
 	}
 
 	private void runPlayer(int i) {
-		/*
-		players.get(i).getRessPhase();
+		players.get(i).spawnPhase();
 		boolean getBonus = players.get(i).attackPhase();
 		players.get(i).movePhase();
-		if (getBonus) players.get(i).getBonus();
-		*/
+		if (getBonus) players.get(i).bonusPhase();
 	}
 
 	private void shuffle() {

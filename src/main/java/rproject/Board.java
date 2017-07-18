@@ -1,10 +1,11 @@
 package rproject;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Board {
 
-	private Map<String, Territory> territoryNames;
+	private List<Territory> territories = new ArrayList<>();
 
 	private NeighbourhoodMatrix matrix;
 
@@ -14,11 +15,18 @@ public class Board {
 		BoardProvider.setBoard(this);
 	}
 
-	public NeighbourhoodMatrix getMatrix() {
-		return matrix;
+	public List<Territory> getTerritories() {
+		return territories;
 	}
 
-	public Map<String, Territory> getTerritoryNames() {
-		return territoryNames;
+	public Territory getTerritory(String name) {
+		for (Territory t : territories) {
+			if (name.equals(t.getName())) return t;
+		}
+		return null;
+	}
+
+	public NeighbourhoodMatrix getMatrix() {
+		return matrix;
 	}
 }

@@ -1,15 +1,30 @@
 package rproject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class Game {
 
 	private Board board;
 
-	private List<Player> players;
+	private List<Player> players = new ArrayList<>();
 
-	public Game(String boardName, List<String> playerNames) {
+	private static Random rand = new Random();
+
+	public Game(String boardName, String[] playerNames) {
 		board = new Board(boardName);
+		createPlayers(new ArrayList<>(Arrays.asList(playerNames)));
+
+		shuffle();
+		runGame();
+	}
+
+	private void createPlayers(List<String> playerNames) {
+		for (String name : playerNames) {
+			players.add(new Player(name));
+		}
 	}
 
 	private void runGame() {
@@ -37,8 +52,17 @@ public class Game {
 	}
 
 	private void shuffle() {
-		for (Player player : players) {
+		List<Territory> freeTerritories = new ArrayList<>(board.getTerritories());
 
+		for (int playerIndex = 0; freeTerritories.size() > 0; playerIndex++) {
+			playerIndex %= players.size();
+			Player player = players.get(playerIndex);
+
+			int randIndex = Math.abs(rand.nextInt() % freeTerritories.size());
+			Territory t = freeTerritories.get(randIndex);
+
+			player.addTerritory(t);
+			freeTerritories.remove(t);
 		}
 	}
 }

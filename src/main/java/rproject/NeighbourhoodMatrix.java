@@ -24,6 +24,10 @@ public class NeighbourhoodMatrix {
 				neighbourhoodMatrix[i][j] = (lines.get(i + 1).charAt(j) == '1');
 	}
 
+	public boolean checkNeighbours(int from, int to) {
+		return neighbourhoodMatrix[from][to];
+	}
+
 	public void drawMatrixCUI() {
 		for (int i = 0; i < size; ++i) {
 			System.out.printf("%d (p?, x?) -> ", i);

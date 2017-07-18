@@ -71,6 +71,11 @@ public class Player {
 			System.out.println("you can attack only from your territories");
 			return false;
 		}
+		Board board = BoardProvider.getBoard();
+		if (!board.getMatrix().checkNeighbours(attTerritory.getIndex(),defTerritory.getIndex())){
+			System.out.println("territories aren't connected");
+			return false;
+		}
 		if (attTerritory.getOwner().getName().equals(defTerritory.getOwner().getName())){
 			System.out.println("you cant attack yourself");
 			return false;
@@ -94,7 +99,7 @@ public class Player {
 		for(;response == 'y';){
 			Board board = BoardProvider.getBoard();
 			board.getMatrix().drawMatrixCUI();
-			System.out.print("attack from a to b using n units, write using format: a b c\n");
+			System.out.print("attack from a to b using n units, write using format: a b n\n");
 			String attTerritoryName = sc.next();
 			String defTerritoryName = sc.next();
 			Territory attTerritory = board.getTerritory(attTerritoryName);

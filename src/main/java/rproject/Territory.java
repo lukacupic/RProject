@@ -4,13 +4,19 @@ public class Territory {
 
 	private String name;
 
+	private int index;
+
 	private Player owner;
 
 	private int cntUnits;
 
-	public Territory(String name) {
-		cntUnits = 1;
+	private int territoryCount;
+
+	public Territory(String name, int index) {
 		this.name = name;
+		this.index = index;
+		cntUnits = 1;
+		territoryCount++;
 	}
 
 	public void changeOwner(Player newOwner){

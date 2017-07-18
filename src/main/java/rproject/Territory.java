@@ -12,24 +12,34 @@ public class Territory {
 
 	private int territoryCount;
 
-	public Territory(String name, int index) {
+	public Territory(String name) {
 		this.name = name;
-		this.index = index;
+		this.index = territoryCount++;
 		cntUnits = 1;
-		territoryCount++;
 	}
 
-	public void changeOwner(Player newOwner){
+	public void changeOwner(Player newOwner) {
 		owner.removeTerritory(this);
 		newOwner.addTerritory(this);
 		setOwner(newOwner);
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public Player getOwner() {
+		return owner;
+	}
+
 	public void setOwner(Player owner) {
 		this.owner = owner;
 	}
-	public Player getOwner() { return owner; }
-	public String getName() { return name; }
+
 	public int getUnits() {
 		return cntUnits;
 	}

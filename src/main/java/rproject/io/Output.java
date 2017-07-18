@@ -13,7 +13,7 @@ public class Output {
 
 	/**
 	 * Writes a prompt symbol onto the output, indicating that a user
-	 * interaction input is wanted.
+	 * interaction input is requested.
 	 */
 	public static void prompt() {
 		writeln(PROMPT_SYMBOL + " ");

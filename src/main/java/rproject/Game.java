@@ -4,12 +4,19 @@ import java.util.List;
 
 public class Game {
 
+	private Board board;
+
 	private List<Player> players;
 
+	public Game(String boardName, List<String> playerNames) {
+		board = new Board(boardName);
+	}
+
 	private void runGame() {
-		while (numberOfPlayers() > 1)
+		while (numberOfPlayers() > 1) {
 			for (int i = 0; i < numberOfPlayers(); ++i)
 				if (players.get(i).isAlive()) runPlayer(i);
+		}
 	}
 
 	private int numberOfPlayers() {
@@ -29,7 +36,9 @@ public class Game {
 		*/
 	}
 
-	public Game(Board board, List<String> playerNames) {
+	private void shuffle() {
+		for (Player player : players) {
 
+		}
 	}
 }

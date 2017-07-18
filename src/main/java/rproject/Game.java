@@ -15,6 +15,8 @@ public class Game {
 
 	public Game(String boardName, String[] playerNames) {
 		board = new Board(boardName);
+		BoardProvider.setBoard(board);
+
 		createPlayers(new ArrayList<>(Arrays.asList(playerNames)));
 
 		shuffle();

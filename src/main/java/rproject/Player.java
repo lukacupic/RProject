@@ -90,6 +90,7 @@ public class Player {
 	}
 
 	private boolean attack(Territory attTerritory, Territory defTerritory, int cntAttUnits){
+		// some unit should die in this method
 		return cntAttUnits > defTerritory.getUnits();
 	}
 
@@ -199,6 +200,7 @@ public class Player {
 			int cntSpawningUnits = Input.readInt();
 			if (checkValidSpawning(spawnTerritory, cntSpawningUnits)){
 				spawnTerritory.addUnits(cntSpawningUnits);
+				cntExtraUnits -= cntSpawningUnits;
 			}
 			do {
 				Output.writeln("spawn again? y/n");

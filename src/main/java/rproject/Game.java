@@ -45,6 +45,7 @@ public class Game {
 	}
 
 	private void runPlayer(int i) {
+		System.out.println("****** " + players.get(i).getName() + " ******");
 		players.get(i).spawnPhase();
 		boolean getBonus = players.get(i).attackPhase();
 		players.get(i).movePhase();

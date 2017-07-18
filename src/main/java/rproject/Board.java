@@ -45,6 +45,10 @@ public class Board {
 		return null;
 	}
 
+	public Territory getTerritory(int index){
+		return BoardProvider.getBoard().getTerritories().get(index);
+	}
+
 	public NeighbourhoodMatrix getMatrix() {
 		return matrix;
 	}

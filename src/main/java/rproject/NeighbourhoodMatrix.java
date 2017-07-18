@@ -25,20 +25,25 @@ public class NeighbourhoodMatrix {
 	}
 
 	public boolean checkNeighbours(int from, int to) {
+		System.out.println(from + " -> " + to + " ???");
 		return neighbourhoodMatrix[from][to];
 	}
 
 	public void drawMatrixCUI() {
 		for (int i = 0; i < size; ++i) {
-			System.out.printf("%d (p?, x?) -> ", i);
+			String playerIName = BoardProvider.getBoard().getTerritory(i).getOwner().getName();
+			int cntIUnits = BoardProvider.getBoard().getTerritory(i).getUnits();
+			System.out.printf("%d (p %s, x %d) -> ", i, playerIName, cntIUnits);
 			//todo: should be (player p, x units)
 			for (int j = 0; j < size; ++j) {
 				if (neighbourhoodMatrix[i][j]) {
-					System.out.printf("%d (p?, x?), ", j);
+					String playerJName = BoardProvider.getBoard().getTerritory(j).getOwner().getName();
+					int cntJUnits = BoardProvider.getBoard().getTerritory(j).getUnits();
+					System.out.printf("%d (p %s, x %d), ", j, playerJName, cntJUnits);
 					//todo: should be (player p, x units)
 				}
-				System.out.println();
 			}
+			System.out.println();
 		}
 	}
 };

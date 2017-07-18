@@ -111,8 +111,10 @@ public class Player {
 					getBonus = true;
 					defTerritory.changeOwner(this);
 				}
-			System.out.println("attack again? y/n");
-			response = sc.next().charAt(0);
+			do {
+				System.out.println("attack again? y/n");
+				response = sc.next().charAt(0);
+			} while(response != 'y' && response != 'n');
 		}
 		return getBonus;
 	}
@@ -156,8 +158,10 @@ public class Player {
 			if (checkValidMoving(starting, ending, cntMovingUnits)){
 				starting.moveUnits(ending, cntMovingUnits);
 			}
-			System.out.println("move again? y/n");
-			response = sc.next().charAt(0);
+			do {
+				System.out.println("move again? y/n");
+				response = sc.next().charAt(0);
+			} while(response != 'y' && response != 'n');
 		}
 	}
 
@@ -185,9 +189,9 @@ public class Player {
 		cntExtraUnits += getSpawnCount();
 		System.out.println("spawn units? y/n");
 		char response = sc.next().charAt(0);
+		Board board = BoardProvider.getBoard();
+		board.getMatrix().drawMatrixCUI();
 		while(response == 'y'){
-			Board board = BoardProvider.getBoard();
-			board.getMatrix().drawMatrixCUI();
 			System.out.println("number of available units: " + cntExtraUnits);
 			System.out.println("spawn n units on territory a, write using format: a n");
 			String spawnTerritoryName = sc.next();
@@ -196,8 +200,10 @@ public class Player {
 			if (checkValidSpawning(spawnTerritory, cntSpawningUnits)){
 				spawnTerritory.addUnits(cntSpawningUnits);
 			}
-			System.out.println("spawn again? y/n");
-			response = sc.next().charAt(0);
+			do {
+				System.out.println("spawn again? y/n");
+				response = sc.next().charAt(0);
+			} while(response != 'y' && response != 'n');
 		}
 	}
 

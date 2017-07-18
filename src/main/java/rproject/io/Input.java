@@ -7,7 +7,10 @@ public class Input {
 
 	public static String readString() { return sc.next(); }
 
-	public static int readInt() { return sc.nextInt(); }
+	public static int readInt() {
+		while(!sc.hasNextInt()) sc.next();
+		return sc.nextInt();
+	}
 
 	/**
 	 * Returns a character token read from the user input. Each

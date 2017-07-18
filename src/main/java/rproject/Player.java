@@ -10,19 +10,17 @@ public class Player {
 
 	private String name;
 	private List<Territory> territories;
-	private boolean alive;
 	private int cntUnits;
 	private int cntBonus;
 	private int cntExtraUnits;
 
 	public Player(String name) {
-		this.alive = true;
 		this.name = name;
 		territories = new ArrayList<Territory>();
 	}
 
 	public boolean isAlive() {
-		return alive;
+		return cntUnits>0;
 	}
 
 	public String getName() {
@@ -90,15 +88,15 @@ public class Player {
 	}
 
 	private boolean attack(Territory attTerritory, Territory defTerritory, int cntAttUnits){
-		// some unit should die in this method
+		// todo: dying
 		return cntAttUnits > defTerritory.getUnits();
 	}
 
 	public boolean attackPhase() {
 		boolean getBonus = false;
 		Output.writeln("attack? y/n");
-		char response = Input.readString().charAt(0);
-		while(response == 'y'){
+		String response = Input.readString();
+		while(response.equals("y")){
 			Board board = BoardProvider.getBoard();
 			board.getMatrix().drawMatrixCUI();
 			Output.writeln("attack from a to b using n units, write using format: a b n");
@@ -107,15 +105,22 @@ public class Player {
 			String defTerritoryName = Input.readString();
 			Territory defTerritory = board.getTerritory(defTerritoryName);
 			int cntAttUnits = Input.readInt();
-			if (checkValidAttack(attTerritory, defTerritory, cntAttUnits))
-				if(attack(attTerritory, defTerritory, cntAttUnits)){
+			if (checkValidAttack(attTerritory, defTerritory, cntAttUnits)) {
+				attTerritory.addUnits(-cntAttUnits);
+				if (attack(attTerritory, defTerritory, cntAttUnits)) {
 					getBonus = true;
 					defTerritory.changeOwner(this);
+					defTerritory.setUnits(cntAttUnits);
+					Output.writeln("attacker wins");
 				}
+				else{
+					Output.writeln("defender wins");
+				}
+			}
 			do {
 				Output.writeln("attack again? y/n");
-				response = Input.readString().charAt(0);
-			} while(response != 'y' && response != 'n');
+				response = Input.readString();
+			} while(!response.equals("y") && !response.equals("n"));
 		}
 		return getBonus;
 	}
@@ -146,8 +151,8 @@ public class Player {
 
 	public void movePhase(){
 		Output.writeln("move units? y/n");
-		char response = Input.readString().charAt(0);
-		while(response == 'y'){
+		String response = Input.readString();
+		while(response.equals("y")){
 			Board board = BoardProvider.getBoard();
 			board.getMatrix().drawMatrixCUI();
 			Output.writeln("move n units from a to b, write using format: a b n");
@@ -161,8 +166,8 @@ public class Player {
 			}
 			do {
 				Output.writeln("move again? y/n");
-				response = Input.readString().charAt(0);
-			} while(response != 'y' && response != 'n');
+				response = Input.readString();
+			} while(!response.equals("n") && !response.equals("y"));
 		}
 	}
 
@@ -189,10 +194,10 @@ public class Player {
 	public void spawnPhase(){
 		cntExtraUnits += getSpawnCount();
 		Output.writeln("spawn units? y/n");
-		char response = Input.readString().charAt(0);
+		String response = Input.readString();
 		Board board = BoardProvider.getBoard();
 		board.getMatrix().drawMatrixCUI();
-		while(response == 'y'){
+		while(response.equals("y")){
 			Output.writeln("number of available units: " + cntExtraUnits);
 			Output.writeln("spawn n units on territory a, write using format: a n");
 			String spawnTerritoryName = Input.readString();
@@ -204,8 +209,8 @@ public class Player {
 			}
 			do {
 				Output.writeln("spawn again? y/n");
-				response = Input.readString().charAt(0);
-			} while(response != 'y' && response != 'n');
+				response = Input.readString();
+			} while(!response.equals("y") && !response.equals("n"));
 		}
 	}
 

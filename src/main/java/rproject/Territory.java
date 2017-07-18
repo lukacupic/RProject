@@ -42,6 +42,9 @@ public class Territory {
 	public void addUnits(int n){
 		this.cntUnits += n;
 	}
+	public void setUnits(int n){
+		this.cntUnits = n;
+	}
 	public void moveUnits(Territory endingTerritory, int movingUnits){
 		this.addUnits(-movingUnits);
 		endingTerritory.addUnits(movingUnits);

@@ -39,6 +39,13 @@ public class Territory {
 	public void setOwner(Player owner) {
 		this.owner = owner;
 	}
+	public void addUnits(int n){
+		this.cntUnits += n;
+	}
+	public void moveUnits(Territory endingTerritory, int movingUnits){
+		this.addUnits(-movingUnits);
+		endingTerritory.addUnits(movingUnits);
+	}
 
 	public int getUnits() {
 		return cntUnits;

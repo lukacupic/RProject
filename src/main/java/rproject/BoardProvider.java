@@ -2,9 +2,13 @@ package rproject;
 
 public class BoardProvider {
 
-	private Board board;
+	private static Board board;
 
-	public Board getBoard() {
+	public static Board getBoard() {
+		return board;
+	}
 
+	public static void setBoard(Board board) {
+		BoardProvider.board = board;
 	}
 }

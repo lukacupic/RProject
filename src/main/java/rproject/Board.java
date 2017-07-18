@@ -6,9 +6,14 @@ public class Board {
 
 	private Map<String, Territory> territoryNames;
 
-	private NeighbourhoodMatrix nMatrix;
+	private NeighbourhoodMatrix Matrix;
 
 	public Board(String name) {
-		nMatrix = new NeighbourhoodMatrix(name);
+		Matrix = new NeighbourhoodMatrix(name);
+		BoardProvider.setBoard(this);
+	}
+
+	public NeighbourhoodMatrix getMatrix() {
+		return Matrix;
 	}
 }

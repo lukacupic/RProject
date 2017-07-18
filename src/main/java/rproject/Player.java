@@ -57,14 +57,13 @@ public class Player {
 		return territories;
 	}
 
-	public boolean attackPhase(){
+	public boolean attackPhase() {
 		boolean getBonus = false;
 		System.out.print("attack? y/n");
 		char response = sc.next().charAt(0);
 		while(response == 'y'){
 			Board board = BoardProvider.getBoard();
-			board.
-			// show map
+			board.getMatrix().drawMatrixCUI();
 
 
 

@@ -22,7 +22,8 @@ public class Territory {
 	public void setOwner(Player owner) {
 		this.owner = owner;
 	}
-
+	public Player getOwner() { return owner; }
+	public String getName() { return name; }
 	public int getUnits() {
 		return cntUnits;
 	}

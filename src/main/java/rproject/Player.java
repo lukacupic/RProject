@@ -15,6 +15,7 @@ public class Player {
 	Scanner sc = new Scanner(System.in);
 
 	public Player(String name) {
+		this.alive = true;
 		this.name = name;
 		territories = new ArrayList<Territory>();
 	}
@@ -57,16 +58,50 @@ public class Player {
 		return territories;
 	}
 
+	private boolean checkValidAttack(Territory attTerritory, Territory defTerritory, int cntAttUnits){
+		if (attTerritory == null){
+			System.out.println("invalid name of att territory");
+			return false;
+		}
+		if (defTerritory == null){
+			System.out.println("invalid name of def territory");
+			return false;
+		}
+		if (attTerritory.getOwner().getName() != this.getName()){
+			System.out.println("you can attack only from your territories");
+			return false;
+		}
+		if (attTerritory.getOwner() == defTerritory.getOwner()){
+			System.out.println("you cant attack yourself");
+			return false;
+		}
+		if (attTerritory.getUnits() <= cntAttUnits) {
+			System.out.println("too many units");
+			return false;
+		}
+		return true;
+	}
+
+	private boolean attack(Territory attTerritory, Territory defTerritory, int cntAttUnits){
+
+		return cntAttUnits > defTerritory.getUnits();
+	}
+
 	public boolean attackPhase() {
 		boolean getBonus = false;
 		System.out.print("attack? y/n");
 		char response = sc.next().charAt(0);
-		while(response == 'y'){
+		for(;response == 'y';){
 			Board board = BoardProvider.getBoard();
 			board.getMatrix().drawMatrixCUI();
-
-
-
+			System.out.print("attack from a to b using n units, write using format: a b c\n");
+			String attTerritoryName = sc.next();
+			String defTerritoryName = sc.next();
+			Territory attTerritory = board.getTerritory(attTerritoryName);
+			Territory defTerritory = board.getTerritory(defTerritoryName);
+			int cntAttUnits = sc.nextInt();
+			if (checkValidAttack(attTerritory, defTerritory, cntAttUnits))
+				if(attack(attTerritory, defTerritory, cntAttUnits)) getBonus = true;
 			System.out.print("attack again? y/n");
 			response = sc.next().charAt(0);
 		}

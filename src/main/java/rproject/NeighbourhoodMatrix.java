@@ -1,5 +1,7 @@
 package rproject;
 
+import rproject.io.Output;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,7 +27,10 @@ public class NeighbourhoodMatrix {
 	}
 
 	public boolean checkNeighbours(int from, int to) {
-		System.out.println(from + " -> " + to + " ???");
+		Output.write(from);
+		Output.write(" -> ");
+		Output.write(to);
+		Output.writeln(" ???");
 		return neighbourhoodMatrix[from][to];
 	}
 
@@ -33,17 +38,27 @@ public class NeighbourhoodMatrix {
 		for (int i = 0; i < size; ++i) {
 			String playerIName = BoardProvider.getBoard().getTerritory(i).getOwner().getName();
 			int cntIUnits = BoardProvider.getBoard().getTerritory(i).getUnits();
-			System.out.printf("%d (p %s, x %d) -> ", i, playerIName, cntIUnits);
+			Output.write(i);
+			Output.write(" (player: ");
+			Output.write(playerIName);
+			Output.write(", x ");
+			Output.write(cntIUnits);
+			Output.write(") -> ");
 			//todo: should be (player p, x units)
 			for (int j = 0; j < size; ++j) {
 				if (neighbourhoodMatrix[i][j]) {
 					String playerJName = BoardProvider.getBoard().getTerritory(j).getOwner().getName();
 					int cntJUnits = BoardProvider.getBoard().getTerritory(j).getUnits();
-					System.out.printf("%d (p %s, x %d), ", j, playerJName, cntJUnits);
+					Output.write(j);
+					Output.write(" (player: ");
+					Output.write(playerJName);
+					Output.write(", x ");
+					Output.write(cntJUnits);
+					Output.write(") -> ");
 					//todo: should be (player p, x units)
 				}
 			}
-			System.out.println();
+			Output.writeln("");
 		}
 	}
 };

@@ -37,22 +37,24 @@ public class NeighbourhoodMatrix {
 	public void drawMatrixCUI() {
 		for (int i = 0; i < size; ++i) {
 			String playerIName = BoardProvider.getBoard().getTerritory(i).getOwner().getName();
+			String TerritoryIName = BoardProvider.getBoard().getTerritory(i).getName();
 			int cntIUnits = BoardProvider.getBoard().getTerritory(i).getUnits();
-			Output.write(i);
-			Output.write(" (player: ");
+			Output.write(TerritoryIName);
+			Output.write(" (P: ");
 			Output.write(playerIName);
-			Output.write(", x ");
+			Output.write(", U: ");
 			Output.write(cntIUnits);
 			Output.write(") -> ");
 			//todo: should be (player p, x units)
 			for (int j = 0; j < size; ++j) {
 				if (neighbourhoodMatrix[i][j]) {
 					String playerJName = BoardProvider.getBoard().getTerritory(j).getOwner().getName();
+					String TerritoryJName = BoardProvider.getBoard().getTerritory(j).getName();
 					int cntJUnits = BoardProvider.getBoard().getTerritory(j).getUnits();
-					Output.write(j);
-					Output.write(" (player: ");
+					Output.write(TerritoryJName);
+					Output.write(" (P: ");
 					Output.write(playerJName);
-					Output.write(", x ");
+					Output.write(", U: ");
 					Output.write(cntJUnits);
 					Output.write(") -> ");
 					//todo: should be (player p, x units)

@@ -3,17 +3,11 @@ package rproject.io;
 import java.util.Scanner;
 
 public class Input {
-	static Scanner sc = new Scanner(System.in);
+	private static Scanner sc = new Scanner(System.in);
 
-	public static String readString() {
-		String input = sc.next();
-		return input;
-	}
+	public static String readString() { return sc.next(); }
 
-	public static int readInt() {
-		int input = sc.nextInt();
-		return input;
-	}
+	public static int readInt() { return sc.nextInt(); }
 
 	/**
 	 * Returns a character token read from the user input. Each

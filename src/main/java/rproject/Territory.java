@@ -10,7 +10,7 @@ public class Territory {
 
 	private int cntUnits;
 
-	private int territoryCount;
+	private static int territoryCount;
 
 	public Territory(String name) {
 		this.name = name;

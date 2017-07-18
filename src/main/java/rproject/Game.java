@@ -1,5 +1,7 @@
 package rproject;
 
+import rproject.io.Output;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +47,9 @@ public class Game {
 	}
 
 	private void runPlayer(int i) {
-		System.out.println("****** " + players.get(i).getName() + " ******");
+		Output.write("***** ");
+		Output.write(players.get(i).getName());
+		Output.writeln(" ******");
 		players.get(i).spawnPhase();
 		boolean getBonus = players.get(i).attackPhase();
 		players.get(i).movePhase();

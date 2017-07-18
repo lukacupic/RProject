@@ -1,2 +1,2 @@
 # RProject
-A simple risk game engine.
+RProject is a simple simulator of the Risk board game.

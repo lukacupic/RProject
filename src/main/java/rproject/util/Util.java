@@ -7,7 +7,7 @@ public class Util {
 	private final static Random rand = new Random();
 
 	public int getRandInt(int low, int high) {
-		return (Math.abs(rand.nextInt(high - low) + low));
+		return Math.abs(rand.nextInt(high - low) + low);
 	}
 
 	public int getRandInt(int high) {

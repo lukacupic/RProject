@@ -24,6 +24,11 @@ public class Game {
 		runGame();
 	}
 
+	public void start() {
+		shuffle();
+		runGame();
+	}
+
 	private void createPlayers(List<String> playerNames) {
 		for (String name : playerNames) {
 			players.add(new Player(name));

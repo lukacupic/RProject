@@ -32,14 +32,12 @@ public class NeighbourhoodMatrix {
 			int cntIUnits = BoardProvider.getBoard().getTerritory(i).getUnits().size();
 			Output.write(TerritoryIName + " (P: " + playerIName + ", U: " + cntIUnits + ") -> ");
 
-			//todo: should be (player p, x units)
 			for (int j = 0; j < size; ++j) {
 				if (neighbourhoodMatrix[i][j]) {
 					String playerJName = BoardProvider.getBoard().getTerritory(j).getOwner().getName();
 					String TerritoryJName = BoardProvider.getBoard().getTerritory(j).getName();
 					int cntJUnits = BoardProvider.getBoard().getTerritory(j).getUnits().size();
 					Output.write(TerritoryJName + " (P: " + playerJName + ", U: " + cntJUnits + "), ");
-					//todo: should be (player p, x units)
 				}
 			}
 			Output.writeln("");

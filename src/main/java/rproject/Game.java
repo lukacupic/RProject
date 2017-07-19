@@ -3,10 +3,7 @@ package rproject;
 import rproject.io.Input;
 import rproject.io.Output;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Game {
 
@@ -100,9 +97,13 @@ public class Game {
 		return true;
 	}
 
-	private boolean attack(Territory attTerritory, Territory defTerritory, int cntAttUnits){
+	private list < Unit > attack(Territory attTerritory, Territory defTerritory, int cntAttUnits){
+		list < Unit > attArmy;
+		list < Unit > defArmy;
+		Collections.shuffle(attArmy);
+
 		// todo: dying
-		return cntAttUnits > defTerritory.getUnits();
+		return attArmy;
 	}
 
 	public boolean attackPhase(Player player) {

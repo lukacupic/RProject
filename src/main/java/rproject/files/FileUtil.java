@@ -1,7 +1,6 @@
 package rproject.files;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -27,6 +26,27 @@ public class FileUtil {
 	 * A list of all available maps.
 	 */
 	private static List<String> maps;
+
+	/**
+	 * Reads a matrix file from the {@link #NBHOOD_MATRIX_PATH} directory.
+	 *
+	 * @param name the name of the matrix to read
+	 * @return the contents of the specified matrix
+	 */
+	public static List<String> readMatrix(String name) {
+		return readLines(NBHOOD_MATRIX_PATH + name + ".txt");
+	}
+
+	/**
+	 * Reads territory names from the {@link #MAP_NAMES_PATH} directory
+	 * of the board with the given name.
+	 *
+	 * @param name the name of the board to read the territories
+	 * @return the territories of the specified board
+	 */
+	public static List<String> readNames(String name) {
+		return readLines(MAP_NAMES_PATH + name + ".txt");
+	}
 
 	/**
 	 * Returns a list of names all the maps available for playing.
@@ -58,9 +78,12 @@ public class FileUtil {
 	 *
 	 * @param path the string representation of the file to read
 	 * @return a list of all the lines read in the given file
-	 * @throws FileNotFoundException if the file cannot be found
 	 */
-	private static List<String> readLines(String path) throws IOException {
-		return Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
+	public static List<String> readLines(String path) {
+		try {
+			return Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package rproject.board;
 
 import rproject.Territory;
+import rproject.files.FileUtil;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -20,8 +21,7 @@ public class Board {
 	}
 
 	private void initTerritories(String name) {
-		List<String> lines = readLines("maps/names/" + name + ".txt");
-
+		List<String> lines = FileUtil.readNames(name);
 		for (int i = 0; i < lines.size(); i++) {
 			String line = lines.get(i);
 			territories.add(new Territory(line));
@@ -47,7 +47,7 @@ public class Board {
 		return null;
 	}
 
-	public Territory getTerritory(int index){
+	public Territory getTerritory(int index) {
 		return BoardProvider.getBoard().getTerritories().get(index);
 	}
 

@@ -1,7 +1,5 @@
 package rproject;
 
-import rproject.util.Util;
-
 public class Territory {
 
 	private String name;
@@ -41,16 +39,20 @@ public class Territory {
 	public void setOwner(Player owner) {
 		this.owner = owner;
 	}
-	public void addUnits(int n){
+
+	public void addUnits(int n) {
 		this.cntUnits += n;
 	}
-	public void removeUnits(int n){
+
+	public void removeUnits(int n) {
 		this.cntUnits -= n;
 	}
-	public void setUnits(int n){
+
+	public void setUnits(int n) {
 		this.cntUnits = n;
 	}
-	public void moveUnits(Territory endingTerritory, int movingUnits){
+
+	public void moveUnits(Territory endingTerritory, int movingUnits) {
 		this.removeUnits(movingUnits);
 		endingTerritory.addUnits(movingUnits);
 	}

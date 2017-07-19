@@ -1,8 +1,5 @@
 package rproject;
 
-import rproject.io.Input;
-import rproject.io.Output;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +25,7 @@ public class Player {
 	}
 
 	public boolean isAlive() {
-		return this.getCntUnits()>0;
+		return this.getCntUnits() > 0;
 	}
 
 	public String getName() {

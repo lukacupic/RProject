@@ -45,7 +45,7 @@ public class Main {
 		do {
 			Output.prompt();
 			input = Input.readInt();
-		} while (input < MIN_PLAYERS || input > MAX_PLAYERS);
+		} while ((input < MIN_PLAYERS || input > MAX_PLAYERS) && Output.write(""));
 		return input;
 	}
 

@@ -6,7 +6,7 @@ public class Output {
 
 	public static char PROMPT_SYMBOL = '>';
 
-	public static void write(String str) { System.out.print(str); }
+	public static boolean write(String str) { System.out.print(str); return true; }
 	public static void writeln(String str) { System.out.println(str); }
 	public static void write(int num) { System.out.print(num); }
 	public static void writeln(int num) { System.out.println(num); }

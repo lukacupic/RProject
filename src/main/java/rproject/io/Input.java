@@ -8,7 +8,10 @@ public class Input {
 	public static String readString() { return sc.next(); }
 
 	public static int readInt() {
-		while(!sc.hasNextInt()) sc.next();
+		while(!sc.hasNextInt()) {
+			sc.next();
+			Output.prompt();
+		}
 		return sc.nextInt();
 	}
 

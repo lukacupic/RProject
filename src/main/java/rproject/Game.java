@@ -69,7 +69,7 @@ public class Game {
 			playerIndex %= players.size();
 			Player player = players.get(playerIndex);
 
-			int randIndex = Math.abs(Util.rand.nextInt() % freeTerritories.size());
+			int randIndex = Util.getRandInt(freeTerritories.size());
 			Territory t = freeTerritories.get(randIndex);
 
 			player.addTerritory(t);
@@ -118,13 +118,13 @@ public class Game {
 		while(!attArmy.isEmpty() && !defArmy.isEmpty()){
 			for (Unit unit : defArmy){
 				int attArmySize = attArmy.size();
-				int targetIndex = Util.rand.nextInt() % attArmySize;
-				if(unit.attack(attArmy.get(targetIndex))) attArmy.remove(targetIndex);
+				int targetIndex = Util.getRandInt(attArmySize);
+				if (unit.attack(attArmy.get(targetIndex))) attArmy.remove(targetIndex);
 			}
 			for (Unit unit : attArmy){
 				int defArmySize = defArmy.size();
-				int targetIndex = Util.rand.nextInt() % defArmySize;
-				if(unit.attack(defArmy.get(targetIndex))) defArmy.remove(targetIndex);
+				int targetIndex = Util.getRandInt(defArmySize);
+				if (unit.attack(defArmy.get(targetIndex))) defArmy.remove(targetIndex);
 			}
 		}
 		Output.writeln(attArmy.size());

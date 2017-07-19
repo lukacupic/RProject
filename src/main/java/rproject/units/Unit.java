@@ -46,4 +46,6 @@ public abstract class Unit {
 	public abstract boolean attack(Unit unit);
 
 	public abstract Unit clone();
+
+	public abstract String getName();
 }

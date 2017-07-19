@@ -25,4 +25,9 @@ public class Fighter extends Unit {
 	public Unit clone() {
 		return new Fighter(hp, damage);
 	}
+
+	@Override
+	public String getName() {
+		return "Fighter";
+	}
 }

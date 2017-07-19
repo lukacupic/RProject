@@ -39,8 +39,8 @@ public class Game {
 
 	private void runGame() {
 		while (numberOfPlayers() > 1) {
-			for (int i = 0; i < numberOfPlayers(); ++i)
-				if (players.get(i).isAlive()) runPlayer(i);
+			for(Player player : players)
+				if (player.isAlive()) runPlayer(player);
 		}
 	}
 
@@ -52,14 +52,14 @@ public class Game {
 		return n;
 	}
 
-	private void runPlayer(int i) {
+	private void runPlayer(Player player) {
 		Output.write("***** ");
-		Output.write(players.get(i).getName());
+		Output.write(player.getName());
 		Output.writeln(" ******");
-		spawnPhase(players.get(i));
-		boolean getBonus = attackPhase(players.get(i));
-		movePhase(players.get(i));
-		if (getBonus) bonusPhase(players.get(i));
+		spawnPhase(player);
+		boolean getBonus = attackPhase(player);
+		movePhase(player);
+		if (getBonus) bonusPhase(player);
 	}
 
 	private void shuffle() {
@@ -108,26 +108,40 @@ public class Game {
 	public static List < Unit > battle(Territory attTerritory, Territory defTerritory, int cntAttUnits){
 		List < Unit > attArmy = new ArrayList<>();
 		List < Unit > defArmy = new ArrayList<>();
-		Unit U = new Fighter();
-		for (int i = 0; i < cntAttUnits; ++i)
+		for (int i = 0; i < cntAttUnits; ++i) {
+			Unit U = new Fighter();
 			attArmy.add(U);
-		for (int i = 0; i < defTerritory.getUnits(); ++i)
+		}
+		for (int i = 0; i < defTerritory.getUnits(); ++i) {
+			Unit U = new Fighter();
 			defArmy.add(U);
+		}
 		Collections.shuffle(attArmy);
 		Collections.shuffle(defArmy);
 		while(!attArmy.isEmpty() && !defArmy.isEmpty()){
 			for (Unit unit : defArmy){
-				int attArmySize = attArmy.size();
-				if (attArmySize == 0) break;
-				int targetIndex = Util.getRandInt(attArmySize);
+				if (attArmy.size() == 0) break;
+				int targetIndex = Util.getRandInt(attArmy.size());
 				if (unit.attack(attArmy.get(targetIndex))) attArmy.remove(targetIndex);
 			}
 			for (Unit unit : attArmy){
-				int defArmySize = defArmy.size();
-				if (defArmySize == 0) break;
-				int targetIndex = Util.getRandInt(defArmySize);
+				if (defArmy.size() == 0) break;
+				int targetIndex = Util.getRandInt(defArmy.size());
+				Unit other = defArmy.get(targetIndex);
+				Output.write(unit.getDamage() + " " + unit.getHp() + " -> ");
+				Output.writeln(other.getDamage() + " " + other.getHp());
 				if (unit.attack(defArmy.get(targetIndex))) defArmy.remove(targetIndex);
+				Output.write(unit.getDamage() + " " + unit.getHp() + " -> ");
+				Output.writeln(other.getDamage() + " " + other.getHp());
 			}
+			Output.writeln("** att **");
+			for (Unit unit: attArmy)
+				Output.write(unit.getHp());
+			Output.writeln("");
+			Output.writeln("** def **");
+			for (Unit unit: defArmy)
+				Output.write(unit.getHp());
+			Output.writeln("");
 		}
 		Output.writeln(attArmy.size());
 		Output.writeln(defArmy.size());
@@ -153,7 +167,7 @@ public class Game {
 				if (!survivors.isEmpty()){
 					getBonus = true;
 					defTerritory.changeOwner(player);
-					defTerritory.setUnits(cntAttUnits);
+					defTerritory.setUnits(survivors.size());
 					Output.writeln("attacker wins");
 				}
 				else{
@@ -214,8 +228,8 @@ public class Game {
 		}
 	}
 
-	private int getSpawnCount(){
-		return 3; // todo
+	private int getSpawnCount(Player player){
+		return 3 + player.getCntBonus(); // todo
 	}
 
 	private boolean checkValidSpawning(Territory spawn, int cntSpawnUnits, Player player){
@@ -235,7 +249,7 @@ public class Game {
 	}
 
 	public void spawnPhase(Player player){
-		player.addExtraUnits(getSpawnCount());
+		player.addExtraUnits(getSpawnCount(player));
 		Output.writeln("spawn units? y/n");
 		String response = Input.readString();
 		Board board = BoardProvider.getBoard();

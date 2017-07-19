@@ -2,9 +2,9 @@ package rproject.units;
 
 public class Unit {
 
-	private int hp = 100;
+	protected int hp;
 
-	private int damage = 100;
+	protected int damage;
 
 	public void addHp(int hp) {
 		this.hp += hp;
@@ -22,7 +22,15 @@ public class Unit {
 		return hp;
 	}
 
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
 	public int getDamage() {
 		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
 	}
 }

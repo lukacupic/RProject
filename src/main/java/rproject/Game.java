@@ -2,6 +2,7 @@ package rproject;
 
 import rproject.io.Input;
 import rproject.io.Output;
+import rproject.units.Unit;
 
 import java.util.*;
 
@@ -97,10 +98,11 @@ public class Game {
 		return true;
 	}
 
-	private list < Unit > attack(Territory attTerritory, Territory defTerritory, int cntAttUnits){
-		list < Unit > attArmy;
-		list < Unit > defArmy;
+	private List < Unit > attack(Territory attTerritory, Territory defTerritory, int cntAttUnits){
+		List < Unit > attArmy = new ArrayList< Unit >();
+		List < Unit > defArmy = new ArrayList< Unit >();
 		Collections.shuffle(attArmy);
+		Collections.shuffle(defArmy);
 
 		// todo: dying
 		return attArmy;
@@ -121,7 +123,8 @@ public class Game {
 			int cntAttUnits = Input.readInt();
 			if (checkValidAttack(attTerritory, defTerritory, cntAttUnits, player)) {
 				attTerritory.addUnits(-cntAttUnits);
-				if (attack(attTerritory, defTerritory, cntAttUnits)) {
+				List < Unit > survivors = attack(attTerritory, defTerritory, cntAttUnits);
+				if (!survivors.isEmpty()){
 					getBonus = true;
 					defTerritory.changeOwner(player);
 					defTerritory.setUnits(cntAttUnits);

@@ -8,7 +8,8 @@ public class Fighter extends Unit {
 	}
 
 	@Override
-	public void attack(Unit unit) {
+	public boolean attack(Unit unit) {
 		unit.removeHp(damage);
+		return hp == 0;
 	}
 }

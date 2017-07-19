@@ -6,6 +6,14 @@ public abstract class Unit {
 
 	protected int damage;
 
+	public Unit() {
+	}
+
+	public Unit(int hp, int damage) {
+		this.hp = hp;
+		this.damage = damage;
+	}
+
 	public void addHp(int hp) {
 		this.hp += hp;
 	}
@@ -36,4 +44,6 @@ public abstract class Unit {
 	}
 
 	public abstract boolean attack(Unit unit);
+
+	public abstract Unit clone();
 }

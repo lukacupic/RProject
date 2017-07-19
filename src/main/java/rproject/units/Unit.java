@@ -1,6 +1,6 @@
 package rproject.units;
 
-public class Unit {
+public abstract class Unit {
 
 	protected int hp;
 
@@ -33,4 +33,6 @@ public class Unit {
 	public void setDamage(int damage) {
 		this.damage = damage;
 	}
+
+	public abstract void attack(Unit unit);
 }

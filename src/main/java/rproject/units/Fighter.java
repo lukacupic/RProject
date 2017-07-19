@@ -6,4 +6,9 @@ public class Fighter extends Unit {
 		hp = 100;
 		damage = 100;
 	}
+
+	@Override
+	public void attack(Unit unit) {
+
+	}
 }

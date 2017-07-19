@@ -1,5 +1,7 @@
 package rproject;
 
+import rproject.util.Util;
+
 public class Territory {
 
 	private String name;

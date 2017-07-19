@@ -1,5 +1,10 @@
 package rproject;
 
+import rproject.units.Fighter;
+import rproject.units.Unit;
+
+import java.util.List;
+
 public class Territory {
 
 	private String name;
@@ -8,14 +13,17 @@ public class Territory {
 
 	private Player owner;
 
-	private int cntUnits;
+	private List < Unit > Units;
+
+//	private int cntUnits;
 
 	private static int territoryCount;
 
 	public Territory(String name) {
 		this.name = name;
 		this.index = territoryCount++;
-		cntUnits = 1;
+		this.addUnit(new Fighter());
+//		cntUnits = 1;
 	}
 
 	public void changeOwner(Player newOwner) {
@@ -40,7 +48,50 @@ public class Territory {
 		this.owner = owner;
 	}
 
-	public void addUnits(int n) {
+	public void addUnit(Unit U){
+		this.Units.add(U);
+	}
+
+	public void addUnits(List < Unit > units){
+		for (Unit unit: units)
+			this.addUnit(unit);
+	}
+
+	/* todo:
+	public void addMultipleUnits(Unit U, int n){
+		for (int i = 0; i < n; ++i) {
+			this.addUnit(U.clone());
+		}
+	}*/
+
+	public boolean removeUnit(Unit U){
+		return this.Units.remove(U);
+	}
+
+	public void removeUnits(List < Unit > units){
+		for (Unit unit: units)
+			this.removeUnit(unit);
+	}
+
+	public void moveUnits(Territory endingTerritory, List < Unit > movingUnits){
+		for (Unit unit: movingUnits)
+			if (this.removeUnit(unit))
+				endingTerritory.addUnit(unit);
+	}
+
+	public List < Unit > getUnits(){
+		return Units;
+	}
+
+	public void setUnits(List < Unit > units) {
+		Units = units;
+	}
+
+	public int getCntUnits() {
+		return Units.size();
+	}
+
+/*	public void addUnits(int n) {
 		this.cntUnits += n;
 	}
 
@@ -59,5 +110,5 @@ public class Territory {
 
 	public int getUnits() {
 		return cntUnits;
-	}
+	}*/
 }

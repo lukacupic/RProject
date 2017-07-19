@@ -28,6 +28,7 @@ public class Main {
 		String[] playerNames = getPlayerNames(playersCount);
 
 		Game game = new Game(map, playerNames);
+		game.start();
 	}
 
 	private static String[] getPlayerNames(int playersCount) {
@@ -45,7 +46,7 @@ public class Main {
 		do {
 			Output.prompt();
 			input = Input.readInt();
-		} while ((input < MIN_PLAYERS || input > MAX_PLAYERS) && Output.write(""));
+		} while ((input < MIN_PLAYERS || input > MAX_PLAYERS));
 		return input;
 	}
 

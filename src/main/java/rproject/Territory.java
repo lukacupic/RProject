@@ -16,8 +16,6 @@ public class Territory {
 
 	private List < Unit > Units;
 
-//	private int cntUnits;
-
 	private static int territoryCount;
 
 	public Territory(String name) {
@@ -25,7 +23,6 @@ public class Territory {
 		this.name = name;
 		this.index = territoryCount++;
 		this.addUnit(new Fighter());
-//		cntUnits = 1;
 	}
 
 	public void changeOwner(Player newOwner) {
@@ -93,24 +90,4 @@ public class Territory {
 		return Units.size();
 	}
 
-/*	public void addUnits(int n) {
-		this.cntUnits += n;
-	}
-
-	public void removeUnits(int n) {
-		this.cntUnits -= n;
-	}
-
-	public void setUnits(int n) {
-		this.cntUnits = n;
-	}
-
-	public void moveUnits(Territory endingTerritory, int movingUnits) {
-		this.removeUnits(movingUnits);
-		endingTerritory.addUnits(movingUnits);
-	}
-
-	public int getUnits() {
-		return cntUnits;
-	}*/
 }

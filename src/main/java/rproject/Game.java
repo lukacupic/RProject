@@ -103,11 +103,24 @@ public class Game {
 		return true;
 	}
 
-	private List < Unit > attack(Territory attTerritory, Territory defTerritory, int cntAttUnits){
+	private List < Unit > battle(Territory attTerritory, Territory defTerritory, int cntAttUnits){
 		List < Unit > attArmy = new ArrayList< Unit >();
 		List < Unit > defArmy = new ArrayList< Unit >();
+		Unit U;
+		for (int i = 0; i < cntAttUnits; ++i)
+			attArmy.add(U)
+		for (int i = 0; i < defTerritory.getUnits(); ++i)
+			defArmy.add(U)
 		Collections.shuffle(attArmy);
 		Collections.shuffle(defArmy);
+		while(!attArmy.isEmpty() && !defArmy.isEmpty()){
+			for (Unit unit : defArmy){
+				int targetIndex = 0;
+
+			}
+
+		}
+
 
 		// todo: dying
 		return attArmy;
@@ -128,7 +141,7 @@ public class Game {
 			int cntAttUnits = Input.readInt();
 			if (checkValidAttack(attTerritory, defTerritory, cntAttUnits, player)) {
 				attTerritory.addUnits(-cntAttUnits);
-				List < Unit > survivors = attack(attTerritory, defTerritory, cntAttUnits);
+				List < Unit > survivors = battle(attTerritory, defTerritory, cntAttUnits);
 				if (!survivors.isEmpty()){
 					getBonus = true;
 					defTerritory.changeOwner(player);

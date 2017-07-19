@@ -17,6 +17,7 @@ public class Input {
 	 * read character is returned in the lower-case format thus
 	 * making user input case insensitive for easier processing.
 	 *
+	 *
 	 * @return the next character from the user input
 	 */
 	public static char readChar() {

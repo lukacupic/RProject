@@ -106,11 +106,11 @@ public class Game {
 	private List < Unit > battle(Territory attTerritory, Territory defTerritory, int cntAttUnits){
 		List < Unit > attArmy = new ArrayList< Unit >();
 		List < Unit > defArmy = new ArrayList< Unit >();
-		Unit U;
+		Unit U();
 		for (int i = 0; i < cntAttUnits; ++i)
-			attArmy.add(U)
+			attArmy.add(U);
 		for (int i = 0; i < defTerritory.getUnits(); ++i)
-			defArmy.add(U)
+			defArmy.add(U);
 		Collections.shuffle(attArmy);
 		Collections.shuffle(defArmy);
 		while(!attArmy.isEmpty() && !defArmy.isEmpty()){

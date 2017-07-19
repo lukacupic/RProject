@@ -127,7 +127,8 @@ public class Game {
 				if(unit.attack(defArmy.get(targetIndex))) defArmy.remove(targetIndex);
 			}
 		}
-		// todo: dying
+		Output.writeln(attArmy.size());
+		Output.writeln(defArmy.size());
 		return attArmy;
 	}
 

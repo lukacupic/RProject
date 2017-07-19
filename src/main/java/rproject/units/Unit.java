@@ -11,7 +11,8 @@ public abstract class Unit {
 	}
 
 	public void removeHp(int hp) {
-		addHp(-hp);
+		this.hp -= hp;
+		if (this.hp < 0) this.hp = 0;
 	}
 
 	public boolean isAlive() {
@@ -34,5 +35,5 @@ public abstract class Unit {
 		this.damage = damage;
 	}
 
-	public abstract void attack(Unit unit);
+	public abstract boolean attack(Unit unit);
 }

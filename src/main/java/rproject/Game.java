@@ -4,6 +4,7 @@ import rproject.board.Board;
 import rproject.board.BoardProvider;
 import rproject.io.Input;
 import rproject.io.Output;
+import rproject.units.Fighter;
 import rproject.units.Unit;
 import rproject.util.Util;
 
@@ -68,7 +69,7 @@ public class Game {
 			playerIndex %= players.size();
 			Player player = players.get(playerIndex);
 
-			int randIndex = Math.abs(rand.nextInt() % freeTerritories.size());
+			int randIndex = Math.abs(Util.rand.nextInt() % freeTerritories.size());
 			Territory t = freeTerritories.get(randIndex);
 
 			player.addTerritory(t);
@@ -105,9 +106,9 @@ public class Game {
 	}
 
 	private List < Unit > battle(Territory attTerritory, Territory defTerritory, int cntAttUnits){
-		List < Unit > attArmy = new ArrayList< Unit >();
-		List < Unit > defArmy = new ArrayList< Unit >();
-		Unit U();
+		List < Unit > attArmy = new ArrayList<>();
+		List < Unit > defArmy = new ArrayList<>();
+		Unit U = new Fighter();
 		for (int i = 0; i < cntAttUnits; ++i)
 			attArmy.add(U);
 		for (int i = 0; i < defTerritory.getUnits(); ++i)
@@ -116,14 +117,16 @@ public class Game {
 		Collections.shuffle(defArmy);
 		while(!attArmy.isEmpty() && !defArmy.isEmpty()){
 			for (Unit unit : defArmy){
-				int defArmySize = defArmy.size();
-				int targetIndex = Util.rand();
-
+				int attArmySize = attArmy.size();
+				int targetIndex = Util.rand.nextInt() % attArmySize;
+				if(unit.attack(attArmy.get(targetIndex))) attArmy.remove(targetIndex);
 			}
-
+			for (Unit unit : attArmy){
+				int defArmySize = defArmy.size();
+				int targetIndex = Util.rand.nextInt() % defArmySize;
+				if(unit.attack(defArmy.get(targetIndex))) defArmy.remove(targetIndex);
+			}
 		}
-
-
 		// todo: dying
 		return attArmy;
 	}

@@ -1,4 +1,6 @@
-package rproject;
+package rproject.board;
+
+import rproject.Territory;
 
 import java.io.IOException;
 import java.nio.file.Files;

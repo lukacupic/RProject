@@ -1,4 +1,4 @@
-package rproject;
+package rproject.board;
 
 public class BoardProvider {
 

@@ -14,10 +14,6 @@ public class NeighbourhoodMatrix {
 	public NeighbourhoodMatrix(String FileName) {
 		List<String> lines;
 		try {
-			// todo: a bug where 'FileName' represents a full name of the map (e.g. "map1.txt")
-			// todo: should be resolved in FileUtil#readMaps. This method returns full names of
-			// todo: maps but should be returning only name without the extension. This will be
-			// todo: fixed wendesday morning :P
 			lines = Files.readAllLines(Paths.get("maps/matrix/" + FileName + ".txt"));
 		} catch (IOException ex) {
 			throw new RuntimeException();

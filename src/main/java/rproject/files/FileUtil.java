@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,8 +45,13 @@ public class FileUtil {
 	 * directory.
 	 */
 	private static void readMaps() {
-		File mapsRoot = new File(MAP_NAMES_PATH);
-		FileUtil.maps = Arrays.asList(mapsRoot.list());
+		File dir = new File(MAP_NAMES_PATH);
+
+		List<String> maps = new ArrayList<>();
+		for (String file : dir.list()) {
+			maps.add(file.substring(0, file.lastIndexOf(".")));
+		}
+		FileUtil.maps = maps;
 	}
 
 	/**

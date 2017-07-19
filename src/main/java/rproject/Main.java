@@ -8,8 +8,6 @@ import java.util.List;
 
 public class Main {
 
-	private static int playersCount;
-
 	private static final int MIN_PLAYERS = 2;
 
 	private static final int MAX_PLAYERS = 6;

@@ -47,5 +47,7 @@ public abstract class Unit {
 
 	public abstract Unit clone();
 
+	public abstract void resetHp();
+
 	public abstract String getName();
 }

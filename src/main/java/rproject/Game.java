@@ -129,6 +129,10 @@ public class Game {
 		}
 		Output.writeln("att army size: " + attArmy.size());
 		Output.writeln("def army size: " + defArmy.size());
+		for (Unit unit: attArmy)
+			unit.resetHp();
+		for (Unit unit: defArmy)
+			unit.resetHp();
 		defTerritory.setUnits(defArmy);
 		return attArmy;
 	}
@@ -145,13 +149,17 @@ public class Game {
 	private List < Unit > getUnits(Territory T){
 		Output.writeln("list of available units:");
 		List < Unit > Units = T.getUnits();
-		List < Unit > availUnits = new ArrayList<>();
+		for (Unit unit: Units)
+			Output.write("dmg: " + unit.getDamage() + ", hp: " + unit.getHp() + "; ");
+		Output.writeln("");
+		List < Unit > selectedUnits = new ArrayList<>();
 		for (Unit unit : Units){
+			if (selectedUnits.size() + 1 == Units.size()) break;
 			Output.writeln("dmg: " + unit.getDamage() + ", hp: " + unit.getHp());
 			if (getYNAnswer("add"))
-				availUnits.add(unit);
+				selectedUnits.add(unit);
 		}
-		return availUnits;
+		return selectedUnits;
 	}
 
 	private Territory getTerritory(String message){
@@ -235,11 +243,11 @@ public class Game {
 
 	private List < Unit > getSpawnUnits(Player player){
 		List < Unit > units = new ArrayList<>();
-		int money = player.getCntExtraUnits();
-		Output.writeln("max units: " + money);
+		int gold = player.getGold();
+		Output.writeln("max units: " + gold);
 		int cntSpawnUnits = Input.readInt();
-		if (money > cntSpawnUnits) return units;
-		player.addExtraUnits(-cntSpawnUnits);
+		if (gold > cntSpawnUnits) return units;
+		player.removeGold(cntSpawnUnits);
 		for (int i = 0; i < cntSpawnUnits; ++i){
 			Unit U;
 			if (Util.getRandInt(100)<75) U = new Fighter();
@@ -250,12 +258,11 @@ public class Game {
 	}
 
 	private void spawnPhase(Player player){
-		player.addExtraUnits(getSpawnCount(player));
+		player.addGold(getSpawnCount(player));
 		Board board = BoardProvider.getBoard();
 		board.getMatrix().drawMatrixCUI();
 		while(getYNAnswer("spawn units")){
-			Output.writeln("number of available money: " + player.getCntExtraUnits());
-			Output.writeln("spawn n units on territory a, write using format: a n");
+			Output.writeln("number of available gold: " + player.getGold());
 			Territory spawnTerritoryName = getTerritory("spawn where?");
 			if (!checkValidSpawning(spawnTerritoryName, player)) continue;
 			List < Unit > spawnUnits = getSpawnUnits(player);

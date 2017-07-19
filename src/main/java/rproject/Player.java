@@ -9,14 +9,18 @@ public class Player {
 	private List<Territory> territories;
 	private int cntUnits;
 	private int cntBonus;
-	private int cntExtraUnits;
+	private int cntGold;
 
-	public int getCntExtraUnits() {
-		return cntExtraUnits;
+	public int getGold() {
+		return cntGold;
 	}
 
-	public void addExtraUnits(int n) {
-		cntExtraUnits += n;
+	public void addGold(int n) {
+		cntGold += n;
+	}
+
+	public void removeGold(int n) {
+		addGold(-n);
 	}
 
 	public Player(String name) {

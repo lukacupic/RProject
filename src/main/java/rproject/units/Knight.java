@@ -22,6 +22,11 @@ public class Knight extends Unit {
 	}
 
 	@Override
+	public void resetHp(){
+		this.setHp(DEFAULT_HP);
+	}
+
+	@Override
 	public Unit clone() {
 		return new Knight(hp, damage);
 	}

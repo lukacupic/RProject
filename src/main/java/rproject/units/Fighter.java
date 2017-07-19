@@ -22,6 +22,11 @@ public class Fighter extends Unit {
 	}
 
 	@Override
+	public void resetHp(){
+		this.setHp(DEFAULT_HP);
+	}
+
+	@Override
 	public Unit clone() {
 		return new Fighter(hp, damage);
 	}

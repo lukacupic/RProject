@@ -6,11 +6,11 @@ public class Util {
 
 	private final static Random rand = new Random();
 
-	public int getRandInt(int start, int end) {
-		return (Math.abs(rand.nextInt(end - start) + start));
+	public int getRandInt(int low, int high) {
+		return (Math.abs(rand.nextInt(high - low) + low));
 	}
 
-	public int getRandInt(int end) {
-		return getRandInt(0, end);
+	public int getRandInt(int high) {
+		return getRandInt(0, high);
 	}
 }

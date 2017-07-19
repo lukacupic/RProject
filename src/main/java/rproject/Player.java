@@ -51,12 +51,12 @@ public class Player {
 	public void addTerritory(Territory T) {
 		territories.add(T);
 		T.setOwner(this);
-		addUnits(T.getUnits());
+		addUnits(T.getCntUnits());
 	}
 
 	public void removeTerritory(Territory T) {
 		territories.remove(T);
-		addUnits(-T.getUnits());
+		addUnits(-T.getCntUnits());
 	}
 
 	public List<Territory> getTerritories() {

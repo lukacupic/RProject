@@ -5,6 +5,7 @@ import rproject.board.BoardProvider;
 import rproject.io.Input;
 import rproject.io.Output;
 import rproject.units.Fighter;
+import rproject.units.Knight;
 import rproject.units.Unit;
 import rproject.util.Util;
 
@@ -76,7 +77,7 @@ public class Game {
 			freeTerritories.remove(t);
 		}
 	}
-	private boolean checkValidAttack(Territory attTerritory, Territory defTerritory, int cntAttUnits, Player player){
+	private boolean checkValidAttack(Territory attTerritory, Territory defTerritory, Player player){
 		if (attTerritory == null){
 			Output.writeln("invalid name of att territory");
 			return false;
@@ -98,24 +99,20 @@ public class Game {
 			Output.writeln("you cant attack yourself");
 			return false;
 		}
-		if (attTerritory.getUnits() <= cntAttUnits) {
-			Output.writeln("too many units");
-			return false;
-		}
 		return true;
 	}
 
-	public static List < Unit > battle(Territory attTerritory, Territory defTerritory, int cntAttUnits){
-		List < Unit > attArmy = new ArrayList<>();
-		List < Unit > defArmy = new ArrayList<>();
-		for (int i = 0; i < cntAttUnits; ++i) {
+	private static List < Unit > battle(Territory attTerritory, Territory defTerritory, List<Unit> attArmy){
+//		List < Unit > attArmy = new ArrayList<>();
+		List < Unit > defArmy = defTerritory.getUnits();
+/*		for (int i = 0; i < cntAttUnits; ++i) {
 			Unit U = new Fighter();
 			attArmy.add(U);
 		}
 		for (int i = 0; i < defTerritory.getUnits(); ++i) {
 			Unit U = new Fighter();
 			defArmy.add(U);
-		}
+		}*/
 		Collections.shuffle(attArmy);
 		Collections.shuffle(defArmy);
 		while(!attArmy.isEmpty() && !defArmy.isEmpty()){
@@ -127,50 +124,67 @@ public class Game {
 			for (Unit unit : attArmy){
 				if (defArmy.size() == 0) break;
 				int targetIndex = Util.getRandInt(defArmy.size());
-				Unit other = defArmy.get(targetIndex);
 				if (unit.attack(defArmy.get(targetIndex))) defArmy.remove(targetIndex);
 			}
 		}
 		Output.writeln("att army size: " + attArmy.size());
 		Output.writeln("def army size: " + defArmy.size());
+		defTerritory.setUnits(defArmy);
 		return attArmy;
 	}
 
-	public boolean attackPhase(Player player) {
+	private boolean getYNAnswer(String message){
+		String response;
+		do {
+			Output.writeln(message + "? y/n");
+			response = Input.readString();
+		} while(!response.equals("y") && !response.equals("n"));
+		return response.equals("y");
+	}
+
+	private List < Unit > getUnits(Territory T){
+		Output.writeln("list of available units:");
+		List < Unit > Units = T.getUnits();
+		List < Unit > availUnits = new ArrayList<>();
+		for (Unit unit : Units){
+			Output.writeln("dmg: " + unit.getDamage() + ", hp: " + unit.getHp());
+			if (getYNAnswer("add"))
+				availUnits.add(unit);
+		}
+		return availUnits;
+	}
+
+	private Territory getTerritory(String message){
+		Output.writeln(message);
+		String attTerritoryName = Input.readString();
+		return BoardProvider.getBoard().getTerritory(attTerritoryName);
+	}
+
+	private boolean attackPhase(Player player) {
 		boolean getBonus = false;
-		Output.writeln("attack? y/n");
-		String response = Input.readString();
-		while(response.equals("y")){
+		while(getYNAnswer("attack")){
 			Board board = BoardProvider.getBoard();
 			board.getMatrix().drawMatrixCUI();
-			Output.writeln("attack from a to b using n units, write using format: a b n");
-			String attTerritoryName = Input.readString();
-			Territory attTerritory = board.getTerritory(attTerritoryName);
-			String defTerritoryName = Input.readString();
-			Territory defTerritory = board.getTerritory(defTerritoryName);
-			int cntAttUnits = Input.readInt();
-			if (checkValidAttack(attTerritory, defTerritory, cntAttUnits, player)) {
-				attTerritory.addUnits(-cntAttUnits);
-				List < Unit > survivors = battle(attTerritory, defTerritory, cntAttUnits);
-				if (!survivors.isEmpty()){
-					getBonus = true;
-					defTerritory.changeOwner(player);
-					defTerritory.setUnits(survivors.size());
-					Output.writeln("attacker wins");
-				}
-				else{
-					Output.writeln("defender wins");
-				}
+			Territory attTerritory = getTerritory("att from?");
+			Territory defTerritory = getTerritory("att what?");
+			if (!checkValidAttack(attTerritory, defTerritory, player)) continue;
+			List < Unit > attUnits = getUnits(attTerritory);
+			attTerritory.removeUnits(attUnits);
+			List < Unit > survivors = battle(attTerritory, defTerritory, attUnits);
+			if (!survivors.isEmpty()){
+				getBonus = true;
+				defTerritory.changeOwner(player);
+				defTerritory.setUnits(survivors);
+				Output.writeln("attacker wins");
 			}
-			do {
-				Output.writeln("attack again? y/n");
-				response = Input.readString();
-			} while(!response.equals("y") && !response.equals("n"));
+			else{
+				Output.writeln("defender wins");
+			}
 		}
 		return getBonus;
 	}
 
-	private boolean checkValidMoving(Territory startingTerritory, Territory endingTerritory, int cntMovingUnits, Player player){
+	private boolean checkValidMoving(Territory startingTerritory, Territory endingTerritory, Player player){
 		if (startingTerritory == null){
 			Output.writeln("invalid name of att territory");
 			return false;
@@ -187,32 +201,19 @@ public class Game {
 			Output.writeln("ending territory doesn't belong to you");
 			return false;
 		}
-		if (startingTerritory.getUnits() <= cntMovingUnits) {
-			Output.writeln("too many units");
-			return false;
-		}
 		return true;
 	}
 
-	public void movePhase(Player player){
-		Output.writeln("move units? y/n");
-		String response = Input.readString();
-		while(response.equals("y")){
+	private void movePhase(Player player){
+		while(getYNAnswer("move units")){
 			Board board = BoardProvider.getBoard();
 			board.getMatrix().drawMatrixCUI();
 			Output.writeln("move n units from a to b, write using format: a b n");
-			String startingTerritoryName = Input.readString();
-			Territory starting = board.getTerritory(startingTerritoryName);
-			String endingTerritoryName = Input.readString();
-			Territory ending = board.getTerritory(endingTerritoryName);
-			int cntMovingUnits = Input.readInt();
-			if (checkValidMoving(starting, ending, cntMovingUnits, player)){
-				starting.moveUnits(ending, cntMovingUnits);
-			}
-			do {
-				Output.writeln("move again? y/n");
-				response = Input.readString();
-			} while(!response.equals("n") && !response.equals("y"));
+			Territory starting = getTerritory("move from?");
+			Territory ending = getTerritory("move to?");
+			if (!checkValidMoving(starting, ending, player)) continue;
+			List < Unit > movingUnits = getUnits(starting);
+			starting.moveUnits(ending, movingUnits);
 		}
 	}
 
@@ -220,7 +221,7 @@ public class Game {
 		return 3 + player.getCntBonus(); // todo
 	}
 
-	private boolean checkValidSpawning(Territory spawn, int cntSpawnUnits, Player player){
+	private boolean checkValidSpawning(Territory spawn, Player player){
 		if (spawn == null){
 			Output.writeln("invalid name of the territory");
 			return false;
@@ -229,37 +230,40 @@ public class Game {
 			Output.writeln("territory doesn't belong to you");
 			return false;
 		}
-		if (cntSpawnUnits > player.getCntExtraUnits()) {
-			Output.writeln("too many units");
-			return false;
-		}
 		return true;
 	}
 
-	public void spawnPhase(Player player){
+	private List < Unit > getSpawnUnits(Player player){
+		List < Unit > units = new ArrayList<>();
+		int money = player.getCntExtraUnits();
+		Output.writeln("max units: " + money);
+		int cntSpawnUnits = Input.readInt();
+		if (money > cntSpawnUnits) return units;
+		player.addExtraUnits(-cntSpawnUnits);
+		for (int i = 0; i < cntSpawnUnits; ++i){
+			Unit U;
+			if (Util.getRandInt(100)<75) U = new Fighter();
+			else U = new Knight();
+			units.add(U);
+		}
+		return units;
+	}
+
+	private void spawnPhase(Player player){
 		player.addExtraUnits(getSpawnCount(player));
-		Output.writeln("spawn units? y/n");
-		String response = Input.readString();
 		Board board = BoardProvider.getBoard();
 		board.getMatrix().drawMatrixCUI();
-		while(response.equals("y")){
-			Output.writeln("number of available units: " + player.getCntExtraUnits());
+		while(getYNAnswer("spawn units")){
+			Output.writeln("number of available money: " + player.getCntExtraUnits());
 			Output.writeln("spawn n units on territory a, write using format: a n");
-			String spawnTerritoryName = Input.readString();
-			Territory spawnTerritory = board.getTerritory(spawnTerritoryName);
-			int cntSpawningUnits = Input.readInt();
-			if (checkValidSpawning(spawnTerritory, cntSpawningUnits, player)){
-				spawnTerritory.addUnits(cntSpawningUnits);
-				player.addExtraUnits(-cntSpawningUnits);
-			}
-			do {
-				Output.writeln("spawn again? y/n");
-				response = Input.readString();
-			} while(!response.equals("y") && !response.equals("n"));
+			Territory spawnTerritoryName = getTerritory("spawn where?");
+			if (!checkValidSpawning(spawnTerritoryName, player)) continue;
+			List < Unit > spawnUnits = getSpawnUnits(player);
+			spawnTerritoryName.addUnits(spawnUnits);
 		}
 	}
 
-	public void bonusPhase(Player player){
+	private void bonusPhase(Player player){
 		player.addBonus(1);
 	}
 }

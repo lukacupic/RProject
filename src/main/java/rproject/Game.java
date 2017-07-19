@@ -105,7 +105,7 @@ public class Game {
 		return true;
 	}
 
-	private List < Unit > battle(Territory attTerritory, Territory defTerritory, int cntAttUnits){
+	public static List < Unit > battle(Territory attTerritory, Territory defTerritory, int cntAttUnits){
 		List < Unit > attArmy = new ArrayList<>();
 		List < Unit > defArmy = new ArrayList<>();
 		Unit U = new Fighter();
@@ -118,11 +118,13 @@ public class Game {
 		while(!attArmy.isEmpty() && !defArmy.isEmpty()){
 			for (Unit unit : defArmy){
 				int attArmySize = attArmy.size();
+				if (attArmySize == 0) break;
 				int targetIndex = Util.getRandInt(attArmySize);
 				if (unit.attack(attArmy.get(targetIndex))) attArmy.remove(targetIndex);
 			}
 			for (Unit unit : attArmy){
 				int defArmySize = defArmy.size();
+				if (defArmySize == 0) break;
 				int targetIndex = Util.getRandInt(defArmySize);
 				if (unit.attack(defArmy.get(targetIndex))) defArmy.remove(targetIndex);
 			}

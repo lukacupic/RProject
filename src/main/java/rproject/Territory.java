@@ -43,7 +43,7 @@ public class Territory {
 		this.cntUnits += n;
 	}
 	public void removeUnits(int n){
-		this.cntUnits += n;
+		this.cntUnits -= n;
 	}
 	public void setUnits(int n){
 		this.cntUnits = n;

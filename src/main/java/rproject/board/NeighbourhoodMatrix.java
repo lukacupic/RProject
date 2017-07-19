@@ -27,10 +27,6 @@ public class NeighbourhoodMatrix {
 	}
 
 	public boolean checkNeighbours(int from, int to) {
-		Output.write(from);
-		Output.write(" -> ");
-		Output.write(to);
-		Output.writeln(" ???");
 		return neighbourhoodMatrix[from][to];
 	}
 

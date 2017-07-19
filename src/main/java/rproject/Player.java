@@ -14,20 +14,28 @@ public class Player {
 	private int cntBonus;
 	private int cntExtraUnits;
 
+	public int getCntExtraUnits() {
+		return cntExtraUnits;
+	}
+
+	public void addExtraUnits(int n) {
+		cntExtraUnits += n;
+	}
+
 	public Player(String name) {
 		this.name = name;
 		territories = new ArrayList<Territory>();
 	}
 
 	public boolean isAlive() {
-		return cntUnits>0;
+		return this.getCntUnits()>0;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public int getCntUnit() {
+	public int getCntUnits() {
 		return cntUnits;
 	}
 

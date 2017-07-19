@@ -3,6 +3,7 @@ package rproject;
 import rproject.units.Fighter;
 import rproject.units.Unit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Territory {
@@ -20,6 +21,7 @@ public class Territory {
 	private static int territoryCount;
 
 	public Territory(String name) {
+		Units = new ArrayList<>();
 		this.name = name;
 		this.index = territoryCount++;
 		this.addUnit(new Fighter());

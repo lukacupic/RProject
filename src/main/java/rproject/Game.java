@@ -128,23 +128,11 @@ public class Game {
 				if (defArmy.size() == 0) break;
 				int targetIndex = Util.getRandInt(defArmy.size());
 				Unit other = defArmy.get(targetIndex);
-				Output.write(unit.getDamage() + " " + unit.getHp() + " -> ");
-				Output.writeln(other.getDamage() + " " + other.getHp());
 				if (unit.attack(defArmy.get(targetIndex))) defArmy.remove(targetIndex);
-				Output.write(unit.getDamage() + " " + unit.getHp() + " -> ");
-				Output.writeln(other.getDamage() + " " + other.getHp());
 			}
-			Output.writeln("** att **");
-			for (Unit unit: attArmy)
-				Output.write(unit.getHp());
-			Output.writeln("");
-			Output.writeln("** def **");
-			for (Unit unit: defArmy)
-				Output.write(unit.getHp());
-			Output.writeln("");
 		}
-		Output.writeln(attArmy.size());
-		Output.writeln(defArmy.size());
+		Output.writeln("att army size: " + attArmy.size());
+		Output.writeln("def army size: " + defArmy.size());
 		return attArmy;
 	}
 

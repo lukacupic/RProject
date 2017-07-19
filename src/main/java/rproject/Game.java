@@ -1,5 +1,7 @@
 package rproject;
 
+import rproject.board.Board;
+import rproject.board.BoardProvider;
 import rproject.io.Input;
 import rproject.io.Output;
 import rproject.units.Unit;

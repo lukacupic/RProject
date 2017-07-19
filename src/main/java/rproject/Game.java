@@ -5,6 +5,7 @@ import rproject.board.BoardProvider;
 import rproject.io.Input;
 import rproject.io.Output;
 import rproject.units.Unit;
+import rproject.util.Util;
 
 import java.util.*;
 
@@ -13,8 +14,6 @@ public class Game {
 	private Board board;
 
 	private List<Player> players = new ArrayList<>();
-
-	private static Random rand = new Random();
 
 	public Game(String boardName, String[] playerNames) {
 		board = new Board(boardName);
@@ -117,7 +116,8 @@ public class Game {
 		Collections.shuffle(defArmy);
 		while(!attArmy.isEmpty() && !defArmy.isEmpty()){
 			for (Unit unit : defArmy){
-				int targetIndex = 0;
+				int defArmySize = defArmy.size();
+				int targetIndex = Util.rand();
 
 			}
 

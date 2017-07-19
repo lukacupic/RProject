@@ -21,7 +21,9 @@ public class Game {
 		BoardProvider.setBoard(board);
 
 		createPlayers(new ArrayList<>(Arrays.asList(playerNames)));
+	}
 
+	public void start() {
 		shuffle();
 		runGame();
 	}
@@ -71,25 +73,26 @@ public class Game {
 			freeTerritories.remove(t);
 		}
 	}
-	private boolean checkValidAttack(Territory attTerritory, Territory defTerritory, int cntAttUnits, Player player){
-		if (attTerritory == null){
+
+	private boolean checkValidAttack(Territory attTerritory, Territory defTerritory, int cntAttUnits, Player player) {
+		if (attTerritory == null) {
 			Output.writeln("invalid name of att territory");
 			return false;
 		}
-		if (defTerritory == null){
+		if (defTerritory == null) {
 			Output.writeln("invalid name of def territory");
 			return false;
 		}
-		if (!attTerritory.getOwner().getName().equals(player.getName())){
+		if (!attTerritory.getOwner().getName().equals(player.getName())) {
 			Output.writeln("you can attack only from your territories");
 			return false;
 		}
 		Board board = BoardProvider.getBoard();
-		if (!board.getMatrix().checkNeighbours(attTerritory.getIndex(),defTerritory.getIndex())){
+		if (!board.getMatrix().checkNeighbours(attTerritory.getIndex(), defTerritory.getIndex())) {
 			Output.writeln("territories aren't connected");
 			return false;
 		}
-		if (attTerritory.getOwner().getName().equals(defTerritory.getOwner().getName())){
+		if (attTerritory.getOwner().getName().equals(defTerritory.getOwner().getName())) {
 			Output.writeln("you cant attack yourself");
 			return false;
 		}
@@ -100,7 +103,7 @@ public class Game {
 		return true;
 	}
 
-	private boolean attack(Territory attTerritory, Territory defTerritory, int cntAttUnits){
+	private boolean attack(Territory attTerritory, Territory defTerritory, int cntAttUnits) {
 		// todo: dying
 		return cntAttUnits > defTerritory.getUnits();
 	}
@@ -109,7 +112,7 @@ public class Game {
 		boolean getBonus = false;
 		Output.writeln("attack? y/n");
 		String response = Input.readString();
-		while(response.equals("y")){
+		while (response.equals("y")) {
 			Board board = BoardProvider.getBoard();
 			board.getMatrix().drawMatrixCUI();
 			Output.writeln("attack from a to b using n units, write using format: a b n");
@@ -125,33 +128,32 @@ public class Game {
 					defTerritory.changeOwner(player);
 					defTerritory.setUnits(cntAttUnits);
 					Output.writeln("attacker wins");
-				}
-				else{
+				} else {
 					Output.writeln("defender wins");
 				}
 			}
 			do {
 				Output.writeln("attack again? y/n");
 				response = Input.readString();
-			} while(!response.equals("y") && !response.equals("n"));
+			} while (!response.equals("y") && !response.equals("n"));
 		}
 		return getBonus;
 	}
 
-	private boolean checkValidMoving(Territory startingTerritory, Territory endingTerritory, int cntMovingUnits, Player player){
-		if (startingTerritory == null){
+	private boolean checkValidMoving(Territory startingTerritory, Territory endingTerritory, int cntMovingUnits, Player player) {
+		if (startingTerritory == null) {
 			Output.writeln("invalid name of att territory");
 			return false;
 		}
-		if (endingTerritory == null){
+		if (endingTerritory == null) {
 			Output.writeln("invalid name of def territory");
 			return false;
 		}
-		if (!startingTerritory.getOwner().getName().equals(player.getName())){
+		if (!startingTerritory.getOwner().getName().equals(player.getName())) {
 			Output.writeln("starting territory doesn't belong to you");
 			return false;
 		}
-		if (!endingTerritory.getOwner().getName().equals(player.getName())){
+		if (!endingTerritory.getOwner().getName().equals(player.getName())) {
 			Output.writeln("ending territory doesn't belong to you");
 			return false;
 		}
@@ -162,10 +164,10 @@ public class Game {
 		return true;
 	}
 
-	public void movePhase(Player player){
+	public void movePhase(Player player) {
 		Output.writeln("move units? y/n");
 		String response = Input.readString();
-		while(response.equals("y")){
+		while (response.equals("y")) {
 			Board board = BoardProvider.getBoard();
 			board.getMatrix().drawMatrixCUI();
 			Output.writeln("move n units from a to b, write using format: a b n");
@@ -174,26 +176,26 @@ public class Game {
 			String endingTerritoryName = Input.readString();
 			Territory ending = board.getTerritory(endingTerritoryName);
 			int cntMovingUnits = Input.readInt();
-			if (checkValidMoving(starting, ending, cntMovingUnits, player)){
+			if (checkValidMoving(starting, ending, cntMovingUnits, player)) {
 				starting.moveUnits(ending, cntMovingUnits);
 			}
 			do {
 				Output.writeln("move again? y/n");
 				response = Input.readString();
-			} while(!response.equals("n") && !response.equals("y"));
+			} while (!response.equals("n") && !response.equals("y"));
 		}
 	}
 
-	private int getSpawnCount(){
+	private int getSpawnCount() {
 		return 3; // todo
 	}
 
-	private boolean checkValidSpawning(Territory spawn, int cntSpawnUnits, Player player){
-		if (spawn == null){
+	private boolean checkValidSpawning(Territory spawn, int cntSpawnUnits, Player player) {
+		if (spawn == null) {
 			Output.writeln("invalid name of the territory");
 			return false;
 		}
-		if (!spawn.getOwner().getName().equals(player.getName())){
+		if (!spawn.getOwner().getName().equals(player.getName())) {
 			Output.writeln("territory doesn't belong to you");
 			return false;
 		}
@@ -204,30 +206,30 @@ public class Game {
 		return true;
 	}
 
-	public void spawnPhase(Player player){
+	public void spawnPhase(Player player) {
 		player.addExtraUnits(getSpawnCount());
 		Output.writeln("spawn units? y/n");
 		String response = Input.readString();
 		Board board = BoardProvider.getBoard();
 		board.getMatrix().drawMatrixCUI();
-		while(response.equals("y")){
+		while (response.equals("y")) {
 			Output.writeln("number of available units: " + player.getCntExtraUnits());
 			Output.writeln("spawn n units on territory a, write using format: a n");
 			String spawnTerritoryName = Input.readString();
 			Territory spawnTerritory = board.getTerritory(spawnTerritoryName);
 			int cntSpawningUnits = Input.readInt();
-			if (checkValidSpawning(spawnTerritory, cntSpawningUnits, player)){
+			if (checkValidSpawning(spawnTerritory, cntSpawningUnits, player)) {
 				spawnTerritory.addUnits(cntSpawningUnits);
 				player.addExtraUnits(-cntSpawningUnits);
 			}
 			do {
 				Output.writeln("spawn again? y/n");
 				response = Input.readString();
-			} while(!response.equals("y") && !response.equals("n"));
+			} while (!response.equals("y") && !response.equals("n"));
 		}
 	}
 
-	public void bonusPhase(Player player){
+	public void bonusPhase(Player player) {
 		player.addBonus(1);
 	}
 }

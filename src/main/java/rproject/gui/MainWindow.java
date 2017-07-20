@@ -1,5 +1,7 @@
 package rproject.gui;
 
+import de.fhpotsdam.unfolding.data.Feature;
+
 import javax.swing.*;
 
 public class MainWindow extends JFrame {
@@ -15,7 +17,6 @@ public class MainWindow extends JFrame {
 	}
 
 	private void initSettings() {
-
 	}
 
 	private void initGUI() {

@@ -1,5 +1,8 @@
 package rproject.units;
 
+/**
+ *
+ */
 public abstract class Unit {
 
 	protected int hp;

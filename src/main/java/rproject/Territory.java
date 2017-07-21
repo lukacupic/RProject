@@ -14,7 +14,7 @@ public class Territory {
 
 	private Player owner;
 
-	private List < Unit > Units;
+	private List<Unit> Units;
 
 	private static int territoryCount;
 
@@ -47,12 +47,12 @@ public class Territory {
 		this.owner = owner;
 	}
 
-	public void addUnit(Unit U){
+	public void addUnit(Unit U) {
 		this.Units.add(U);
 	}
 
-	public void addUnits(List < Unit > units){
-		for (Unit unit: units)
+	public void addUnits(List<Unit> units) {
+		for (Unit unit : units)
 			this.addUnit(unit);
 	}
 
@@ -63,26 +63,26 @@ public class Territory {
 		}
 	}*/
 
-	public boolean removeUnit(Unit U){
+	public boolean removeUnit(Unit U) {
 		return this.Units.remove(U);
 	}
 
-	public void removeUnits(List < Unit > units){
-		for (Unit unit: units)
+	public void removeUnits(List<Unit> units) {
+		for (Unit unit : units)
 			this.removeUnit(unit);
 	}
 
-	public void moveUnits(Territory endingTerritory, List < Unit > movingUnits){
-		for (Unit unit: movingUnits)
+	public void moveUnits(Territory endingTerritory, List<Unit> movingUnits) {
+		for (Unit unit : movingUnits)
 			if (this.removeUnit(unit))
 				endingTerritory.addUnit(unit);
 	}
 
-	public List < Unit > getUnits(){
+	public List<Unit> getUnits() {
 		return Units;
 	}
 
-	public void setUnits(List < Unit > units) {
+	public void setUnits(List<Unit> units) {
 		Units = units;
 	}
 

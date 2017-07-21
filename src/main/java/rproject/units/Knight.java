@@ -22,7 +22,7 @@ public class Knight extends Unit {
 	}
 
 	@Override
-	public void resetHp(){
+	public void resetHp() {
 		this.setHp(DEFAULT_HP);
 	}
 

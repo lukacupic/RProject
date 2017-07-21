@@ -25,7 +25,7 @@ public class Player {
 
 	public Player(String name) {
 		this.name = name;
-		territories = new ArrayList<Territory>();
+		territories = new ArrayList<>();
 	}
 
 	public boolean isAlive() {

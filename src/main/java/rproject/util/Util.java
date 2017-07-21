@@ -2,6 +2,9 @@ package rproject.util;
 
 import java.util.Random;
 
+/**
+ *
+ */
 public class Util {
 
 	private static final Random rand = new Random();

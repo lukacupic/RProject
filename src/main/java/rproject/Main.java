@@ -6,6 +6,9 @@ import rproject.io.Output;
 
 import java.util.List;
 
+/**
+ *
+ */
 public class Main {
 
 	private static final int MIN_PLAYERS = 2;

@@ -1,5 +1,8 @@
 package rproject.board;
 
+/**
+ *
+ */
 public class BoardProvider {
 
 	private static Board board;

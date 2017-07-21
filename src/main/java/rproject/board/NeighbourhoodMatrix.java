@@ -9,20 +9,20 @@ public class NeighbourhoodMatrix {
 
 	private int size;
 
-	private boolean[][] neighbourhoodMatrix;
+	private boolean[][] matrix;
 
 	public NeighbourhoodMatrix(String name) {
 		List<String> lines = FileUtil.readMatrix(name);
 
 		size = Integer.parseInt(lines.get(0));
-		neighbourhoodMatrix = new boolean[size][size];
+		matrix = new boolean[size][size];
 		for (int i = 0; i < size; ++i)
 			for (int j = 0; j < size; ++j)
-				neighbourhoodMatrix[i][j] = (lines.get(i + 1).charAt(j) == '1');
+				matrix[i][j] = (lines.get(i + 1).charAt(j) == '1');
 	}
 
 	public boolean checkNeighbours(int from, int to) {
-		return neighbourhoodMatrix[from][to];
+		return matrix[from][to];
 	}
 
 	public void drawMatrixCUI() {
@@ -33,7 +33,7 @@ public class NeighbourhoodMatrix {
 			Output.write(TerritoryIName + " (P: " + playerIName + ", U: " + cntIUnits + ") -> ");
 
 			for (int j = 0; j < size; ++j) {
-				if (neighbourhoodMatrix[i][j]) {
+				if (matrix[i][j]) {
 					String playerJName = BoardProvider.getBoard().getTerritory(j).getOwner().getName();
 					String TerritoryJName = BoardProvider.getBoard().getTerritory(j).getName();
 					int cntJUnits = BoardProvider.getBoard().getTerritory(j).getUnits().size();

@@ -9,7 +9,7 @@ public class MainWindow extends JFrame {
 
 	public static final int DEFAULT_HEIGHT = 500;
 
-	WorldMap applet;
+	private WorldMap worldMap;
 
 	public MainWindow() {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -27,9 +27,9 @@ public class MainWindow extends JFrame {
 	private void initGUI() {
 		setLayout(new BorderLayout());
 
-		applet = new WorldMap();
-		add(applet, BorderLayout.CENTER);
-		applet.init();
+		worldMap = new WorldMap();
+		add(worldMap, BorderLayout.CENTER);
+		worldMap.init();
 	}
 
 	public static void main(String[] args) {

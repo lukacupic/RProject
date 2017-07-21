@@ -7,8 +7,6 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
-import de.fhpotsdam.unfolding.providers.Google;
-import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import processing.core.PApplet;
 
@@ -39,12 +37,18 @@ public class WorldMap extends PApplet {
 		MapUtils.createDefaultEventDispatcher(this, map);
 		map.setTweening(true);
 
-		// Load country polygons and adds them as markers
 		List<Feature> countries = GeoJSONReader.loadData(this, "src/main/resources/countries.geo.json");
 
 		List<Marker> markers = MapUtils.createSimpleMarkers(countries);
 		map.addMarkers(markers);
 		mapCountryMarkers(markers);
+
+		setupGUIAccess();
+	}
+
+	private void setupGUIAccess() {
+		GUIAccess.setMap(map);
+		GUIAccess.setMarkers(markers);
 	}
 
 	private void mapCountryMarkers(List<Marker> markers) {
@@ -101,7 +105,11 @@ public class WorldMap extends PApplet {
 		marker.setSelected(true);
 	}
 
-	private List<Location> getAllLocations(List<Marker> markers) {
-		return GeoUtils.getLocationsFromMarkers(markers);
+	public UnfoldingMap getMap() {
+		return map;
+	}
+
+	public Map<String, Marker> getMarkers() {
+		return markers;
 	}
 }

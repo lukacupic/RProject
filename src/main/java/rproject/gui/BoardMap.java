@@ -3,10 +3,13 @@ package rproject.gui;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
+import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
+import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
+import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 
 import java.awt.*;
@@ -14,11 +17,13 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WorldMap extends PApplet {
+public class BoardMap extends PApplet {
 
 	private UnfoldingMap map;
 
-	private Map<String, Marker> markers;
+	private Map<String, Marker> markersMap;
+
+	private List<Marker> markersList;
 
 	private static final Color SELECTION_COLOR = new Color(250, 55, 81, 240);
 
@@ -42,24 +47,30 @@ public class WorldMap extends PApplet {
 
 		List<Feature> countries = GeoJSONReader.loadData(this, "src/main/resources/countries.geo.json");
 
-		List<Marker> markers = MapUtils.createSimpleMarkers(countries);
-		map.addMarkers(markers);
-		mapCountryMarkers(markers);
+		markersList = MapUtils.createSimpleMarkers(countries);
+		map.addMarkers(markersList);
+		mapCountryMarkers(markersList);
+
+		centerMap();
 
 		setupGUIAccess();
 	}
 
+	public void centerMap() {
+		map.panTo(new Location(35, 12)); // pan to the 'real' center
+		map.zoomAndPanToFit(getAllLocations(markersList));
+	}
+
 	private void setupGUIAccess() {
-		GUIAccess.setMap(map);
-		GUIAccess.setMarkers(markers);
+		GUIAccess.setBoardMap(this);
 		GUIAccess.setAvailable(true);
 	}
 
 	private void mapCountryMarkers(List<Marker> markers) {
-		this.markers = new LinkedHashMap<>();
+		this.markersMap = new LinkedHashMap<>();
 
 		for (Marker marker : markers) {
-			this.markers.put((String) marker.getProperty("name"), marker);
+			this.markersMap.put((String) marker.getProperty("name"), marker);
 		}
 	}
 
@@ -90,6 +101,7 @@ public class WorldMap extends PApplet {
 
 	@Override
 	public void mouseReleased() {
+
 		if (mouseDragged) {
 			mouseDragged = false;
 			return;
@@ -111,5 +123,28 @@ public class WorldMap extends PApplet {
 		}
 
 		marker.setSelected(true);
+	}
+
+	private List<Location> getAllLocations(List<Marker> markers) {
+		return GeoUtils.getLocationsFromMarkers(markers);
+	}
+
+	private Location pointToLocation(Point point) {
+		return map.getLocation(point.x, point.y);
+	}
+
+	private Point locationToPoint(Location location) {
+		ScreenPosition sp = map.getScreenPosition(location);
+		return new Point((int) sp.x, (int) sp.y);
+	}
+
+	// Getters and setters
+
+	public UnfoldingMap getMap() {
+		return map;
+	}
+
+	public Map<String, Marker> getMarkersMap() {
+		return markersMap;
 	}
 }

@@ -29,6 +29,6 @@ public class WelcomePanel extends JPanel {
 		add(helloPanel);
 		add(buttons);
 
-		mapPanelButton.addActionListener(e -> MainWindow.getMainWindow().show(MapPanel.ID));
+		mapPanelButton.addActionListener(e -> MainWindow.getMainWindow().show(BoardMapPanel.ID));
 	}
 }

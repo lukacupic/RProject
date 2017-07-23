@@ -1,6 +1,6 @@
 package rproject.gui;
 
-import rproject.gui.panels.MapPanel;
+import rproject.gui.panels.BoardMapPanel;
 import rproject.gui.panels.WelcomePanel;
 
 import javax.swing.*;
@@ -12,9 +12,9 @@ public class MainWindow extends JFrame {
 
 	// General program settings
 
-	public static final int DEFAULT_WIDTH = 800;
+	public static final int DEFAULT_WIDTH = 1000;
 
-	public static final int DEFAULT_HEIGHT = 500;
+	public static final int DEFAULT_HEIGHT = 650;
 
 	public static final Font DEFAULT_FONT =
 			new Font("Verdana", Font.BOLD, 12);
@@ -27,7 +27,7 @@ public class MainWindow extends JFrame {
 
 	private JPanel welcomePanel = new WelcomePanel();
 
-	private JPanel mapPanel = new MapPanel();
+	private JPanel mapPanel = new BoardMapPanel();
 
 	/**
 	 * The constructor.
@@ -50,9 +50,9 @@ public class MainWindow extends JFrame {
 	private void initGUI() {
 		panelCont.setLayout(cl);
 		panelCont.add(welcomePanel, WelcomePanel.ID);
-		panelCont.add(mapPanel, MapPanel.ID);
+		panelCont.add(mapPanel, BoardMapPanel.ID);
 
-		cl.show(panelCont, WelcomePanel.ID);
+		cl.show(panelCont, BoardMapPanel.ID); // default (first) panel
 
 		add(panelCont);
 

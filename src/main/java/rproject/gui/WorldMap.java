@@ -9,6 +9,7 @@ import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import processing.core.PApplet;
+import rproject.gui.panels.MapPanel;
 
 import java.awt.*;
 import java.util.LinkedHashMap;
@@ -27,8 +28,7 @@ public class WorldMap extends PApplet {
 
 	private static final Color SEA_COLOR = new Color(54, 111, 250, 230);
 
-	public WorldMap() {
-	}
+	private boolean mouseDragged;
 
 	@Override
 	public void setup() {
@@ -47,13 +47,12 @@ public class WorldMap extends PApplet {
 		mapCountryMarkers(markers);
 
 		setupGUIAccess();
-
-		GUIAccess.setAvailable(true);
 	}
 
 	private void setupGUIAccess() {
 		GUIAccess.setMap(map);
 		GUIAccess.setMarkers(markers);
+		GUIAccess.setAvailable(true);
 	}
 
 	private void mapCountryMarkers(List<Marker> markers) {
@@ -89,8 +88,16 @@ public class WorldMap extends PApplet {
 	}
 
 	@Override
+	public void mouseDragged() {
+		mouseDragged = true;
+	}
+
+	@Override
 	public void mouseReleased() {
-		System.out.println(pointToLocation(getMousePosition()));
+		if (mouseDragged) {
+			mouseDragged = false;
+			return;
+		}
 
 		for (Marker marker : map.getMarkers()) {
 			marker.setSelected(false);

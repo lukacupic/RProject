@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class GUIAccess {
 
-
 	private static UnfoldingMap map;
 
 	private static Map<String, Marker> markers;
@@ -19,6 +18,8 @@ public class GUIAccess {
 		//markers.get(t.getName()).setSelected(true);
 		markers.get("Canada").setSelected(true);
 	}
+
+	// Getters and setters
 
 	public static void setMap(UnfoldingMap map) {
 		GUIAccess.map = map;

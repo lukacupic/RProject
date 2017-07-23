@@ -27,6 +27,9 @@ public class WorldMap extends PApplet {
 
 	private static final Color SEA_COLOR = new Color(54, 111, 250, 230);
 
+	public WorldMap() {
+	}
+
 	@Override
 	public void setup() {
 		size(MainWindow.DEFAULT_WIDTH, MainWindow.DEFAULT_WIDTH, OPENGL);
@@ -44,6 +47,8 @@ public class WorldMap extends PApplet {
 		mapCountryMarkers(markers);
 
 		setupGUIAccess();
+
+		GUIAccess.setAvailable(true);
 	}
 
 	private void setupGUIAccess() {

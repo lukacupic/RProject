@@ -1,5 +1,8 @@
 package rproject.gui;
 
+import rproject.Game;
+import rproject.board.BoardProvider;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -30,6 +33,13 @@ public class MainWindow extends JFrame {
 		worldMap = new WorldMap();
 		add(worldMap, BorderLayout.CENTER);
 		worldMap.init();
+
+		Game game = new Game("map1", new String[]{"A", "B", "C"});
+
+		new Thread(() -> {
+			while (!GUIAccess.isAvailable()) ;
+			GUIAccess.selectTerritory(BoardProvider.getBoard().getTerritory("na"));
+		}).start();
 	}
 
 	public static void main(String[] args) {

@@ -16,6 +16,9 @@ import java.util.List;
 
 public class Game {
 
+	/**
+	 *
+	 */
 	private Board board;
 
 	private List<Player> players = new ArrayList<>();
@@ -25,9 +28,6 @@ public class Game {
 		BoardProvider.setBoard(board);
 
 		createPlayers(new ArrayList<>(Arrays.asList(playerNames)));
-
-		shuffle();
-		runGame();
 	}
 
 	public void start() {

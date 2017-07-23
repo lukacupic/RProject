@@ -9,12 +9,11 @@ public class MapPanel extends JPanel {
 
 	public static final String ID = "mapPanel";
 
-	private WorldMap worldMap;
+	private WorldMap worldMap = new WorldMap();
 
 	public MapPanel() {
-		worldMap = new WorldMap();
-		add(worldMap, BorderLayout.CENTER);
-
 		worldMap.init();
+
+		add(worldMap);
 	}
 }

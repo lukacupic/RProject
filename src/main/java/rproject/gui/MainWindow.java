@@ -10,9 +10,14 @@ public class MainWindow extends JFrame {
 
 	private static MainWindow mainWindow;
 
+	// General program settings
+
 	public static final int DEFAULT_WIDTH = 800;
 
 	public static final int DEFAULT_HEIGHT = 500;
+
+	public static final Font DEFAULT_FONT =
+			new Font("Verdana", Font.BOLD, 12);
 
 	// Panels (screens)
 
@@ -28,15 +33,18 @@ public class MainWindow extends JFrame {
 	 * The constructor.
 	 */
 	public MainWindow() {
+		mainWindow = this;
+
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+
 		setVisible(true);
+		setResizable(false);
 		setTitle("RProject Risk Simulator v1.0");
 
 		initGUI();
 		initSettings();
-
-		mainWindow = this;
 	}
 
 	private void initGUI() {

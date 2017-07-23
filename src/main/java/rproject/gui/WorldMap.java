@@ -3,13 +3,11 @@ package rproject.gui;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
-import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import processing.core.PApplet;
-import rproject.gui.panels.MapPanel;
 
 import java.awt.*;
 import java.util.LinkedHashMap;
@@ -32,13 +30,15 @@ public class WorldMap extends PApplet {
 
 	@Override
 	public void setup() {
-		size(MainWindow.DEFAULT_WIDTH, MainWindow.DEFAULT_WIDTH, OPENGL);
+		MainWindow mw = MainWindow.getMainWindow();
+		size(mw.getWidth(), mw.getHeight(), OPENGL);
 		smooth();
 
 		map = new UnfoldingMap(this);
 		map.setBackgroundColor(colorToInt(SEA_COLOR));
-		MapUtils.createDefaultEventDispatcher(this, map);
 		map.setTweening(true);
+
+		MapUtils.createDefaultEventDispatcher(this, map);
 
 		List<Feature> countries = GeoJSONReader.loadData(this, "src/main/resources/countries.geo.json");
 
@@ -71,10 +71,6 @@ public class WorldMap extends PApplet {
 
 	private int colorToInt(Color c) {
 		return color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
-	}
-
-	private Location pointToLocation(Point point) {
-		return map.getLocation(point.x, point.y);
 	}
 
 	@Override
@@ -115,13 +111,5 @@ public class WorldMap extends PApplet {
 		}
 
 		marker.setSelected(true);
-	}
-
-	public UnfoldingMap getMap() {
-		return map;
-	}
-
-	public Map<String, Marker> getMarkers() {
-		return markers;
 	}
 }

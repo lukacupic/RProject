@@ -1,6 +1,7 @@
 package rproject.gui.panels;
 
 import rproject.Game;
+import rproject.files.FileUtil;
 import rproject.gui.MainWindow;
 
 import javax.swing.*;
@@ -10,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-// Todo: map thumbnails, analogous to Players' list
 // Todo: remove hardcoded values, such as "map1"
 
 public class SettingsPanel extends JPanel {
@@ -62,7 +62,7 @@ public class SettingsPanel extends JPanel {
 		settings.add(boardsLabel, c);
 
 		// map combo box
-		JComboBox<String> boardsComboBox = initComboBox(new String[]{"map1"}, 1, 0,
+		JComboBox<String> boardsComboBox = initComboBox(FileUtil.getMapsArray(), 1, 0,
 				new Insets(0, 0, 0, 0));
 		boardsComboBox.addActionListener(e -> selectedBoard = (String) boardsComboBox.getSelectedItem());
 		settings.add(boardsComboBox, c);

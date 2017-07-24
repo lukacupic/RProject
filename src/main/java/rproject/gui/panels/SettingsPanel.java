@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 // Todo: map thumbnails, analogous to Players' list
 // Todo: remove hardcoded values, such as "map1"
@@ -44,7 +46,7 @@ public class SettingsPanel extends JPanel {
 	 * A panel holding text fields of the player names.
 	 */
 	// a reference is held so that it can be replaced if the user is indecisive
-	private JPanel playerNames;
+	private PlayerNamesPanel playerNames;
 
 	/**
 	 * The constructor.
@@ -73,7 +75,7 @@ public class SettingsPanel extends JPanel {
 		// players combo box
 		playersComboBox = initComboBox(new String[]{"2", "3", "4", "5", "6"},
 				1, 1, new Insets(30, 0, 0, 0));
-		//playersComboBox.addActionListener(new PlayersComboBoxListener());
+		playersComboBox.addActionListener(new PlayersComboBoxListener());
 		playersComboBox.setSelectedIndex(0);
 		settings.add(playersComboBox, c);
 
@@ -84,29 +86,6 @@ public class SettingsPanel extends JPanel {
 		add(settings);
 	}
 
-
-	/**
-	 * Creates a new label with the given values.
-	 * See {@link GridBagConstraints} class fields for
-	 * more information.
-	 *
-	 * @param text   the text to go inside the component
-	 * @param gridx  the column of the {@link GridBagLayout}
-	 *               in which to put this component into
-	 * @param gridy  the row of the {@link GridBagLayout}
-	 *               in which to put this component into
-	 * @param insets the external padding of the component
-	 * @return a new label with the given values
-	 */
-	private JLabel initLabel(String text, int gridx, int gridy, Insets insets) {
-		JLabel boardsLabel = new JLabel(text);
-
-		c.insets = insets;
-		c.gridx = gridx;
-		c.gridy = gridy;
-
-		return boardsLabel;
-	}
 
 	/**
 	 * Creates a new combo box filled with the given values.
@@ -129,6 +108,29 @@ public class SettingsPanel extends JPanel {
 		c.gridy = gridy;
 
 		return playersComboBox;
+	}
+
+	/**
+	 * Creates a new label with the given values.
+	 * See {@link GridBagConstraints} class fields for
+	 * more information.
+	 *
+	 * @param text   the text to go inside the component
+	 * @param gridx  the column of the {@link GridBagLayout}
+	 *               in which to put this component into
+	 * @param gridy  the row of the {@link GridBagLayout}
+	 *               in which to put this component into
+	 * @param insets the external padding of the component
+	 * @return a new label with the given values
+	 */
+	private JLabel initLabel(String text, int gridx, int gridy, Insets insets) {
+		JLabel boardsLabel = new JLabel(text);
+
+		c.insets = insets;
+		c.gridx = gridx;
+		c.gridy = gridy;
+
+		return boardsLabel;
 	}
 
 	/**
@@ -176,13 +178,51 @@ public class SettingsPanel extends JPanel {
 
 			int playersCount = Integer.parseInt((String) playersComboBox.getSelectedItem());
 
-			playerNames = new JPanel(new GridLayout(playersCount, 1));
+			playerNames = new PlayerNamesPanel(new GridLayout(playersCount, 1));
 
 			for (int i = 1; i <= playersCount; i++) {
-				playerNames.add(new JTextField("Player " + i));
+				playerNames.putName("Player " + i);
 			}
 			settings.add(playerNames, c);
 			settings.revalidate();
+		}
+	}
+
+	/**
+	 * A panel which holds text fields with the player names.
+	 */
+	private class PlayerNamesPanel extends JPanel {
+
+		/**
+		 * An array of player names.
+		 */
+		private List<String> names = new ArrayList<>();
+
+		/**
+		 * The constructor.
+		 *
+		 * @param layout the layout manger for this panel
+		 */
+		public PlayerNamesPanel(LayoutManager layout) {
+			super(layout);
+		}
+
+		/**
+		 * Adds a new player's name onto the panel.
+		 *
+		 * @param name the name of the player
+		 */
+		public void putName(String name) {
+			names.add(name);
+		}
+
+		/**
+		 * Gets an array of all player names.
+		 *
+		 * @return an array of all player names.
+		 */
+		public String[] getNames() {
+			return names.toArray(new String[0]);
 		}
 	}
 }

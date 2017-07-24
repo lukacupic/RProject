@@ -76,8 +76,8 @@ public class SettingsPanel extends JPanel {
 		playersComboBox = initComboBox(new String[]{"2", "3", "4", "5", "6"},
 				1, 1, new Insets(30, 0, 0, 0));
 		playersComboBox.addActionListener(new PlayersComboBoxListener());
-		playersComboBox.setSelectedIndex(0);
 		settings.add(playersComboBox, c);
+		playersComboBox.setSelectedIndex(0);
 
 		// play button
 		JButton playButton = initButton();
@@ -214,6 +214,7 @@ public class SettingsPanel extends JPanel {
 		 */
 		public void putName(String name) {
 			names.add(name);
+			add(new JTextField(name));
 		}
 
 		/**

@@ -27,11 +27,11 @@ public class MainWindow extends JFrame {
 
 	private JPanel panelCont = new JPanel();
 
-	private JPanel welcomePanel = new WelcomePanel();
+	public WelcomePanel welcomePanel = new WelcomePanel();
 
-	private JPanel gameSettingsPanel = new SettingsPanel();
+	public SettingsPanel gameSettingsPanel = new SettingsPanel();
 
-	private JPanel mapPanel = new BoardMapPanel();
+	public BoardMapPanel mapPanel = new BoardMapPanel();
 
 	public static CountDownLatch latch = new CountDownLatch(1);
 

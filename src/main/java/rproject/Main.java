@@ -54,7 +54,7 @@ public class Main {
 	}
 
 	private static String getSelectedMap() {
-		List<String> maps = FileUtil.getMaps();
+		List<String> maps = FileUtil.getMapsList();
 		showMaps(maps);
 
 		int input;

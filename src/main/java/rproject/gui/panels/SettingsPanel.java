@@ -1,6 +1,5 @@
 package rproject.gui.panels;
 
-import rproject.Game;
 import rproject.files.FileUtil;
 import rproject.gui.MainWindow;
 
@@ -146,9 +145,7 @@ public class SettingsPanel extends JPanel {
 		playButton.addActionListener(e -> {
 			// TODO: here should the loading process be implemented or called!
 
-			Game game = new Game(selectedBoard, playerNames.getNames());
-			game.start();
-
+			MainWindow.getMainWindow().mapPanel.init(selectedBoard, playerNames.getNames());
 			MainWindow.getMainWindow().showPanel(BoardMapPanel.ID);
 		});
 

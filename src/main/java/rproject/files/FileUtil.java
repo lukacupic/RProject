@@ -62,10 +62,19 @@ public class FileUtil {
 	 *
 	 * @return a list of names all the maps available for playing
 	 */
-	public static List<String> getMaps() {
+	public static List<String> getMapsList() {
 		if (maps != null) return maps;
 		readMaps();
 		return maps;
+	}
+
+	/**
+	 * Returns an array of names all the maps available for playing.
+	 *
+	 * @return an array of names all the maps available for playing
+	 */
+	public static String[] getMapsArray() {
+		return getMapsList().toArray(new String[0]);
 	}
 
 	/**

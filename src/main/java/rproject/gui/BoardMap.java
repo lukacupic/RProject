@@ -15,10 +15,10 @@ import rproject.files.FileUtil;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 public class BoardMap extends PApplet {
 
@@ -32,6 +32,11 @@ public class BoardMap extends PApplet {
 
 	private UnfoldingMap map;
 
+	/**
+	 * The name of the board.
+	 */
+	private String name;
+
 	private Map<String, Marker> markersMap;
 
 	private List<Marker> markersList;
@@ -40,13 +45,15 @@ public class BoardMap extends PApplet {
 
 	private boolean mouseDragged;
 
+	public BoardMap(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public void setup() {
 		MainWindow mw = MainWindow.getMainWindow();
 		size(mw.getWidth(), mw.getHeight(), OPENGL);
 		smooth();
-
-		System.out.println("Unfolding: EDT was here at + " + new Date());
 
 		map = new UnfoldingMap(this);
 		map.setBackgroundColor(colorToInt(SEA_COLOR));
@@ -54,7 +61,7 @@ public class BoardMap extends PApplet {
 
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> features = GeoJSONReader.loadData(this, FileUtil.MAP_COORDS_PATH + "map1" + ".json");
+		List<Feature> features = GeoJSONReader.loadData(this, FileUtil.MAP_COORDS_PATH + name + ".json");
 
 		markersList = MapUtils.createSimpleMarkers(features);
 		map.addMarkers(markersList);

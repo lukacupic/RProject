@@ -1,10 +1,12 @@
 package rproject.gui;
 
 import rproject.gui.panels.BoardMapPanel;
+import rproject.gui.panels.SettingsPanel;
 import rproject.gui.panels.WelcomePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.CountDownLatch;
 
 public class MainWindow extends JFrame {
 
@@ -27,14 +29,17 @@ public class MainWindow extends JFrame {
 
 	private JPanel welcomePanel = new WelcomePanel();
 
+	private JPanel gameSettingsPanel = new SettingsPanel();
+
 	private JPanel mapPanel = new BoardMapPanel();
+
+	public static CountDownLatch latch = new CountDownLatch(1);
 
 	/**
 	 * The constructor.
 	 */
 	public MainWindow() {
 		mainWindow = this;
-
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
@@ -44,26 +49,20 @@ public class MainWindow extends JFrame {
 		setTitle("RProject Risk Simulator v1.0");
 
 		initGUI();
-		initSettings();
 	}
 
+	/**
+	 * Initializes the GUI.
+	 */
 	private void initGUI() {
 		panelCont.setLayout(cl);
+
 		panelCont.add(welcomePanel, WelcomePanel.ID);
+		panelCont.add(gameSettingsPanel, SettingsPanel.ID);
 		panelCont.add(mapPanel, BoardMapPanel.ID);
-
-		cl.show(panelCont, BoardMapPanel.ID); // default (first) panel
-
 		add(panelCont);
 
-		// Game game = new Game("map1", new String[]{"A", "B", "C"});
-		// game.start();
-	}
-
-	private void initSettings() {
-		new Thread(() -> {
-			// ...
-		}).start();
+		cl.show(panelCont, WelcomePanel.ID); // default (first) panel
 	}
 
 	/**
@@ -71,10 +70,15 @@ public class MainWindow extends JFrame {
 	 *
 	 * @param id the identifier string of a panel to display
 	 */
-	public void show(String id) {
+	public void showPanel(String id) {
 		cl.show(panelCont, id);
 	}
 
+	/**
+	 * Returns an instance of the main window of the program.
+	 *
+	 * @return the program's main window
+	 */
 	public static MainWindow getMainWindow() {
 		return mainWindow;
 	}

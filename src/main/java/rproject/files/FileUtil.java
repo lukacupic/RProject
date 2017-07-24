@@ -26,6 +26,12 @@ public class FileUtil {
 	public static String MAP_NAMES_PATH = "maps/names/";
 
 	/**
+	 * The relative path of the folder containing territory coordinates
+	 * for each map.
+	 */
+	public static String MAP_COORDS_PATH = "maps/coordinates/";
+
+	/**
 	 * A list of all available maps.
 	 */
 	private static List<String> maps;

@@ -8,6 +8,8 @@ public class GUIAccess {
 
 	private static BoardMap boardMap;
 
+	// API methods
+
 	public static void selectTerritory(Territory t) {
 		//boardMap.getMarkersMap().get(t.getName()).setSelected(true);
 		boardMap.getMarkersMap().get("Canada").setSelected(true);
@@ -18,7 +20,6 @@ public class GUIAccess {
 	}
 
 	// Getters and setters
-
 
 	public static BoardMap getBoardMap() {
 		return boardMap;

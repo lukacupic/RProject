@@ -7,8 +7,15 @@ import java.awt.*;
 
 public class WelcomePanel extends JPanel {
 
+	/**
+	 * The unique identifier of this panel. Used to select
+	 * currently active panel from the {@link MainWindow}.
+	 */
 	public static final String ID = "welcomePanel";
 
+	/**
+	 * The constructor.
+	 */
 	public WelcomePanel() {
 		setLayout(new GridLayout(2, 1));
 
@@ -29,6 +36,7 @@ public class WelcomePanel extends JPanel {
 		add(helloPanel);
 		add(buttons);
 
-		mapPanelButton.addActionListener(e -> MainWindow.getMainWindow().show(BoardMapPanel.ID));
+		mapPanelButton.addActionListener(e -> MainWindow.getMainWindow().showPanel(SettingsPanel.ID));
+		exitButton.addActionListener(e -> System.exit(0));
 	}
 }

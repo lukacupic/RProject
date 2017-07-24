@@ -11,13 +11,24 @@ import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
+import rproject.files.FileUtil;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class BoardMap extends PApplet {
+
+	private static final Color SELECTION_COLOR = new Color(250, 55, 81, 240);
+
+	private static final Color TERRITORY_COLOR = new Color(0, 185, 89, 244);
+
+	private static final Color SEA_COLOR = new Color(54, 111, 250, 230);
+
+	private static final Location REAL_CENTER = new Location(35, 12);
 
 	private UnfoldingMap map;
 
@@ -25,11 +36,7 @@ public class BoardMap extends PApplet {
 
 	private List<Marker> markersList;
 
-	private static final Color SELECTION_COLOR = new Color(250, 55, 81, 240);
-
-	private static final Color TERRITORY_COLOR = new Color(0, 185, 89, 244);
-
-	private static final Color SEA_COLOR = new Color(54, 111, 250, 230);
+	private List<String> territoryNames;
 
 	private boolean mouseDragged;
 
@@ -39,31 +46,38 @@ public class BoardMap extends PApplet {
 		size(mw.getWidth(), mw.getHeight(), OPENGL);
 		smooth();
 
+		System.out.println("Unfolding: EDT was here at + " + new Date());
+
 		map = new UnfoldingMap(this);
 		map.setBackgroundColor(colorToInt(SEA_COLOR));
 		map.setTweening(true);
 
 		MapUtils.createDefaultEventDispatcher(this, map);
 
-		List<Feature> countries = GeoJSONReader.loadData(this, "src/main/resources/countries.geo.json");
+		List<Feature> features = GeoJSONReader.loadData(this, FileUtil.MAP_COORDS_PATH + "map1" + ".json");
 
-		markersList = MapUtils.createSimpleMarkers(countries);
+		markersList = MapUtils.createSimpleMarkers(features);
 		map.addMarkers(markersList);
 		mapCountryMarkers(markersList);
 
+		territoryNames = new ArrayList<>(markersMap.keySet());
+
 		centerMap();
+
+		map.setPanningRestriction(REAL_CENTER, 3500);
 
 		setupGUIAccess();
 	}
 
 	public void centerMap() {
-		map.panTo(new Location(35, 12)); // pan to the 'real' center
-		map.zoomAndPanToFit(getAllLocations(markersList));
+		map.panTo(REAL_CENTER); // pan to the 'real' center
+		map.zoomAndPanToFit(GeoUtils.getLocationsFromMarkers(markersList));
 	}
 
 	private void setupGUIAccess() {
 		GUIAccess.setBoardMap(this);
 		GUIAccess.setAvailable(true);
+		MainWindow.latch.countDown();
 	}
 
 	private void mapCountryMarkers(List<Marker> markers) {
@@ -125,10 +139,6 @@ public class BoardMap extends PApplet {
 		marker.setSelected(true);
 	}
 
-	private List<Location> getAllLocations(List<Marker> markers) {
-		return GeoUtils.getLocationsFromMarkers(markers);
-	}
-
 	private Location pointToLocation(Point point) {
 		return map.getLocation(point.x, point.y);
 	}
@@ -140,11 +150,11 @@ public class BoardMap extends PApplet {
 
 	// Getters and setters
 
-	public UnfoldingMap getMap() {
-		return map;
-	}
-
 	public Map<String, Marker> getMarkersMap() {
 		return markersMap;
+	}
+
+	public List<String> getTerritoryNames() {
+		return territoryNames;
 	}
 }

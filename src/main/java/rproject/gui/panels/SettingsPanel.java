@@ -66,6 +66,7 @@ public class SettingsPanel extends JPanel {
 				new Insets(0, 0, 0, 0));
 		boardsComboBox.addActionListener(e -> selectedBoard = (String) boardsComboBox.getSelectedItem());
 		settings.add(boardsComboBox, c);
+		boardsComboBox.setSelectedIndex(0);
 
 		// players label
 		JLabel playersLabel = initLabel("How many players?", 0, 1,
@@ -145,7 +146,7 @@ public class SettingsPanel extends JPanel {
 		playButton.addActionListener(e -> {
 			// TODO: here should the loading process be implemented or called!
 
-			Game game = new Game(selectedBoard, new String[]{"A", "B", "C"});
+			Game game = new Game(selectedBoard, playerNames.getNames());
 			game.start();
 
 			MainWindow.getMainWindow().showPanel(BoardMapPanel.ID);

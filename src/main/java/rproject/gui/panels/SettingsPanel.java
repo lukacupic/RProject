@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-// Todo: remove hardcoded values, such as "map1"
+// Todo: map thumbnails, analogous to Players' list
 
 public class SettingsPanel extends JPanel {
 

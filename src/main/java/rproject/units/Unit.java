@@ -9,6 +9,8 @@ public abstract class Unit {
 
 	protected int damage;
 
+	protected int price;
+
 	public Unit() {
 	}
 
@@ -44,6 +46,14 @@ public abstract class Unit {
 
 	public void setDamage(int damage) {
 		this.damage = damage;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int damage) {
+		this.price = price;
 	}
 
 	public abstract boolean attack(Unit unit);

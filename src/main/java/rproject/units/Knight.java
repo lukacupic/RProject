@@ -4,11 +4,14 @@ public class Knight extends Unit {
 
 	private static final int DEFAULT_HP = 150;
 
-	private static final int DEFAULT_DMG = 30;
+	private static final int DEFAULT_DMG = 35;
+
+	private static final int DEFAULT_PRICE = 3;
 
 	public Knight() {
 		hp = DEFAULT_HP;
 		damage = DEFAULT_DMG;
+		price = DEFAULT_PRICE;
 	}
 
 	public Knight(int hp, int damage) {

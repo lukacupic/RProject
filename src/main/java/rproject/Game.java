@@ -37,9 +37,9 @@ public class Game {
 	}
 
 	private void runInitSpawnPhase(){
-		Output.writeln("*** init phase, place your units! *** ");
+		Output.writeln("*** init phase, place your units! ***");
 		for (Player player : players) {
-			player.addGold(7); // total of 10 gold ready to be spent
+			player.addGold(2);
 			spawnPhase(player);
 		}
 	}

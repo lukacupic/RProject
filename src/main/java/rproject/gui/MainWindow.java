@@ -33,8 +33,6 @@ public class MainWindow extends JFrame {
 
 	public BoardMapPanel mapPanel = new BoardMapPanel();
 
-	public static CountDownLatch latch = new CountDownLatch(1);
-
 	/**
 	 * The constructor.
 	 */

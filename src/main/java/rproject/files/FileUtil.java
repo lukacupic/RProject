@@ -20,12 +20,6 @@ public class FileUtil {
 	public static String NBHOOD_MATRIX_PATH = "maps/matrix/";
 
 	/**
-	 * The relative path of the folder containing territory names for
-	 * each map.
-	 */
-	public static String MAP_NAMES_PATH = "maps/names/";
-
-	/**
 	 * The relative path of the folder containing territory coordinates
 	 * for each map.
 	 */
@@ -44,17 +38,6 @@ public class FileUtil {
 	 */
 	public static List<String> readMatrix(String name) {
 		return readLines(NBHOOD_MATRIX_PATH + name + ".txt");
-	}
-
-	/**
-	 * Reads territory names from the {@link #MAP_NAMES_PATH} directory
-	 * of the board with the given name.
-	 *
-	 * @param name the name of the board to read the territories
-	 * @return the territories of the specified board
-	 */
-	public static List<String> readNames(String name) {
-		return readLines(MAP_NAMES_PATH + name + ".txt");
 	}
 
 	/**
@@ -82,7 +65,7 @@ public class FileUtil {
 	 * directory.
 	 */
 	private static void readMaps() {
-		File dir = new File(MAP_NAMES_PATH);
+		File dir = new File(NBHOOD_MATRIX_PATH);
 
 		List<String> maps = new ArrayList<>();
 		for (String file : dir.list()) {

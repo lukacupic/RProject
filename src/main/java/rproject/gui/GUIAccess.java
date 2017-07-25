@@ -2,9 +2,11 @@ package rproject.gui;
 
 import rproject.Territory;
 
+import java.util.concurrent.CountDownLatch;
+
 public class GUIAccess {
 
-	private static volatile boolean available = false;
+	public static final CountDownLatch LATCH = new CountDownLatch(1);
 
 	private static BoardMap boardMap;
 
@@ -27,13 +29,5 @@ public class GUIAccess {
 
 	public static void setBoardMap(BoardMap boardMap) {
 		GUIAccess.boardMap = boardMap;
-	}
-
-	public static boolean isAvailable() {
-		return available;
-	}
-
-	public static void setAvailable(boolean available) {
-		GUIAccess.available = available;
 	}
 }

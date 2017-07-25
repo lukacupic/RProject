@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
 public class BoardMap extends PApplet {
 
@@ -83,8 +82,7 @@ public class BoardMap extends PApplet {
 
 	private void setupGUIAccess() {
 		GUIAccess.setBoardMap(this);
-		GUIAccess.setAvailable(true);
-		MainWindow.latch.countDown();
+		GUIAccess.LATCH.countDown();
 	}
 
 	private void mapCountryMarkers(List<Marker> markers) {

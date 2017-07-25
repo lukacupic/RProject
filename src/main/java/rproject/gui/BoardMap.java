@@ -71,7 +71,7 @@ public class BoardMap extends PApplet {
 
 		centerMap();
 
-		map.setPanningRestriction(REAL_CENTER, 3500);
+		//map.setPanningRestriction(REAL_CENTER, 3500);
 
 		setupGUIAccess();
 	}

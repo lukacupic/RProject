@@ -1,6 +1,6 @@
-northAmerica
 southAmerica
-europe
-africa
 asia
+africa
+europe
+northAmerica
 australia

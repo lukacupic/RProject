@@ -5,6 +5,7 @@ import rproject.gui.BoardMap;
 import rproject.gui.MainWindow;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class BoardMapPanel extends JPanel {
 
@@ -20,6 +21,7 @@ public class BoardMapPanel extends JPanel {
 	 * The constructor.
 	 */
 	public BoardMapPanel() {
+		setLayout(new BorderLayout());
 	}
 
 	/**
@@ -32,7 +34,7 @@ public class BoardMapPanel extends JPanel {
 	 */
 	public void init(String boardName, String[] playerNames) {
 		boardMap = new BoardMap(boardName);
-		add(boardMap);
+		add(boardMap, BorderLayout.CENTER);
 
 		new Thread(() -> {
 			boardMap.init();

@@ -14,9 +14,6 @@ import java.util.List;
 
 public class Game {
 
-	/**
-	 *
-	 */
 	private Board board;
 
 	private List<Player> players = new ArrayList<>();
@@ -39,7 +36,16 @@ public class Game {
 		}
 	}
 
+	private void runInitSpawnPhase(){
+		Output.writeln("*** init phase, place your units! *** ");
+		for (Player player : players) {
+			player.addGold(7); // total of 10 gold ready to be spent
+			spawnPhase(player);
+		}
+	}
+
 	private void runGame() {
+		runInitSpawnPhase();
 		while (numberOfPlayers() > 1)
 			for (Player player : players)
 				if (player.isAlive()) runPlayer(player);

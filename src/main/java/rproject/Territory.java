@@ -14,12 +14,12 @@ public class Territory {
 
 	private Player owner;
 
-	private List<Unit> Units;
+	private List<Unit> units;
 
 	private static int territoryCount;
 
 	public Territory(String name) {
-		Units = new ArrayList<>();
+		units = new ArrayList<>();
 		this.name = name;
 		this.index = territoryCount++;
 		this.addUnit(new Fighter());
@@ -48,7 +48,7 @@ public class Territory {
 	}
 
 	public void addUnit(Unit U) {
-		this.Units.add(U);
+		this.units.add(U);
 	}
 
 	public void addUnits(List<Unit> units) {
@@ -64,7 +64,7 @@ public class Territory {
 	}*/
 
 	public boolean removeUnit(Unit U) {
-		return this.Units.remove(U);
+		return this.units.remove(U);
 	}
 
 	public void removeUnits(List<Unit> units) {
@@ -79,15 +79,25 @@ public class Territory {
 	}
 
 	public List<Unit> getUnits() {
-		return Units;
+		return units;
+	}
+
+	public int getNumberOfUnits(String name) {
+		int count = 0;
+		for (Unit u : units) {
+			if (u.getName().equals(name)) {
+				count++;
+			}
+		}
+		return count;
 	}
 
 	public void setUnits(List<Unit> units) {
-		Units = units;
+		this.units = units;
 	}
 
 	public int getCntUnits() {
-		return Units.size();
+		return units.size();
 	}
 
 }

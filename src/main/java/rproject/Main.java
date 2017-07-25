@@ -1,5 +1,6 @@
 package rproject;
 
+import com.sun.xml.internal.fastinfoset.util.StringArray;
 import rproject.files.FileUtil;
 import rproject.io.Input;
 import rproject.io.Output;
@@ -20,7 +21,7 @@ public class Main {
 		Output.writeln("**********************************");
 		Output.newLine();
 
-		Output.writeln("Enter the number of the map you wish to play:");
+/*		Output.writeln("Enter the number of the map you wish to play:");
 		String map = getSelectedMap();
 		Output.newLine();
 
@@ -31,6 +32,9 @@ public class Main {
 		String[] playerNames = getPlayerNames(playersCount);
 
 		Game game = new Game(map, playerNames);
+		game.start();*/
+
+		Game game = new Game("continentsShort", new String[]{"asd","qwe"});
 		game.start();
 	}
 

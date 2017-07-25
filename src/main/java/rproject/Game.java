@@ -4,8 +4,6 @@ import rproject.board.Board;
 import rproject.board.BoardProvider;
 import rproject.io.Input;
 import rproject.io.Output;
-import rproject.units.Fighter;
-import rproject.units.Knight;
 import rproject.units.Unit;
 import rproject.util.Util;
 
@@ -154,16 +152,27 @@ public class Game {
 
 	private List<Unit> getUnits(Territory T) {
 		Output.writeln("list of available units:");
-		List<Unit> Units = T.getUnits();
-		for (Unit unit : Units)
-			Output.write("dmg: " + unit.getDamage() + ", hp: " + unit.getHp() + "; ");
-		Output.writeln("");
+		List < Unit > allUnits = Unit.getAllUnits();
+		for (Unit unit : allUnits) {
+			if (T.getNumberOfUnits(unit.getName()) == 0) continue;
+			Output.writeln(unit.getName() + " (dmg: " + unit.getDamage() + ", hp: " + unit.getHp()
+					+ ", quantity: " + T.getNumberOfUnits(unit.getName()) + "x)");
+		}
 		List<Unit> selectedUnits = new ArrayList<>();
-		for (Unit unit : Units) {
-			if (selectedUnits.size() + 1 == Units.size()) break;
-			Output.writeln("dmg: " + unit.getDamage() + ", hp: " + unit.getHp());
-			if (getYNAnswer("add"))
-				selectedUnits.add(unit);
+		boolean isAllSelected = true;
+		for (Unit unit : allUnits) {
+			Output.writeln("how many " + unit.getName() + "?");
+			int cntSelectedUnits = Input.readInt();
+			while (cntSelectedUnits > T.getNumberOfUnits(unit.getName()) || cntSelectedUnits < 0) {
+				Output.writeln("input number not valid");
+				if (getYNAnswer("input again")) {
+					Output.writeln("how many " + unit.getName() + "?");
+					cntSelectedUnits = Input.readInt();
+				} else
+					cntSelectedUnits = 0;
+			}
+			for(int i = 0; i < cntSelectedUnits; ++i)
+				selectedUnits.add(unit.clone());
 		}
 		return selectedUnits;
 	}
@@ -249,9 +258,31 @@ public class Game {
 
 	private List<Unit> getSpawnUnits(Player player) {
 		List<Unit> units = new ArrayList<>();
-		int gold = player.getGold();
-		Output.writeln("max units: " + gold);
-		int cntSpawnUnits = Input.readInt();
+		Output.writeln("current gold: " + player.getGold());
+		List < Unit > allUnits = Unit.getAllUnits();
+		Output.writeln("all units:");
+		for (Unit unit : allUnits) {
+			Output.writeln(unit.getName() + " (dmg: " + unit.getDamage() + ", hp: " + unit.getHp()
+					+ ", price: " + unit.getPrice() + ")");
+		}
+		for (Unit unit : allUnits) {
+			Output.writeln("how many " + unit.getName() + "?");
+			int cntSpawnUnits = Input.readInt();
+			while(cntSpawnUnits * unit.getPrice() > player.getGold() || cntSpawnUnits < 0){
+				Output.writeln("input number not valid");
+				if(getYNAnswer("input again")) {
+					Output.writeln("how many " + unit.getName() + "?");
+					cntSpawnUnits = Input.readInt();
+				}
+				else
+					cntSpawnUnits = 0;
+			}
+			player.removeGold(cntSpawnUnits * unit.getPrice());
+			for(int i = 0; i < cntSpawnUnits; ++i)
+				units.add(unit.clone());
+		}
+		return units;
+/*		int cntSpawnUnits = Input.readInt();
 		if (gold > cntSpawnUnits) return units;
 		player.removeGold(cntSpawnUnits);
 		for (int i = 0; i < cntSpawnUnits; ++i) {
@@ -259,8 +290,7 @@ public class Game {
 			if (Util.getRandInt(100) < 75) U = new Fighter();
 			else U = new Knight();
 			units.add(U);
-		}
-		return units;
+		}*/
 	}
 
 	private void spawnPhase(Player player) {

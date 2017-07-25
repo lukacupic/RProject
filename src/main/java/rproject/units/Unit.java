@@ -1,5 +1,8 @@
 package rproject.units;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  */
@@ -11,12 +14,26 @@ public abstract class Unit {
 
 	protected int price;
 
+	private static final List < Unit > allUnits = initAllUnits();
+
+	private static List < Unit > initAllUnits(){
+		List < Unit > allUnits;
+		allUnits = new ArrayList<>();
+		allUnits.add(new Fighter());
+		allUnits.add(new Knight());
+		return allUnits;
+	}
+
 	public Unit() {
 	}
 
 	public Unit(int hp, int damage) {
 		this.hp = hp;
 		this.damage = damage;
+	}
+
+	public static List < Unit > getAllUnits(){
+		return allUnits;
 	}
 
 	public void addHp(int hp) {

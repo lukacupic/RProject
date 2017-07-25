@@ -17,7 +17,7 @@ public class FileUtil {
 	 * The relative path of the folder containing neighbourhood matrix
 	 * for each map.
 	 */
-	public static String NBHOOD_MATRIX_PATH = "maps/matrix/";
+	public static String NBHOOD_MATRIX_PATH = "maps/matrices/";
 
 	/**
 	 * The relative path of the folder containing territory names for

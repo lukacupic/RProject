@@ -161,6 +161,7 @@ public class Game {
 		List<Unit> selectedUnits = new ArrayList<>();
 		boolean isAllSelected = true;
 		for (Unit unit : allUnits) {
+			if (T.getNumberOfUnits(unit.getName()) == 0) continue;
 			Output.writeln("how many " + unit.getName() + "?");
 			int cntSelectedUnits = Input.readInt();
 			while (cntSelectedUnits > T.getNumberOfUnits(unit.getName()) || cntSelectedUnits < 0) {
@@ -192,6 +193,10 @@ public class Game {
 			Territory defTerritory = getTerritory("att what?");
 			if (!checkValidAttack(attTerritory, defTerritory, player)) continue;
 			List<Unit> attUnits = getUnits(attTerritory);
+			if (attUnits.size() == attTerritory.getCntUnits()){
+				Output.writeln("you cant attack with all units");
+				continue;
+			}
 			attTerritory.removeUnits(attUnits);
 			List<Unit> survivors = battle(attTerritory, defTerritory, attUnits);
 			if (!survivors.isEmpty()) {
@@ -231,11 +236,14 @@ public class Game {
 		while (getYNAnswer("move units")) {
 			Board board = BoardProvider.getBoard();
 			board.getMatrix().drawMatrixCUI();
-			Output.writeln("move n units from a to b, write using format: a b n");
 			Territory starting = getTerritory("move from?");
 			Territory ending = getTerritory("move to?");
 			if (!checkValidMoving(starting, ending, player)) continue;
 			List<Unit> movingUnits = getUnits(starting);
+			if (movingUnits.size() == starting.getCntUnits()){
+				Output.writeln("you cant attack with all units");
+				continue;
+			}
 			starting.moveUnits(ending, movingUnits);
 		}
 	}

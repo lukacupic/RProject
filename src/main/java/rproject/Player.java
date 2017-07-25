@@ -29,7 +29,7 @@ public class Player {
 	}
 
 	public boolean isAlive() {
-		return this.getCntUnits() > 0;
+		return this.territories.size() > 0;
 	}
 
 	public String getName() {

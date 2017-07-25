@@ -42,10 +42,11 @@ public class Game {
 	}
 
 	private void runGame() {
-		while (numberOfPlayers() > 1) {
+		while (numberOfPlayers() > 1)
 			for (Player player : players)
 				if (player.isAlive()) runPlayer(player);
-		}
+		for (Player player : players)
+			if (player.isAlive()) Output.writeln("congratz, " + player.getName() + " is winner!");
 	}
 
 	private int numberOfPlayers() {
@@ -62,6 +63,7 @@ public class Game {
 		Output.writeln(" ******");
 		spawnPhase(player);
 		boolean getBonus = attackPhase(player);
+		if (numberOfPlayers() == 1) return;
 		movePhase(player);
 		if (getBonus) bonusPhase(player);
 	}
@@ -173,7 +175,7 @@ public class Game {
 	}
 
 	private boolean attackPhase(Player player) {
-		boolean getBonus = false;
+		boolean giveBonus = false;
 		while (getYNAnswer("attack")) {
 			Board board = BoardProvider.getBoard();
 			board.getMatrix().drawMatrixCUI();
@@ -184,15 +186,16 @@ public class Game {
 			attTerritory.removeUnits(attUnits);
 			List<Unit> survivors = battle(attTerritory, defTerritory, attUnits);
 			if (!survivors.isEmpty()) {
-				getBonus = true;
+				giveBonus = true;
 				defTerritory.changeOwner(player);
 				defTerritory.setUnits(survivors);
 				Output.writeln("attacker wins");
+				if (numberOfPlayers() == 1) return true;
 			} else {
 				Output.writeln("defender wins");
 			}
 		}
-		return getBonus;
+		return giveBonus;
 	}
 
 	private boolean checkValidMoving(Territory startingTerritory, Territory endingTerritory, Player player) {

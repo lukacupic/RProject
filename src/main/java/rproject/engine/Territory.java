@@ -45,8 +45,7 @@ public class Territory {
 
 	public void setOwner(Player owner) {
 		this.owner = owner;
-		// todo: color territory, smt like
-		// setTerritoryColor(this.name, owner.getColor());
+		GUIAccess.selectTerritory(this,owner.getColor());
 	}
 
 	public void addUnit(Unit U) {
@@ -58,12 +57,10 @@ public class Territory {
 			this.addUnit(unit);
 	}
 
-	/* todo:
 	public void addMultipleUnits(Unit U, int n){
-		for (int i = 0; i < n; ++i) {
+		for (int i = 0; i < n; ++i)
 			this.addUnit(U.clone());
-		}
-	}*/
+	}
 
 	public boolean removeUnit(Unit U) {
 		return this.units.remove(U);

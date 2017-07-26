@@ -1,6 +1,7 @@
 package rproject.gui.panels;
 
 import rproject.engine.Game;
+import rproject.engine.GameProvider;
 import rproject.gui.BoardMap;
 import rproject.gui.GUIAccess;
 import rproject.gui.MainWindow;
@@ -46,6 +47,7 @@ public class BoardMapPanel extends JPanel {
 			}
 
 			Game game = new Game(boardName, playerNames);
+			GameProvider.setGame(game);
 			game.start();
 		}).start();
 	}

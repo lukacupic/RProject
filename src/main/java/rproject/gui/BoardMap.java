@@ -13,9 +13,11 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 import processing.core.PVector;
-import rproject.board.BoardProvider;
+import rproject.engine.GameProvider;
+import rproject.engine.Player;
 import rproject.utils.FileUtil;
 import rproject.utils.GUIUtil;
+import rproject.utils.Util;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -104,13 +106,43 @@ public class BoardMap extends PApplet {
 	}
 
 	private void drawLegend() {
-		this.fill(GUIUtil.colorToInt(new Color(69, 69, 69)), 200);
 
-		int width = 150;
-		int height = 40;
-		int edgeDist = 35;
+		List<Player> players = GameProvider.getGame().getPlayers();
+		int noOfPlayers = players.size();
 
-		rect(edgeDist, this.height - edgeDist - height, width, height);
+		int textWidth = (int) textWidth(Util.getLongestString(Util.getPlayerNames(players)));
+		int textHeight = (int) (textAscent() + textDescent());
+
+		int cornerDist = 35;
+		int spaceX = 12;
+		int spaceY = 0;
+		int ellipseSize = 8;
+
+		int width = textWidth + 3 * spaceX + ellipseSize;
+		int height = textHeight * noOfPlayers + spaceY * (noOfPlayers - 1);
+
+		int x = cornerDist;
+		int y = this.height - cornerDist - height;
+
+		fill(GUIUtil.colorToInt(new Color(69, 69, 69)), 200); // set legend color
+		rect(x, y, width, height); // draw the legend
+
+		for (int i = 0; i < noOfPlayers; i++) {
+			Player player = players.get(i);
+
+			int textX = x + 2 * spaceX + ellipseSize;
+			int textY = y + (i + 1) * spaceY + i * textHeight;
+
+			int ellipseX = textX - spaceX - ellipseSize;
+			int ellipseY = textY + textHeight / 2;
+
+
+			fill(GUIUtil.colorToInt(player.getColor()));
+			ellipse(ellipseX, ellipseY, ellipseSize, ellipseSize);
+
+			fill(GUIUtil.colorToInt(Color.BLACK));
+			text(player.getName(), textX, textY, textWidth, textHeight);
+		}
 	}
 
 	@Override

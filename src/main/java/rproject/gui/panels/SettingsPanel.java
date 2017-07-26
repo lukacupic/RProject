@@ -1,7 +1,7 @@
 package rproject.gui.panels;
 
-import rproject.utils.FileUtil;
 import rproject.gui.MainWindow;
+import rproject.utils.FileUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,7 +80,7 @@ public class SettingsPanel extends JPanel {
 		playersComboBox.setSelectedIndex(0);
 
 		// play button
-		JButton playButton = initButton();
+		JButton playButton = initPlayButton();
 		settings.add(playButton, c);
 
 		add(settings);
@@ -139,7 +139,7 @@ public class SettingsPanel extends JPanel {
 	 * @return the button which starts the actual engine with the user specified
 	 * settings
 	 */
-	private JButton initButton() {
+	private JButton initPlayButton() {
 		JButton playButton = new JButton("Play!");
 
 		playButton.addActionListener(e -> {
@@ -221,6 +221,11 @@ public class SettingsPanel extends JPanel {
 		 * @return an array of all player names.
 		 */
 		public String[] getNames() {
+			names.clear();
+			for (Component c : this.getComponents()) {
+				JTextField f = (JTextField) c;
+				names.add(f.getText());
+			}
 			return names.toArray(new String[0]);
 		}
 	}

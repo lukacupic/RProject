@@ -68,7 +68,12 @@ public class BoardMap extends PApplet {
 		List<Feature> features = GeoJSONReader.loadData(this, FileUtil.MAP_COORDS_PATH + name + ".json");
 
 		markersList = MapUtils.createSimpleMarkers(features);
-		simplifyMarkers(markersList, 1.5);
+
+		// simplify polygons for some specific maps
+		// todo: automate verification process: e.g. vertex count as a threshold
+		if(name.equals("continents")) {
+			simplifyMarkers(markersList, 1.5);
+		}
 
 		map.addMarkers(markersList);
 		mapMarkers(markersList);
@@ -106,7 +111,6 @@ public class BoardMap extends PApplet {
 	}
 
 	private void drawLegend() {
-
 		List<Player> players = GameProvider.getGame().getPlayers();
 		int noOfPlayers = players.size();
 

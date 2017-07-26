@@ -15,6 +15,9 @@ import java.util.List;
 
 public class Game {
 
+	/**
+	 * The board on which the game is played
+	 */
 	private Board board;
 
 	private List<Player> players = new ArrayList<>();
@@ -27,6 +30,11 @@ public class Game {
 			new Color (255,0,255),
 			new Color (0,255,255),
 	};
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
 
 	public Game(String boardName, String[] playerNames) {
 		board = new Board(boardName);

@@ -1,6 +1,6 @@
 package rproject.board;
 
-import rproject.Game;
+import rproject.engine.Game;
 
 /**
  * Provides an instance of the currently active board.

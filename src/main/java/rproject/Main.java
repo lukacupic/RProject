@@ -1,5 +1,6 @@
 package rproject;
 
+import rproject.engine.Game;
 import rproject.utils.FileUtil;
 import rproject.io.Input;
 import rproject.io.Output;
@@ -16,7 +17,7 @@ public class Main {
 	private static final int MAX_PLAYERS = 6;
 
 	public static void main(String[] args) {
-		Output.writeln("RProject v1.0 - Risk game simulator");
+		Output.writeln("RProject v1.0 - Risk engine simulator");
 		Output.writeln("**********************************");
 		Output.newLine();
 
@@ -30,8 +31,8 @@ public class Main {
 
 		String[] playerNames = getPlayerNames(playersCount);
 
-		Game game = new Game(map, playerNames);
-		game.start();*/
+		Game engine = new Game(map, playerNames);
+		engine.start();*/
 
 		Game game = new Game("continentsShort", new String[]{"asd","qwe"});
 		game.start();

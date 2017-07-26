@@ -13,7 +13,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 import processing.core.PVector;
-import rproject.Territory;
+import rproject.engine.GameAccess;
 import rproject.utils.FileUtil;
 import rproject.utils.GUIUtil;
 
@@ -55,7 +55,7 @@ public class BoardMap extends PApplet {
 		smooth();
 
 		map = new UnfoldingMap(this);
-		map.setBackgroundColor(colorToInt(SEA_COLOR));
+		map.setBackgroundColor(GUIUtil.colorToInt(SEA_COLOR));
 		map.setTweening(true);
 
 		MapUtils.createDefaultEventDispatcher(this, map);
@@ -66,17 +66,47 @@ public class BoardMap extends PApplet {
 		simplifyMarkers(markersList, 1.5);
 
 		map.addMarkers(markersList);
-		mapCountryMarkers(markersList);
+		mapMarkers(markersList);
 
 		territoryNames = new ArrayList<>(markersMap.keySet());
 
 		for (Marker m : map.getMarkers()) {
-			m.setColor(colorToInt(TERRITORY_COLOR));
+			m.setColor(GUIUtil.colorToInt(TERRITORY_COLOR));
 		}
 
 		centerMap();
 
-		setupGUIAccess();
+		enableGUIAccess();
+	}
+
+	@Override
+	public void draw() {
+		background(GUIUtil.colorToInt(SEA_COLOR));
+		map.draw();
+
+		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
+
+		if (marker != null) {
+			Point p = GUIUtil.locationToPoint(map, marker.getLocation());
+			text((String) marker.getProperty("name"), p.x, p.y);
+		}
+	}
+
+	@Override
+	public void mouseClicked() {
+		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
+		if (marker == null) return;
+		darkenMarkerColor(marker);
+	}
+
+	/**
+	 * Darkens the color of the given marker.
+	 *
+	 * @param marker the marker
+	 */
+	private void darkenMarkerColor(Marker marker) {
+		Color c = GameAccess.getTerritory(marker).getOwner().getColor();
+		marker.setColor(GUIUtil.colorToInt(c.darker()));
 	}
 
 	/**
@@ -106,75 +136,60 @@ public class BoardMap extends PApplet {
 			}
 		} else if (m instanceof SimplePolygonMarker) {
 			SimplePolygonMarker sm = (SimplePolygonMarker) m;
-
-			List<PVector> vectors = new ArrayList<>();
-			for (Location l : sm.getLocations()) {
-				vectors.add(map.getScreenPosition(l));
-			}
-			vectors = GeneralizationUtils.simplify(vectors, (float) factor, true);
-
-			List<Location> locations = new ArrayList<>();
-			for (PVector v : vectors) {
-				locations.add(map.getLocation((ScreenPosition) v));
-			}
-			sm.setLocations(locations);
+			simplify(sm, factor);
 		}
 	}
 
 	/**
-	 * Centers the map
+	 * Simplifies the given polygon marker, i.e. simplifies it's location
+	 * vectors.
+	 *
+	 * @param marker the marker to simplify
+	 * @param factor the simplification factor
+	 */
+	private void simplify(SimplePolygonMarker marker, double factor) {
+		List<PVector> vectors = new ArrayList<>();
+		for (Location l : marker.getLocations()) {
+			vectors.add(map.getScreenPosition(l));
+		}
+		vectors = GeneralizationUtils.simplify(vectors, (float) factor, true);
+
+		List<Location> locations = new ArrayList<>();
+		for (PVector v : vectors) {
+			locations.add(map.getLocation((ScreenPosition) v));
+		}
+		marker.setLocations(locations);
+	}
+
+	/**
+	 * Places the map into the center of the component.
 	 */
 	public void centerMap() {
 		map.panTo(REAL_CENTER); // pan to the 'real' center
 		map.zoomAndPanToFit(GeoUtils.getLocationsFromMarkers(markersList));
 	}
 
-	private void setupGUIAccess() {
+	/**
+	 * Enables access to the GUI component of the program; the GUI
+	 * access is performed trough the {@link GUIAccess} class.
+	 */
+	private void enableGUIAccess() {
 		GUIAccess.setBoardMap(this);
 		GUIAccess.LATCH.countDown();
 		GUIAccess.setAvailable(true);
 	}
 
-	private void mapCountryMarkers(List<Marker> markers) {
+	/**
+	 * Creates a map from the given list of markers. The map maps the
+	 * marker's name to the marker itself.
+	 *
+	 * @param markers the list of markers to create a map from
+	 */
+	private void mapMarkers(List<Marker> markers) {
 		this.markersMap = new LinkedHashMap<>();
 
 		for (Marker marker : markers) {
 			this.markersMap.put((String) marker.getProperty("name"), marker);
-		}
-	}
-
-	private int colorToInt(Color c) {
-		return color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
-	}
-
-	@Override
-	public void draw() {
-		background(colorToInt(SEA_COLOR));
-		map.draw();
-
-		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
-
-		if (marker != null) {
-			Point p = GUIUtil.locationToPoint(map, marker.getLocation());
-			text((String) marker.getProperty("name"), p.x, p.y);
-		}
-	}
-
-	public void changeMarkerColor(Territory t, Color c) {
-		markersMap.get(t.getName()).setColor(colorToInt(c));
-	}
-
-	@Override
-	public void mouseClicked() {
-		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
-		if (marker == null) return;
-
-		if (marker instanceof MultiMarker) {
-			for (Marker submarker : ((MultiMarker) marker).getMarkers()) {
-				submarker.setColor(colorToInt(Color.GREEN));
-			}
-		} else {
-			marker.setColor(colorToInt(Color.GREEN));
 		}
 	}
 

@@ -1,6 +1,5 @@
-package rproject;
+package rproject.engine;
 
-import rproject.gui.GUIAccess;
 import rproject.units.Fighter;
 import rproject.units.Unit;
 

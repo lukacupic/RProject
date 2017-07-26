@@ -1,8 +1,6 @@
 package java.rproject;
 
 import org.junit.Test;
-import rproject.Game;
-import rproject.Territory;
 
 public class GameTest {
 	@Test

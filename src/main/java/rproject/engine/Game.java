@@ -1,4 +1,4 @@
-package rproject;
+package rproject.engine;
 
 import rproject.board.Board;
 import rproject.board.BoardProvider;

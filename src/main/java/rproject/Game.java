@@ -124,28 +124,31 @@ public class Game {
 		return true;
 	}
 
-	private static List<Unit> battle(Territory attTerritory, Territory defTerritory, List<Unit> attArmy) {
-//		List < Unit > attArmy = new ArrayList<>();
-		List<Unit> defArmy = defTerritory.getUnits();
-/*		for (int i = 0; i < cntAttUnits; ++i) {
-			Unit U = new Fighter();
-			attArmy.add(U);
+	private static int getRandomIndex(List < Unit > army){
+		int sumOfCoefs = 0;
+		for (Unit unit : army) sumOfCoefs += unit.getTargetChanceCoef();
+		int randInt = Util.getRandInt(sumOfCoefs);
+		for (int i = 0; i < army.size(); i++) {
+			Unit unit = army.get(i);
+			randInt -= unit.getTargetChanceCoef();
+			if (randInt < 0) return i;
 		}
-		for (int i = 0; i < defTerritory.getUnits(); ++i) {
-			Unit U = new Fighter();
-			defArmy.add(U);
-		}*/
+		return 0;
+	}
+
+	private static List<Unit> battle(Territory attTerritory, Territory defTerritory, List<Unit> attArmy) {
+		List<Unit> defArmy = defTerritory.getUnits();
 		Collections.shuffle(attArmy);
 		Collections.shuffle(defArmy);
 		while (!attArmy.isEmpty() && !defArmy.isEmpty()) {
 			for (Unit unit : defArmy) {
 				if (attArmy.size() == 0) break;
-				int targetIndex = Util.getRandInt(attArmy.size());
+				int targetIndex = getRandomIndex(attArmy);
 				if (unit.attack(attArmy.get(targetIndex))) attArmy.remove(targetIndex);
 			}
 			for (Unit unit : attArmy) {
 				if (defArmy.size() == 0) break;
-				int targetIndex = Util.getRandInt(defArmy.size());
+				int targetIndex = getRandomIndex(defArmy);
 				if (unit.attack(defArmy.get(targetIndex))) defArmy.remove(targetIndex);
 			}
 		}

@@ -3,25 +3,18 @@ package rproject.units;
 public class Knight extends Unit {
 
 	private static final int DEFAULT_HP = 150;
-
-	private static final int DEFAULT_DMG = 35;
-
+	private static final int DEFAULT_DMG = 40;
 	private static final int DEFAULT_PRICE = 3;
+	private static final int DEFAULT_ARMOR = 10;
+	private static final int DEFAULT_TARGETED_CHANCE_COEF = 200;
 
 	public Knight() {
 		hp = DEFAULT_HP;
 		damage = DEFAULT_DMG;
 		price = DEFAULT_PRICE;
-	}
-
-	public Knight(int hp, int damage) {
-		super(hp, damage);
-	}
-
-	@Override
-	public boolean attack(Unit unit) {
-		unit.removeHp(damage);
-		return unit.hp == 0;
+		targetChanceCoef = DEFAULT_TARGETED_CHANCE_COEF;
+		armor = DEFAULT_ARMOR;
+		name = "Knight";
 	}
 
 	@Override
@@ -31,11 +24,6 @@ public class Knight extends Unit {
 
 	@Override
 	public Unit clone() {
-		return new Knight(hp, damage);
-	}
-
-	@Override
-	public String getName() {
-		return "Knight";
+		return new Knight();
 	}
 }

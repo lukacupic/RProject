@@ -1,5 +1,6 @@
 package rproject;
 
+import rproject.gui.GUIAccess;
 import rproject.units.Fighter;
 import rproject.units.Unit;
 
@@ -45,6 +46,8 @@ public class Territory {
 
 	public void setOwner(Player owner) {
 		this.owner = owner;
+		// todo: color territory, smt like
+		// setTerritoryColor(this.name, owner.getColor());
 	}
 
 	public void addUnit(Unit U) {

@@ -7,6 +7,7 @@ import rproject.io.Output;
 import rproject.units.Unit;
 import rproject.utils.Util;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,6 +18,15 @@ public class Game {
 	private Board board;
 
 	private List<Player> players = new ArrayList<>();
+
+	private final Color colors[] = new Color[]{
+			new Color (255,0,0),
+			new Color (0,255,0),
+			new Color (0,0,255),
+			new Color (255,255,0),
+			new Color (255,0,255),
+			new Color (0,255,255),
+	};
 
 	public Game(String boardName, String[] playerNames) {
 		board = new Board(boardName);
@@ -31,8 +41,10 @@ public class Game {
 	}
 
 	private void createPlayers(List<String> playerNames) {
-		for (String name : playerNames) {
-			players.add(new Player(name));
+		for (int i = 0; i < playerNames.size(); i++) {
+			String name = playerNames.get(i);
+			Color color = colors[i];
+			players.add(new Player(name, color));
 		}
 	}
 

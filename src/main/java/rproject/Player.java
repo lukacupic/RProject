@@ -1,5 +1,6 @@
 package rproject;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class Player {
 	private int cntUnits;
 	private int cntBonus;
 	private int cntGold;
+	private Color color;
 
 	public int getGold() {
 		return cntGold;
@@ -23,8 +25,9 @@ public class Player {
 		addGold(-n);
 	}
 
-	public Player(String name) {
+	public Player(String name, Color color) {
 		this.name = name;
+		this.color = color;
 		territories = new ArrayList<>();
 	}
 
@@ -34,6 +37,10 @@ public class Player {
 
 	public String getName() {
 		return name;
+	}
+
+	public Color getColor() {
+		return color;
 	}
 
 	public int getCntUnits() {

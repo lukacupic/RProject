@@ -81,6 +81,7 @@ public class BoardMap extends PApplet {
 	private void setupGUIAccess() {
 		GUIAccess.setBoardMap(this);
 		GUIAccess.LATCH.countDown();
+		GUIAccess.setAvailable(true);
 	}
 
 	private void mapCountryMarkers(List<Marker> markers) {

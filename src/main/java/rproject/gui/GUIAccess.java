@@ -10,6 +10,8 @@ public class GUIAccess {
 
 	private static BoardMap boardMap;
 
+	private static volatile boolean available = false;
+
 	// API methods
 
 	public static void selectTerritory(Territory t) {
@@ -28,5 +30,13 @@ public class GUIAccess {
 
 	public static void setBoardMap(BoardMap boardMap) {
 		GUIAccess.boardMap = boardMap;
+	}
+
+	public static boolean isAvailable() {
+		return available;
+	}
+
+	public static void setAvailable(boolean available) {
+		GUIAccess.available = available;
 	}
 }

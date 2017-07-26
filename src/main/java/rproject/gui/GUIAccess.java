@@ -2,6 +2,7 @@ package rproject.gui;
 
 import rproject.Territory;
 
+import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 
 public class GUIAccess {
@@ -14,8 +15,9 @@ public class GUIAccess {
 
 	// API methods
 
-	public static void selectTerritory(Territory t) {
-		boardMap.getMarkersMap().get(t.getName()).setSelected(true);
+	public static void selectTerritory(Territory t, Color c) {
+		//boardMap.getMarkersMap().get(t.getName()).setSelected(true);
+		boardMap.mouseClicked();
 	}
 
 	public static void centerMap() {

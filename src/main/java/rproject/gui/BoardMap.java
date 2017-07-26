@@ -7,10 +7,13 @@ import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.AbstractMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
+import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
+import de.fhpotsdam.unfolding.utils.GeneralizationUtils;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
+import processing.core.PVector;
 import rproject.files.FileUtil;
 
 import java.awt.*;
@@ -61,6 +64,8 @@ public class BoardMap extends PApplet {
 		List<Feature> features = GeoJSONReader.loadData(this, FileUtil.MAP_COORDS_PATH + name + ".json");
 
 		markersList = MapUtils.createSimpleMarkers(features);
+		simplifyMarkers(markersList, 1.5);
+
 		map.addMarkers(markersList);
 		mapCountryMarkers(markersList);
 
@@ -69,8 +74,48 @@ public class BoardMap extends PApplet {
 		centerMap();
 
 		setupGUIAccess();
+	}
 
-		this.setLayout(new BorderLayout());
+	/**
+	 * Simplifies the given markers by simplifying locations of the underlying
+	 * polygons for each of the given marker.
+	 *
+	 * @param markers the markers to simplify
+	 * @param factor  the simplification factor; see {@link GeneralizationUtils#simplify}
+	 */
+	private void simplifyMarkers(List<Marker> markers, double factor) {
+		for (Marker m : markers) {
+			simplifyRecursively(m, factor);
+		}
+	}
+
+	/**
+	 * Simplifies the given marker by simplifying locations of the underlying
+	 * polygon of the given marker.
+	 *
+	 * @param m      the marker to simplify
+	 * @param factor the simplification factor
+	 */
+	private void simplifyRecursively(Marker m, double factor) {
+		if (m instanceof MultiMarker) {
+			for (Marker subm : ((MultiMarker) m).getMarkers()) {
+				simplifyRecursively(subm, factor);
+			}
+		} else if (m instanceof SimplePolygonMarker) {
+			SimplePolygonMarker sm = (SimplePolygonMarker) m;
+
+			List<PVector> vectors = new ArrayList<>();
+			for (Location l : sm.getLocations()) {
+				vectors.add(map.getScreenPosition(l));
+			}
+			vectors = GeneralizationUtils.simplify(vectors, (float) factor, true);
+
+			List<Location> locations = new ArrayList<>();
+			for (PVector v : vectors) {
+				locations.add(map.getLocation((ScreenPosition) v));
+			}
+			sm.setLocations(locations);
+		}
 	}
 
 	public void centerMap() {

@@ -14,6 +14,12 @@ public abstract class Unit {
 
 	protected int price;
 
+	protected int targetChanceCoef;
+
+	protected int armor;
+
+	protected String name;
+
 	private static final List < Unit > allUnits = initAllUnits();
 
 	private static List < Unit > initAllUnits(){
@@ -21,6 +27,7 @@ public abstract class Unit {
 		allUnits = new ArrayList<>();
 		allUnits.add(new Fighter());
 		allUnits.add(new Knight());
+		allUnits.add(new Archer());
 		return allUnits;
 	}
 
@@ -73,11 +80,52 @@ public abstract class Unit {
 		this.price = price;
 	}
 
-	public abstract boolean attack(Unit unit);
+	public int getTargetChanceCoef() {
+		return targetChanceCoef;
+	}
+
+	public int getArmor() {
+		return armor;
+	}
+
+	public boolean attack(Unit unit){
+		int damageDealt = damage - unit.getArmor();
+		if (damageDealt < 0) damageDealt = 0;
+		unit.removeHp(damageDealt);
+		return unit.hp == 0;
+	}
 
 	public abstract Unit clone();
 
 	public abstract void resetHp();
 
-	public abstract String getName();
+	public String getName(){
+		return name;
+	};
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Unit unit = (Unit) o;
+
+		if (hp != unit.hp) return false;
+		if (damage != unit.damage) return false;
+		if (price != unit.price) return false;
+		if (targetChanceCoef != unit.targetChanceCoef) return false;
+		if (armor != unit.armor) return false;
+		return name != null ? name.equals(unit.name) : unit.name == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = hp;
+		result = 31 * result + damage;
+		result = 31 * result + price;
+		result = 31 * result + targetChanceCoef;
+		result = 31 * result + armor;
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		return result;
+	}
 }

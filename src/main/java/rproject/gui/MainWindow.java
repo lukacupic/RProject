@@ -6,7 +6,6 @@ import rproject.gui.panels.WelcomePanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.concurrent.CountDownLatch;
 
 public class MainWindow extends JFrame {
 
@@ -17,9 +16,6 @@ public class MainWindow extends JFrame {
 	public static final int DEFAULT_WIDTH = 1000;
 
 	public static final int DEFAULT_HEIGHT = 650;
-
-	public static final Font DEFAULT_FONT =
-			new Font("Verdana", Font.BOLD, 12);
 
 	// Panels (screens)
 
@@ -43,7 +39,7 @@ public class MainWindow extends JFrame {
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 
 		setVisible(true);
-		setResizable(false);
+		//setResizable(false);
 		setTitle("RProject Risk Simulator v1.0");
 
 		initGUI();

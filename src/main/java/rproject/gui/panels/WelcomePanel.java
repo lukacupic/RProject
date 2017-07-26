@@ -22,7 +22,6 @@ public class WelcomePanel extends JPanel {
 		JPanel helloPanel = new JPanel(new GridBagLayout());
 
 		JLabel helloLabel = new JLabel("Welcome to the RProject Risk Simulator!");
-		helloLabel.setFont(MainWindow.DEFAULT_FONT);
 
 		helloPanel.add(helloLabel);
 		JPanel buttons = new JPanel(new FlowLayout());

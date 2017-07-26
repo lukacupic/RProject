@@ -13,7 +13,6 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 import processing.core.PVector;
-import rproject.engine.GameAccess;
 import rproject.utils.FileUtil;
 import rproject.utils.GUIUtil;
 
@@ -25,7 +24,7 @@ import java.util.Map;
 
 public class BoardMap extends PApplet {
 
-	private static final Color TERRITORY_COLOR = new Color(0, 185, 89, 244);
+	private static final Color TERRITORY_COLOR = new Color(0, 180, 91, 244);
 
 	private static final Color SEA_COLOR = new Color(54, 111, 250, 230);
 
@@ -50,8 +49,11 @@ public class BoardMap extends PApplet {
 
 	@Override
 	public void setup() {
-		MainWindow mw = MainWindow.getMainWindow();
-		size(mw.getWidth(), mw.getHeight(), OPENGL);
+		Component applet = MainWindow.getMainWindow().mapPanel.getComponent(0);
+		int appletWidth = applet.getWidth();
+		int appletHeight = applet.getHeight();
+		size(appletWidth, appletHeight, OPENGL);
+
 		smooth();
 
 		map = new UnfoldingMap(this);
@@ -82,21 +84,40 @@ public class BoardMap extends PApplet {
 	@Override
 	public void draw() {
 		background(GUIUtil.colorToInt(SEA_COLOR));
+		map.setBackgroundColor(GUIUtil.colorToInt(SEA_COLOR));
 		map.draw();
+		drawLegend();
 
 		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
 
-		if (marker != null) {
-			Point p = GUIUtil.locationToPoint(map, marker.getLocation());
-			text((String) marker.getProperty("name"), p.x, p.y);
+		// set the marker's color and outline properties
+		for (Marker m : map.getMarkers()) {
+			m.setColor(GUIUtil.colorToInt(GUIUtil.getMarkerColor(m)));
+			m.setStrokeColor(GUIUtil.colorToInt(Color.BLACK));
+			m.setStrokeWeight(1);
 		}
+
+		if (marker != null) {
+			selectMarker(marker);
+		}
+	}
+
+	private void drawLegend() {
+		this.fill(GUIUtil.colorToInt(new Color(69, 69, 69)), 200);
+
+		int width = 50;
+		int height = 30;
+		int edgeDist = 35;
+
+		rect(edgeDist, this.height - edgeDist - height, width, height);
+		rect(this.width - edgeDist - width, this.height - edgeDist - height, width, height);
 	}
 
 	@Override
 	public void mouseClicked() {
 		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
 		if (marker == null) return;
-		darkenMarkerColor(marker);
+		selectMarker(marker);
 	}
 
 	/**
@@ -104,8 +125,8 @@ public class BoardMap extends PApplet {
 	 *
 	 * @param marker the marker
 	 */
-	private void darkenMarkerColor(Marker marker) {
-		Color c = GameAccess.getTerritory(marker).getOwner().getColor();
+	private void selectMarker(Marker marker) {
+		Color c = GUIUtil.getMarkerColor(marker);
 		marker.setColor(GUIUtil.colorToInt(c.darker()));
 	}
 

@@ -58,12 +58,10 @@ public class Territory {
 			this.addUnit(unit);
 	}
 
-	/* todo:
 	public void addMultipleUnits(Unit U, int n){
-		for (int i = 0; i < n; ++i) {
+		for (int i = 0; i < n; ++i)
 			this.addUnit(U.clone());
-		}
-	}*/
+	}
 
 	public boolean removeUnit(Unit U) {
 		return this.units.remove(U);

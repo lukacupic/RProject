@@ -14,10 +14,7 @@ public class Fighter extends Unit {
 		price = DEFAULT_PRICE;
 		targetChanceCoef = DEFAULT_TARGETED_CHANCE_COEF;
 		armor = DEFAULT_ARMOR;
-	}
-
-	public Fighter(int hp, int damage) {
-		super(hp, damage);
+		name = "Fighter";
 	}
 
 	@Override
@@ -28,10 +25,5 @@ public class Fighter extends Unit {
 	@Override
 	public Unit clone() {
 		return new Fighter();
-	}
-
-	@Override
-	public String getName() {
-		return "Fighter";
 	}
 }

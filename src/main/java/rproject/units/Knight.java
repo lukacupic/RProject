@@ -17,10 +17,6 @@ public class Knight extends Unit {
 		name = "Knight";
 	}
 
-	public Knight(int hp, int damage) {
-		super(hp, damage);
-	}
-
 	@Override
 	public void resetHp() {
 		this.setHp(DEFAULT_HP);
@@ -30,5 +26,4 @@ public class Knight extends Unit {
 	public Unit clone() {
 		return new Knight();
 	}
-
 }

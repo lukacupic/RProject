@@ -14,10 +14,7 @@ public class Archer extends Unit {
 		price = DEFAULT_PRICE;
 		targetChanceCoef = DEFAULT_TARGETED_CHANCE_COEF;
 		armor = DEFAULT_ARMOR;
-	}
-
-	public Archer(int hp, int damage) {
-		super(hp, damage);
+		name = "Archer";
 	}
 
 	@Override
@@ -28,10 +25,5 @@ public class Archer extends Unit {
 	@Override
 	public Unit clone() {
 		return new Archer();
-	}
-
-	@Override
-	public String getName() {
-		return "Archer";
 	}
 }

@@ -1,6 +1,6 @@
 package rproject.gui.panels;
 
-import rproject.Game;
+import rproject.engine.Game;
 import rproject.gui.BoardMap;
 import rproject.gui.GUIAccess;
 import rproject.gui.MainWindow;
@@ -26,7 +26,7 @@ public class BoardMapPanel extends JPanel {
 	}
 
 	/**
-	 * Initializes the main map and sets up the entire game.
+	 * Initializes the main map and sets up the entire engine.
 	 * The calling thread awaits for the initialization to
 	 * be completed before proceeding.
 	 *

@@ -136,7 +136,7 @@ public class SettingsPanel extends JPanel {
 	/**
 	 * Initializes the "Play" button.
 	 *
-	 * @return the button which starts the actual game with the user specified
+	 * @return the button which starts the actual engine with the user specified
 	 * settings
 	 */
 	private JButton initButton() {

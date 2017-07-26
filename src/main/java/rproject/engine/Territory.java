@@ -1,4 +1,4 @@
-package rproject;
+package rproject.engine;
 
 import rproject.gui.GUIAccess;
 import rproject.units.Fighter;
@@ -46,7 +46,7 @@ public class Territory {
 
 	public void setOwner(Player owner) {
 		this.owner = owner;
-		GUIAccess.selectTerritory(this,owner.getColor());
+		GUIAccess.selectTerritory(this, owner.getColor());
 	}
 
 	public void addUnit(Unit U) {
@@ -58,7 +58,7 @@ public class Territory {
 			this.addUnit(unit);
 	}
 
-	public void addMultipleUnits(Unit U, int n){
+	public void addMultipleUnits(Unit U, int n) {
 		for (int i = 0; i < n; ++i)
 			this.addUnit(U.clone());
 	}

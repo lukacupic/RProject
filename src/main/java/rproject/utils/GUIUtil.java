@@ -16,4 +16,15 @@ public class GUIUtil {
 		ScreenPosition sp = map.getScreenPosition(location);
 		return new Point((int) sp.x, (int) sp.y);
 	}
+
+	/**
+	 * Converts the given color to an integer-based color.
+	 *
+	 * @param c the color to convert
+	 * @return an integer-based color
+	 */
+	public static int colorToInt(Color c) {
+		return (c.getAlpha() << 24) | (c.getRed() << 16) | (c.getGreen() << 8) | c.getBlue();
+		// todo: try using Color#HSBtoRGB instead
+	}
 }

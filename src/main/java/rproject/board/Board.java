@@ -1,8 +1,8 @@
 package rproject.board;
 
-import rproject.Territory;
-import rproject.utils.FileUtil;
+import rproject.engine.Territory;
 import rproject.gui.GUIAccess;
+import rproject.utils.FileUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class Board {
 		// Try accessing the GUI; if not yet initialized, read from the 'names'
 		// Reading the 'names' should be removed after testing
 		List<String> lines = GUIAccess.isAvailable() ?
-				GUIAccess.getBoardMap().getTerritoryNames() : FileUtil.readNames(name);
+				GUIAccess.getTerritoryNames() : FileUtil.readNames(name);
 
 		for (String line : lines) {
 			territories.add(new Territory(line));

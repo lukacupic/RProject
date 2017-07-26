@@ -2,12 +2,18 @@ package rproject.units;
 
 public class Fighter extends Unit {
 
+	/**
+	 * Default stats for every fighter
+	 */
 	private static final int DEFAULT_HP = 100;
 	private static final int DEFAULT_DMG = 15;
 	private static final int DEFAULT_PRICE = 1;
 	private static final int DEFAULT_ARMOR = 2;
 	private static final int DEFAULT_TARGETED_CHANCE_COEF = 100;
 
+	/**
+	 * Constructor
+	 */
 	public Fighter() {
 		hp = DEFAULT_HP;
 		damage = DEFAULT_DMG;

@@ -16,8 +16,7 @@ public class GUIAccess {
 	// API methods
 
 	public static void selectTerritory(Territory t, Color c) {
-		//boardMap.getMarkersMap().get(t.getName()).setSelected(true);
-		boardMap.mouseClicked();
+		boardMap.changeMarkerColor(t, c);
 	}
 
 	public static void centerMap() {

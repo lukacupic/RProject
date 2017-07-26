@@ -4,7 +4,6 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.geo.Location;
-import de.fhpotsdam.unfolding.marker.AbstractMarker;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.marker.MultiMarker;
 import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
@@ -14,6 +13,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 import processing.core.PVector;
+import rproject.Territory;
 import rproject.utils.FileUtil;
 import rproject.utils.GUIUtil;
 
@@ -158,6 +158,10 @@ public class BoardMap extends PApplet {
 			Point p = GUIUtil.locationToPoint(map, marker.getLocation());
 			text((String) marker.getProperty("name"), p.x, p.y);
 		}
+	}
+
+	public void changeMarkerColor(Territory t, Color c) {
+		markersMap.get(t.getName()).setColor(colorToInt(c));
 	}
 
 	@Override

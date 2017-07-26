@@ -1,7 +1,7 @@
 package rproject.board;
 
 import rproject.Territory;
-import rproject.files.FileUtil;
+import rproject.utils.FileUtil;
 import rproject.gui.GUIAccess;
 
 import java.util.ArrayList;

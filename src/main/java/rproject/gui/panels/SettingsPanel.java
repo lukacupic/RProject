@@ -1,6 +1,6 @@
 package rproject.gui.panels;
 
-import rproject.files.FileUtil;
+import rproject.utils.FileUtil;
 import rproject.gui.MainWindow;
 
 import javax.swing.*;

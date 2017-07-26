@@ -1,7 +1,6 @@
 package rproject;
 
-import com.sun.xml.internal.fastinfoset.util.StringArray;
-import rproject.files.FileUtil;
+import rproject.utils.FileUtil;
 import rproject.io.Input;
 import rproject.io.Output;
 

@@ -14,7 +14,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 import processing.core.PVector;
-import rproject.files.FileUtil;
+import rproject.utils.FileUtil;
+import rproject.utils.GUIUtil;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,8 +24,6 @@ import java.util.List;
 import java.util.Map;
 
 public class BoardMap extends PApplet {
-
-	private static final Color SELECTION_COLOR = new Color(250, 55, 81, 240);
 
 	private static final Color TERRITORY_COLOR = new Color(0, 185, 89, 244);
 
@@ -70,6 +69,10 @@ public class BoardMap extends PApplet {
 		mapCountryMarkers(markersList);
 
 		territoryNames = new ArrayList<>(markersMap.keySet());
+
+		for (Marker m : map.getMarkers()) {
+			m.setColor(colorToInt(TERRITORY_COLOR));
+		}
 
 		centerMap();
 
@@ -118,6 +121,9 @@ public class BoardMap extends PApplet {
 		}
 	}
 
+	/**
+	 * Centers the map
+	 */
 	public void centerMap() {
 		map.panTo(REAL_CENTER); // pan to the 'real' center
 		map.zoomAndPanToFit(GeoUtils.getLocationsFromMarkers(markersList));
@@ -137,12 +143,6 @@ public class BoardMap extends PApplet {
 		}
 	}
 
-	private void changeMarkerColor(Marker m, Color c) {
-		int color = colorToInt(c);
-		((AbstractMarker) m).setHighlightColor(color);
-		((AbstractMarker) m).setHighlightStrokeColor(color);
-	}
-
 	private int colorToInt(Color c) {
 		return color(c.getRed(), c.getGreen(), c.getBlue(), c.getAlpha());
 	}
@@ -152,45 +152,26 @@ public class BoardMap extends PApplet {
 		background(colorToInt(SEA_COLOR));
 		map.draw();
 
-		for (Marker m : map.getMarkers()) {
-			m.setColor(colorToInt(TERRITORY_COLOR));
-		}
-
 		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
 
 		if (marker != null) {
-			Point p = locationToPoint(marker.getLocation());
+			Point p = GUIUtil.locationToPoint(map, marker.getLocation());
 			text((String) marker.getProperty("name"), p.x, p.y);
 		}
 	}
 
 	@Override
-	public void mouseMoved() {
-		for (Marker marker : map.getMarkers()) {
-			marker.setSelected(false);
-		}
-
+	public void mouseClicked() {
 		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
 		if (marker == null) return;
 
 		if (marker instanceof MultiMarker) {
 			for (Marker submarker : ((MultiMarker) marker).getMarkers()) {
-				changeMarkerColor(submarker, SELECTION_COLOR);
+				submarker.setColor(colorToInt(Color.GREEN));
 			}
 		} else {
-			changeMarkerColor(marker, SELECTION_COLOR);
+			marker.setColor(colorToInt(Color.GREEN));
 		}
-
-		marker.setSelected(true);
-	}
-
-	private Location pointToLocation(Point point) {
-		return map.getLocation(point.x, point.y);
-	}
-
-	private Point locationToPoint(Location location) {
-		ScreenPosition sp = map.getScreenPosition(location);
-		return new Point((int) sp.x, (int) sp.y);
 	}
 
 	// Getters and setters

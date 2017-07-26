@@ -1,4 +1,4 @@
-package rproject.util;
+package rproject.utils;
 
 import java.util.Random;
 

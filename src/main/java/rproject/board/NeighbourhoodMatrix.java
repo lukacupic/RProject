@@ -1,6 +1,6 @@
 package rproject.board;
 
-import rproject.files.FileUtil;
+import rproject.utils.FileUtil;
 import rproject.io.Output;
 
 import java.util.List;

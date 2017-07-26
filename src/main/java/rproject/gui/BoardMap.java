@@ -13,7 +13,6 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 import rproject.files.FileUtil;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -43,8 +42,6 @@ public class BoardMap extends PApplet {
 
 	private List<String> territoryNames;
 
-	private boolean mouseDragged;
-
 	public BoardMap(String name) {
 		this.name = name;
 	}
@@ -72,6 +69,8 @@ public class BoardMap extends PApplet {
 		centerMap();
 
 		setupGUIAccess();
+
+		this.setLayout(new BorderLayout());
 	}
 
 	public void centerMap() {
@@ -111,32 +110,16 @@ public class BoardMap extends PApplet {
 			m.setColor(colorToInt(TERRITORY_COLOR));
 		}
 
-		this.setLayout(new GridBagLayout());
-		this.add(new JButton("GASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"));
+		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
 
-		/*
-		this.fill(200);
-		this.stroke(180);
-		this.rect(0, 0, 500, 300);
-
-		this.fill(180);
-		*/
-	}
-
-	@Override
-	public void mouseDragged() {
-		mouseDragged = true;
-	}
-
-	@Override
-	public void mouseReleased() {
-		/*
-		if (mouseDragged) {
-			mouseDragged = false;
-			return;
+		if (marker != null) {
+			Point p = locationToPoint(marker.getLocation());
+			text((String) marker.getProperty("name"), p.x, p.y);
 		}
-		*/
+	}
 
+	@Override
+	public void mouseMoved() {
 		for (Marker marker : map.getMarkers()) {
 			marker.setSelected(false);
 		}

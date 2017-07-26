@@ -13,8 +13,7 @@ public class GUIAccess {
 	// API methods
 
 	public static void selectTerritory(Territory t) {
-		//boardMap.getMarkersMap().get(t.getName()).setSelected(true);
-		boardMap.getMarkersMap().get("Canada").setSelected(true);
+		boardMap.getMarkersMap().get(t.getName()).setSelected(true);
 	}
 
 	public static void centerMap() {

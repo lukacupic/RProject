@@ -46,8 +46,7 @@ public class Territory {
 
 	public void setOwner(Player owner) {
 		this.owner = owner;
-		// todo: color territory, smt like
-		// setTerritoryColor(this.name, owner.getColor());
+		GUIAccess.selectTerritory(this,owner.getColor());
 	}
 
 	public void addUnit(Unit U) {

@@ -110,22 +110,24 @@ public class BoardMap extends PApplet {
 		List<Player> players = GameProvider.getGame().getPlayers();
 		int noOfPlayers = players.size();
 
-		int textWidth = (int) textWidth(Util.getLongestString(Util.getPlayerNames(players)));
-		int textHeight = (int) (textAscent() + textDescent());
-
-		int cornerDist = 35;
 		int spaceX = 12;
 		int spaceY = 0;
+
+		int textWidth = (int) textWidth(Util.getLongestString(Util.getPlayerNames(players))) + spaceX;
+		int textHeight = (int) (textAscent() + textDescent());
+
 		int ellipseSize = 8;
 
 		int width = textWidth + 3 * spaceX + ellipseSize;
 		int height = textHeight * noOfPlayers + spaceY * (noOfPlayers - 1);
 
+		int cornerDist = 35;
+
 		int x = cornerDist;
 		int y = this.height - cornerDist - height;
 
 		fill(GUIUtil.colorToInt(new Color(69, 69, 69)), 200); // set legend color
-		rect(x, y, width, height); // draw the legend
+		rect(x - 10, y, width, height); // draw the legend
 
 		for (int i = 0; i < noOfPlayers; i++) {
 			Player player = players.get(i);

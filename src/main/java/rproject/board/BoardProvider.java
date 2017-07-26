@@ -10,12 +10,12 @@ import rproject.engine.Game;
 public class BoardProvider {
 
 	/**
-	 * The board.
+	 * The current board.
 	 */
 	private static Board board;
 
 	/**
-	 * Gets the current board.
+	 * Gets the currently board.
 	 *
 	 * @return the current board
 	 */

@@ -13,6 +13,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 import processing.core.PVector;
+import rproject.board.BoardProvider;
 import rproject.utils.FileUtil;
 import rproject.utils.GUIUtil;
 
@@ -105,12 +106,11 @@ public class BoardMap extends PApplet {
 	private void drawLegend() {
 		this.fill(GUIUtil.colorToInt(new Color(69, 69, 69)), 200);
 
-		int width = 50;
-		int height = 30;
+		int width = 150;
+		int height = 40;
 		int edgeDist = 35;
 
 		rect(edgeDist, this.height - edgeDist - height, width, height);
-		rect(this.width - edgeDist - width, this.height - edgeDist - height, width, height);
 	}
 
 	@Override

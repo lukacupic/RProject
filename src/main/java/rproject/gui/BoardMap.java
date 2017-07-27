@@ -13,11 +13,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 import processing.core.PVector;
-import rproject.engine.GameProvider;
-import rproject.engine.Player;
 import rproject.utils.FileUtil;
 import rproject.utils.GUIUtil;
-import rproject.utils.Util;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -34,6 +31,8 @@ public class BoardMap extends PApplet {
 	private static final Location REAL_CENTER = new Location(35, 12);
 
 	private UnfoldingMap map;
+
+	private Legend legend;
 
 	/**
 	 * The name of the board.
@@ -63,6 +62,8 @@ public class BoardMap extends PApplet {
 		map.setBackgroundColor(GUIUtil.colorToInt(SEA_COLOR));
 		map.setTweening(true);
 
+		legend = new Legend(this);
+
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		List<Feature> features = GeoJSONReader.loadData(this, FileUtil.MAP_COORDS_PATH + name + ".json");
@@ -71,7 +72,7 @@ public class BoardMap extends PApplet {
 
 		// simplify polygons for some specific maps
 		// todo: automate verification process: e.g. vertex count as a threshold
-		if(name.equals("continents")) {
+		if (name.equals("continents")) {
 			simplifyMarkers(markersList, 1.5);
 		}
 
@@ -94,7 +95,7 @@ public class BoardMap extends PApplet {
 		background(GUIUtil.colorToInt(SEA_COLOR));
 		map.setBackgroundColor(GUIUtil.colorToInt(SEA_COLOR));
 		map.draw();
-		drawLegend();
+		legend.draw();
 
 		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
 
@@ -107,47 +108,6 @@ public class BoardMap extends PApplet {
 
 		if (marker != null) {
 			selectMarker(marker);
-		}
-	}
-
-	private void drawLegend() {
-		List<Player> players = GameProvider.getGame().getPlayers();
-		int noOfPlayers = players.size();
-
-		int spaceX = 12;
-		int spaceY = 0;
-
-		int textWidth = (int) textWidth(Util.getLongestString(Util.getPlayerNames(players))) + spaceX;
-		int textHeight = (int) (textAscent() + textDescent());
-
-		int ellipseSize = 8;
-
-		int width = textWidth + 3 * spaceX + ellipseSize;
-		int height = textHeight * noOfPlayers + spaceY * (noOfPlayers - 1);
-
-		int cornerDist = 35;
-
-		int x = cornerDist;
-		int y = this.height - cornerDist - height;
-
-		fill(GUIUtil.colorToInt(new Color(69, 69, 69)), 200); // set legend color
-		rect(x - 10, y, width, height); // draw the legend
-
-		for (int i = 0; i < noOfPlayers; i++) {
-			Player player = players.get(i);
-
-			int textX = x + 2 * spaceX + ellipseSize;
-			int textY = y + (i + 1) * spaceY + i * textHeight;
-
-			int ellipseX = textX - spaceX - ellipseSize;
-			int ellipseY = textY + textHeight / 2;
-
-
-			fill(GUIUtil.colorToInt(player.getColor()));
-			ellipse(ellipseX, ellipseY, ellipseSize, ellipseSize);
-
-			fill(GUIUtil.colorToInt(Color.BLACK));
-			text(player.getName(), textX, textY, textWidth, textHeight);
 		}
 	}
 

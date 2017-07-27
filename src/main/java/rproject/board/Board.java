@@ -1,7 +1,7 @@
 package rproject.board;
 
 import rproject.engine.Territory;
-import rproject.gui.GUIAccess;
+import rproject.gui.CGBridge;
 import rproject.utils.FileUtil;
 
 import java.util.ArrayList;
@@ -24,8 +24,8 @@ public class Board {
 	private void initTerritories(String name) {
 		// Try accessing the GUI; if not yet initialized, read from the 'names'
 		// Reading the 'names' should be removed after testing
-		List<String> lines = GUIAccess.isAvailable() ?
-				GUIAccess.getTerritoryNames() : FileUtil.readNames(name);
+		List<String> lines = CGBridge.isConnected() ?
+				CGBridge.getTerritoryNames() : FileUtil.readNames(name);
 
 		for (String line : lines) {
 			territories.add(new Territory(line));

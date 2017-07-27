@@ -190,12 +190,12 @@ public class BoardMap extends PApplet {
 
 	/**
 	 * Enables access to the GUI component of the program; the GUI
-	 * access is performed trough the {@link GUIAccess} class.
+	 * access is performed trough the {@link CGBridge} class.
 	 */
 	private void enableGUIAccess() {
-		GUIAccess.setBoardMap(this);
-		GUIAccess.LATCH.countDown();
-		GUIAccess.setAvailable(true);
+		CGBridge.setBoardMap(this);
+		CGBridge.LATCH.countDown();
+		CGBridge.setConnected(true);
 	}
 
 	/**
@@ -220,5 +220,9 @@ public class BoardMap extends PApplet {
 
 	public List<String> getTerritoryNames() {
 		return territoryNames;
+	}
+
+	public Legend getLegend() {
+		return legend;
 	}
 }

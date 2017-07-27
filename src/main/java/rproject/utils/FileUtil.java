@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Provides methods for some common tasks while working with files.
  */
 public class FileUtil {
 

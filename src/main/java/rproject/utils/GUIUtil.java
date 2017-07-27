@@ -4,10 +4,13 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
-import rproject.engine.GameAccess;
+import rproject.gui.CGBridge;
 
 import java.awt.*;
 
+/**
+ * Provides methods for some common tasks while working with GUI.
+ */
 public class GUIUtil {
 
 	/**
@@ -51,6 +54,6 @@ public class GUIUtil {
 	 * @return the color of the given marker
 	 */
 	public static Color getMarkerColor(Marker marker) {
-		return GameAccess.getTerritory(marker).getOwner().getColor();
+		return CGBridge.getTerritory(marker).getOwner().getColor();
 	}
 }

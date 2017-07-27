@@ -10,6 +10,10 @@ import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * A legend which displays currently active players, along with their
+ * corresponding colors, onto the map.
+ */
 public class Legend {
 
 	/**
@@ -113,9 +117,13 @@ public class Legend {
 	 * Draws the list of currently active players onto the PApplet.
 	 */
 	public void draw() {
-		if (players == null) {
-			init();
-		}
+		// To optimize performance, the init() method should be triggered
+		// by someone to indicate that the list of active players has been
+		// changed, and then, the following comments can be removed
+
+		// if (players == null) {
+		init();
+		// }
 
 		p.fill(GUIUtil.colorToInt(new Color(69, 69, 69)), 200); // set legend color
 		p.rect(x - 10, y, width, height); // draw the legend

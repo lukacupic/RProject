@@ -3,7 +3,7 @@ package rproject.gui.panels;
 import rproject.engine.Game;
 import rproject.engine.GameProvider;
 import rproject.gui.BoardMap;
-import rproject.gui.GUIAccess;
+import rproject.gui.CGBridge;
 import rproject.gui.MainWindow;
 
 import javax.swing.*;
@@ -42,7 +42,7 @@ public class BoardMapPanel extends JPanel {
 			boardMap.init();
 
 			try {
-				GUIAccess.LATCH.await();
+				CGBridge.LATCH.await();
 			} catch (InterruptedException ignorable) {
 			}
 

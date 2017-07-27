@@ -1,6 +1,6 @@
 package rproject.engine;
 
-import rproject.gui.GUIAccess;
+import rproject.gui.CGBridge;
 import rproject.units.Fighter;
 import rproject.units.Unit;
 
@@ -46,7 +46,7 @@ public class Territory {
 
 	public void setOwner(Player owner) {
 		this.owner = owner;
-		GUIAccess.selectTerritory(this, owner.getColor());
+		CGBridge.colorTerritory(this, owner.getColor());
 	}
 
 	public void addUnit(Unit U) {

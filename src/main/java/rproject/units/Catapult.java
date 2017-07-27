@@ -3,7 +3,7 @@ package rproject.units;
 public class Catapult extends Unit {
 
 	/**
-	 * Default stats for every medic
+	 * Default stats for every catapult
 	 */
 	private static final int DEFAULT_HP = 300;
 	private static final int DEFAULT_DMG = 70;

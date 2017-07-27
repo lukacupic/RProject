@@ -3,7 +3,7 @@ package rproject.units;
 public class Centurion extends Unit {
 
 	/**
-	 * Default stats for every knight
+	 * Default stats for every centurion
 	 */
 	private static final int DEFAULT_HP = 150;
 	private static final int DEFAULT_DMG = 30;

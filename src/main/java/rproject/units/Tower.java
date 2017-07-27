@@ -3,7 +3,7 @@ package rproject.units;
 public class Tower extends Unit {
 
 	/**
-	 * Default stats for every medic
+	 * Default stats for every tower
 	 */
 	private static final int DEFAULT_HP = 1000;
 	private static final int DEFAULT_DMG = 50;
@@ -11,6 +11,10 @@ public class Tower extends Unit {
 	private static final int DEFAULT_HIT_CHANCE = 75;
 	private static final int DEFAULT_ARMOR = 30;
 	private static final int DEFAULT_TARGETED_CHANCE_COEF = 130;
+
+	/**
+	 * Tower isn't movable. Once placed, it stays there until destroyed
+	 */
 	private static final boolean DEFAULT_MOVABLE = false;
 
 	/**

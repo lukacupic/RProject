@@ -1,22 +1,22 @@
 package rproject.units;
 
-public class Knight extends Unit {
+public class Catapult extends Unit {
 
 	/**
-	 * Default stats for every knight
+	 * Default stats for every medic
 	 */
-	private static final int DEFAULT_HP = 150;
-	private static final int DEFAULT_DMG = 40;
-	private static final int DEFAULT_PRICE = 3;
-	private static final int DEFAULT_HIT_CHANCE = 65;
-	private static final int DEFAULT_ARMOR = 10;
-	private static final int DEFAULT_TARGETED_CHANCE_COEF = 200;
+	private static final int DEFAULT_HP = 300;
+	private static final int DEFAULT_DMG = 70;
+	private static final int DEFAULT_PRICE = 10;
+	private static final int DEFAULT_HIT_CHANCE = 67;
+	private static final int DEFAULT_ARMOR = 20;
+	private static final int DEFAULT_TARGETED_CHANCE_COEF = 130;
 	private static final boolean DEFAULT_MOVABLE = true;
 
 	/**
 	 * Constructor
 	 */
-	public Knight() {
+	public Catapult() {
 		hp = DEFAULT_HP;
 		damage = DEFAULT_DMG;
 		price = DEFAULT_PRICE;
@@ -24,7 +24,7 @@ public class Knight extends Unit {
 		targetChanceCoef = DEFAULT_TARGETED_CHANCE_COEF;
 		armor = DEFAULT_ARMOR;
 		movable = DEFAULT_MOVABLE;
-		name = "Knight";
+		name = "Catapult";
 	}
 
 	@Override
@@ -34,6 +34,6 @@ public class Knight extends Unit {
 
 	@Override
 	public Unit clone() {
-		return new Knight();
+		return new Catapult();
 	}
 }

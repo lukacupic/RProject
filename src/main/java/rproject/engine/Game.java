@@ -287,7 +287,7 @@ public class Game {
 	 * @return the list of the selected units
 	 */
 	private List<Unit> getUnits(Territory T) {
-		Output.writeln("list of available units:");
+		Output.writeln("list of units:");
 		List < Unit > allUnits = Unit.getAllUnits();
 		for (Unit unit : allUnits) {
 			if (T.getNumberOfUnits(unit.getName()) == 0) continue;
@@ -298,6 +298,7 @@ public class Game {
 		boolean isAllSelected = true;
 		for (Unit unit : allUnits) {
 			if (T.getNumberOfUnits(unit.getName()) == 0) continue;
+			if (!unit.isMovable()) continue;
 			Output.writeln("how many " + unit.getName() + "?");
 			int cntSelectedUnits = Input.readInt();
 			while (cntSelectedUnits > T.getNumberOfUnits(unit.getName()) || cntSelectedUnits < 0) {

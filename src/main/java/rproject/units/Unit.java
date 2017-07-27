@@ -77,6 +77,8 @@ public abstract class Unit {
 		allUnits.add(new Knight());
 		allUnits.add(new Archer());
 		allUnits.add(new Catapult());
+		allUnits.add(new Tower());
+		allUnits.add(new Centurion());
 		return allUnits;
 	}
 

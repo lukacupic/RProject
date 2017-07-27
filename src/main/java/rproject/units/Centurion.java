@@ -1,22 +1,22 @@
 package rproject.units;
 
-public class Knight extends Unit {
+public class Centurion extends Unit {
 
 	/**
 	 * Default stats for every knight
 	 */
-	private static final int DEFAULT_HP = 250;
-	private static final int DEFAULT_DMG = 55;
-	private static final int DEFAULT_PRICE = 5;
-	private static final int DEFAULT_HIT_CHANCE = 75;
-	private static final int DEFAULT_ARMOR = 10;
-	private static final int DEFAULT_TARGETED_CHANCE_COEF = 200;
+	private static final int DEFAULT_HP = 150;
+	private static final int DEFAULT_DMG = 30;
+	private static final int DEFAULT_PRICE = 3;
+	private static final int DEFAULT_HIT_CHANCE = 90;
+	private static final int DEFAULT_ARMOR = 7;
+	private static final int DEFAULT_TARGETED_CHANCE_COEF = 150;
 	private static final boolean DEFAULT_MOVABLE = true;
 
 	/**
 	 * Constructor
 	 */
-	public Knight() {
+	public Centurion() {
 		hp = DEFAULT_HP;
 		damage = DEFAULT_DMG;
 		price = DEFAULT_PRICE;
@@ -34,6 +34,6 @@ public class Knight extends Unit {
 
 	@Override
 	public Unit clone() {
-		return new Knight();
+		return new Centurion();
 	}
 }

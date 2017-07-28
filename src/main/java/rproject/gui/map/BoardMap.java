@@ -1,4 +1,4 @@
-package rproject.gui;
+package rproject.gui.map;
 
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.data.Feature;
@@ -14,6 +14,9 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 import processing.core.PVector;
 import rproject.engine.Territory;
+import rproject.gui.CGBridge;
+import rproject.gui.MainWindow;
+import rproject.gui.map.components.Legend;
 import rproject.utils.FileUtil;
 import rproject.utils.GUIUtil;
 

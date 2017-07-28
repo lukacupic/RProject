@@ -1,4 +1,4 @@
-package rproject.gui;
+package rproject.gui.map.components;
 
 import processing.core.PApplet;
 import rproject.engine.GameProvider;
@@ -69,13 +69,13 @@ public class Legend {
 	private int cornerDist = 35;
 
 	/**
-	 * The horizontal spacing between each of the components.
-	 * Salute to Elon Musk.
+	 * The horizontal spacing between each of the items.
+	 * Also, salute to Elon Musk.
 	 */
-	private int spaceX = 12;
+	private int spaceX = 7;
 
 	/**
-	 * The vertical spacing between each of the components.
+	 * The vertical spacing between each of the items.
 	 */
 	private int spaceY = 0;
 

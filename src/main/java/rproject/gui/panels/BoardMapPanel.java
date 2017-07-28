@@ -2,7 +2,7 @@ package rproject.gui.panels;
 
 import rproject.engine.Game;
 import rproject.engine.GameProvider;
-import rproject.gui.BoardMap;
+import rproject.gui.map.BoardMap;
 import rproject.gui.CGBridge;
 import rproject.gui.MainWindow;
 

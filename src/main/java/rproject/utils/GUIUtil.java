@@ -74,7 +74,9 @@ public class GUIUtil {
 		p.put("Owner", t.getOwner().getName());
 
 		for (Map.Entry<String, Integer> entry : t.getUnitsCount().entrySet()) {
-			p.put(entry.getKey() + "s", entry.getValue().toString());
+			int n = entry.getValue();
+			if (n == 0) continue;
+			p.put(entry.getKey() + (n > 1 ? "s" : ""), String.valueOf(n));
 		}
 		return p;
 	}

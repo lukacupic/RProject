@@ -3,6 +3,7 @@ package rproject.gui;
 import de.fhpotsdam.unfolding.marker.Marker;
 import rproject.board.BoardProvider;
 import rproject.engine.Territory;
+import rproject.gui.map.BoardMap;
 import rproject.utils.GUIUtil;
 
 import java.awt.*;

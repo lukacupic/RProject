@@ -8,7 +8,7 @@ import rproject.engine.Territory;
 import rproject.gui.CGBridge;
 
 import java.awt.*;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -68,13 +68,13 @@ public class GUIUtil {
 	 * @return a map containing properties of the given territory
 	 */
 	public static Map<String, String> getTerritoryProperties(Territory t) {
-		Map<String, String> p = new HashMap<>();
+		Map<String, String> p = new LinkedHashMap<>();
 
-		p.put("name", t.getName());
-		p.put("owner", t.getOwner().getName());
+		p.put("Name", t.getName());
+		p.put("Owner", t.getOwner().getName());
 
 		for (Map.Entry<String, Integer> entry : t.getUnitsCount().entrySet()) {
-			p.put(entry.getKey(), entry.getValue().toString());
+			p.put(entry.getKey() + "s", entry.getValue().toString());
 		}
 		return p;
 	}

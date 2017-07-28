@@ -13,6 +13,7 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
 import processing.core.PVector;
+import rproject.engine.Territory;
 import rproject.utils.FileUtil;
 import rproject.utils.GUIUtil;
 
@@ -124,15 +125,14 @@ public class BoardMap extends PApplet {
 		map.draw();
 		legend.draw();
 
-		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
-
-		// set the marker's color and outline properties
+		// set each marker's color and outline properties
 		for (Marker m : map.getMarkers()) {
 			m.setColor(GUIUtil.colorToInt(GUIUtil.getMarkerColor(m)));
 			m.setStrokeColor(GUIUtil.colorToInt(Color.BLACK));
 			m.setStrokeWeight(1);
 		}
 
+		Marker marker = CGBridge.getSelectedMarker();
 		if (marker != null) {
 			selectMarker(marker);
 		}
@@ -140,9 +140,14 @@ public class BoardMap extends PApplet {
 
 	@Override
 	public void mouseClicked() {
-		Marker marker = map.getFirstHitMarker(mouseX, mouseY);
-		if (marker == null) return;
-		selectMarker(marker);
+		Territory t = CGBridge.getSelectedTerritory();
+		Map<String, String> p = GUIUtil.getTerritoryProperties(t);
+
+		System.out.println("==================================");
+		for (Map.Entry<String, String> entry : p.entrySet()) {
+			System.out.println(entry.getKey() + ": " + entry.getValue());
+		}
+		System.out.println("==================================");
 	}
 
 	/**
@@ -240,6 +245,16 @@ public class BoardMap extends PApplet {
 	}
 
 	// Getters and setters
+
+
+	/**
+	 * Gets the map.
+	 *
+	 * @return the map
+	 */
+	public UnfoldingMap getMap() {
+		return map;
+	}
 
 	/**
 	 * Gets the map of all the markers.

@@ -62,9 +62,11 @@ public class CGBridge {
 	 *
 	 * @param territory the territory object to convert
 	 * @return a {@link Marker} object representing the given
-	 * territory in the GUI world
+	 * territory in the GUI world, or {@code null} if the given
+	 * territory is {@code null}
 	 */
 	public static Marker getMarker(Territory territory) {
+		if (territory == null) return null;
 		return boardMap.getMarkersMap().get(territory.getName());
 	}
 
@@ -74,10 +76,36 @@ public class CGBridge {
 	 *
 	 * @param marker the marker object to convert
 	 * @return a {@link Territory} object representing the given
-	 * marker in the Game
+	 * marker in the Game, or {@code null} if the given marker
+	 * is {@code null}
 	 */
 	public static Territory getTerritory(Marker marker) {
+		if (marker == null) return null;
 		return BoardProvider.getBoard().getTerritory((String) marker.getProperty("name"));
+	}
+
+	/**
+	 * Returns the marker currently selected by the user.
+	 * A selected marker is the marker which is currently
+	 * selected by the user's mouse.
+	 *
+	 * @return the currently selected marker by the user,
+	 * or {@code null} if no marker is selected
+	 */
+	public static Marker getSelectedMarker() {
+		return boardMap.getMap().getFirstHitMarker(boardMap.mouseX, boardMap.mouseY);
+	}
+
+	/**
+	 * Returns the territory currently selected by the user.
+	 * A selected territory is the territory which is currently
+	 * selected by the user's mouse.
+	 *
+	 * @return the currently selected territory by the user, or
+	 * {@code null} if no territory is selected
+	 */
+	public static Territory getSelectedTerritory() {
+		return getTerritory(getSelectedMarker());
 	}
 
 	/**

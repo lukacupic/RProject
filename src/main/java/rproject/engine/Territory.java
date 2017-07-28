@@ -33,12 +33,6 @@ public class Territory {
 	private List<Unit> units;
 
 	/**
-	 * A map for storing the number of occurrences for each
-	 * type of unit.
-	 */
-	private Map<String, Integer> unitsCount;
-
-	/**
 	 * Holds the total number of territories on the current
 	 * board.
 	 */
@@ -191,8 +185,7 @@ public class Territory {
 	 * type of unit
 	 */
 	public Map<String, Integer> getUnitsCount() {
-		if (unitsCount != null) return unitsCount;
-		unitsCount = new HashMap<>();
+		Map<String, Integer> unitsCount = new HashMap<>();
 
 		for (Unit unit : units) {
 			for (Unit u : Unit.getAllUnits()) {

@@ -89,7 +89,6 @@ public class BoardMap extends PApplet {
 		smooth();
 
 		map = new UnfoldingMap(this);
-		//map = new UnfoldingMap(this, new DummyMapProviderImpl(new DummyProjectionImpl()));
 
 		map.setBackgroundColor(GUIUtil.colorToInt(SEA_COLOR));
 		map.setTweening(true);

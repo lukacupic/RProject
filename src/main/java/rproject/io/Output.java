@@ -1,8 +1,5 @@
 package rproject.io;
 
-/**
- *
- */
 public class Output {
 
 	public static char PROMPT_SYMBOL = '>';

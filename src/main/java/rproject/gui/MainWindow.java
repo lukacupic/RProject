@@ -9,6 +9,9 @@ import java.awt.*;
 
 public class MainWindow extends JFrame {
 
+	/**
+	 * An instance of the main window.
+	 */
 	private static MainWindow mainWindow;
 
 	// General program settings

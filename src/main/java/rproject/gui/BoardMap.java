@@ -24,14 +24,26 @@ import java.util.Map;
 
 public class BoardMap extends PApplet {
 
-	private static final Color TERRITORY_COLOR = new Color(0, 180, 91, 244);
-
+	/**
+	 * Default sea color.
+	 */
 	private static final Color SEA_COLOR = new Color(54, 111, 250, 230);
 
+	/**
+	 * The 'real' center of the map. For some reason, the default center
+	 * is inaccurate, hence the map is centered to this location in the
+	 * setup phase via {@link #centerMap()} method.
+	 */
 	private static final Location REAL_CENTER = new Location(35, 12);
 
+	/**
+	 * The main map used to display territories.
+	 */
 	private UnfoldingMap map;
 
+	/**
+	 * The legend for displaying currently active players.
+	 */
 	private Legend legend;
 
 	/**
@@ -39,12 +51,30 @@ public class BoardMap extends PApplet {
 	 */
 	private String name;
 
+	/**
+	 * Holds all (top-level) markers contained in the {@link #map},
+	 * where each marker is mapped to by it's name.
+	 * For example:
+	 * String "Zimbabwe" will be mapped to the marker which represents
+	 * the Zimbabwe country and holds all vertices of that polygon.
+	 */
 	private Map<String, Marker> markersMap;
 
+	/**
+	 * Holds all (top-level) markers contained in the {@link #map}.
+	 */
 	private List<Marker> markersList;
 
+	/**
+	 * A list of territory names. Extracted from the {@link #markersMap}.
+	 */
 	private List<String> territoryNames;
 
+	/**
+	 * Creates a new {@link BoardMap} with the given name.
+	 *
+	 * @param name the name of the board
+	 */
 	public BoardMap(String name) {
 		this.name = name;
 	}
@@ -59,6 +89,7 @@ public class BoardMap extends PApplet {
 		smooth();
 
 		map = new UnfoldingMap(this);
+
 		map.setBackgroundColor(GUIUtil.colorToInt(SEA_COLOR));
 		map.setTweening(true);
 
@@ -80,10 +111,6 @@ public class BoardMap extends PApplet {
 		mapMarkers(markersList);
 
 		territoryNames = new ArrayList<>(markersMap.keySet());
-
-		for (Marker m : map.getMarkers()) {
-			m.setColor(GUIUtil.colorToInt(TERRITORY_COLOR));
-		}
 
 		centerMap();
 
@@ -214,15 +241,21 @@ public class BoardMap extends PApplet {
 
 	// Getters and setters
 
+	/**
+	 * Gets the map of all the markers.
+	 *
+	 * @return the map which stores all markers
+	 */
 	public Map<String, Marker> getMarkersMap() {
 		return markersMap;
 	}
 
+	/**
+	 * Gets a list of territory names.
+	 *
+	 * @return a list of territory names
+	 */
 	public List<String> getTerritoryNames() {
 		return territoryNames;
-	}
-
-	public Legend getLegend() {
-		return legend;
 	}
 }

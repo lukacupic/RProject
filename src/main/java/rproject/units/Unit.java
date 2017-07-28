@@ -56,7 +56,7 @@ public abstract class Unit {
 	protected int armor;
 
 	/**
-	 * name of unit ("Knight", "Archer"...)
+	 * name of unit ("Centurion", "Archer"...)
 	 */
 	protected String name;
 
@@ -74,11 +74,11 @@ public abstract class Unit {
 		List < Unit > allUnits;
 		allUnits = new ArrayList<>();
 		allUnits.add(new Fighter());
-		allUnits.add(new Knight());
+		allUnits.add(new Centurion());
 		allUnits.add(new Archer());
 		allUnits.add(new Catapult());
 		allUnits.add(new Tower());
-		allUnits.add(new Centurion());
+		allUnits.add(new Knight());
 		return allUnits;
 	}
 

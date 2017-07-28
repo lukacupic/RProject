@@ -5,12 +5,12 @@ public class Centurion extends Unit {
 	/**
 	 * Default stats for every centurion
 	 */
-	private static final int DEFAULT_HP = 150;
-	private static final int DEFAULT_DMG = 30;
-	private static final int DEFAULT_PRICE = 3;
-	private static final int DEFAULT_HIT_CHANCE = 90;
-	private static final int DEFAULT_ARMOR = 7;
-	private static final int DEFAULT_TARGETED_CHANCE_COEF = 150;
+	private static final int DEFAULT_HP = 250;
+	private static final int DEFAULT_DMG = 55;
+	private static final int DEFAULT_PRICE = 5;
+	private static final int DEFAULT_HIT_CHANCE = 75;
+	private static final int DEFAULT_ARMOR = 10;
+	private static final int DEFAULT_TARGETED_CHANCE_COEF = 200;
 	private static final boolean DEFAULT_MOVABLE = true;
 
 	/**
@@ -24,7 +24,7 @@ public class Centurion extends Unit {
 		targetChanceCoef = DEFAULT_TARGETED_CHANCE_COEF;
 		armor = DEFAULT_ARMOR;
 		movable = DEFAULT_MOVABLE;
-		name = "Knight";
+		name = "Centurion";
 	}
 
 	@Override

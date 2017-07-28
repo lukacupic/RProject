@@ -4,9 +4,12 @@ import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
+import rproject.engine.Territory;
 import rproject.gui.CGBridge;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Provides methods for some common tasks while working with GUI.
@@ -44,7 +47,7 @@ public class GUIUtil {
 	 */
 	public static int colorToInt(Color c) {
 		return (c.getAlpha() << 24) | (c.getRed() << 16) | (c.getGreen() << 8) | c.getBlue();
-		// todo: try using Color#HSBtoRGB instead
+		// TODO: Try using Color#HSBtoRGB instead
 	}
 
 	/**
@@ -55,5 +58,24 @@ public class GUIUtil {
 	 */
 	public static Color getMarkerColor(Marker marker) {
 		return CGBridge.getTerritory(marker).getOwner().getColor();
+	}
+
+	/**
+	 * Returns properties of the given territory. These properties include:
+	 * TODO: List of properties
+	 *
+	 * @param t the territory to get the properties of
+	 * @return a map containing properties of the given territory
+	 */
+	public static Map<String, String> getTerritoryProperties(Territory t) {
+		Map<String, String> p = new HashMap<>();
+
+		p.put("name", t.getName());
+		p.put("owner", t.getOwner().getName());
+
+		for (Map.Entry<String, Integer> entry : t.getUnitsCount().entrySet()) {
+			p.put(entry.getKey(), entry.getValue().toString());
+		}
+		return p;
 	}
 }

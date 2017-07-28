@@ -22,8 +22,8 @@ public class Board {
 	}
 
 	private void initTerritories(String name) {
-		// Try accessing the GUI; if not yet initialized, read from the 'names'
-		// Reading the 'names' should be removed after testing
+		// Try accessing the GUI; if not yet initialized, read from 'names';
+		// reading from 'names' should be removed after testing
 		List<String> lines = CGBridge.isConnected() ?
 				CGBridge.getTerritoryNames() : FileUtil.readNames(name);
 

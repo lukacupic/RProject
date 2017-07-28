@@ -3,7 +3,9 @@ package rproject.units;
 import rproject.utils.Util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Unit {
 
@@ -39,7 +41,7 @@ public abstract class Unit {
 	 * Target chance coefficient of unit (or simply "coef").
 	 * Chance of being attacked equals coef divided by the sum of
 	 * coefs of all units in that army
-	 *
+	 * <p>
 	 * for example, if there are units A and B, with coefs 300 and 100 respectively,
 	 * chance of A being attacked equals 300 / (300 + 100) = 75%
 	 * chance of B being attacked equals 100 / (300 + 100) = 25%
@@ -49,7 +51,7 @@ public abstract class Unit {
 	/**
 	 * Armor of unit. Reduces damage taken, damage dealt equals damage of attacker
 	 * reduced by armor of defender
-	 *
+	 * <p>
 	 * for example, if unit A has damage 20 and unit B has armor 15,
 	 * when A attacks B, only (20 - 15) = 5 damage will be dealt
 	 */
@@ -63,15 +65,15 @@ public abstract class Unit {
 	/**
 	 * list of all units
 	 */
-	private static final List < Unit > allUnits = initAllUnits();
+	private static final List<Unit> allUnits = initAllUnits();
 
 	/**
 	 * Initializes the list of all units
 	 *
 	 * @return the list of all units
 	 */
-	private static List < Unit > initAllUnits(){
-		List < Unit > allUnits;
+	private static List<Unit> initAllUnits() {
+		List<Unit> allUnits;
 		allUnits = new ArrayList<>();
 		allUnits.add(new Fighter());
 		allUnits.add(new Centurion());
@@ -81,7 +83,6 @@ public abstract class Unit {
 		allUnits.add(new Knight());
 		return allUnits;
 	}
-
 	/**
 	 * Default constructor
 	 */
@@ -91,15 +92,14 @@ public abstract class Unit {
 	/**
 	 * returns the list of all units
 	 */
-	public static List < Unit > getAllUnits(){
+	public static List<Unit> getAllUnits() {
 		return allUnits;
 	}
 
 	/**
 	 * Adds hp to the unit
 	 *
-	 * @param 	hp
-	 * 			amount of hp added
+	 * @param hp amount of hp added
 	 */
 	public void addHp(int hp) {
 		this.hp += hp;
@@ -108,8 +108,7 @@ public abstract class Unit {
 	/**
 	 * Removes hp from unit
 	 *
-	 * @param 	hp
-	 * 			amount of hp removed
+	 * @param hp amount of hp removed
 	 */
 	public void removeHp(int hp) {
 		this.hp -= hp;
@@ -130,7 +129,9 @@ public abstract class Unit {
 	 *
 	 * @return true if the unit is movable, false otherwise
 	 */
-	public boolean isMovable(){ return this.movable; }
+	public boolean isMovable() {
+		return this.movable;
+	}
 
 	/**
 	 * Returns hp of the unit
@@ -144,8 +145,7 @@ public abstract class Unit {
 	/**
 	 * Sets hp of the unit
 	 *
-	 * @param	hp
-	 * 			value to which hp is set
+	 * @param    hp value to which hp is set
 	 */
 	public void setHp(int hp) {
 		this.hp = hp;
@@ -163,8 +163,7 @@ public abstract class Unit {
 	/**
 	 * Sets hitChance of the unit
 	 *
-	 * @param	hitChance
-	 * 			value to which hitChance is set
+	 * @param    hitChance value to which hitChance is set
 	 */
 	public void setHitChance(int hitChance) {
 		this.hitChance = hitChance;
@@ -182,8 +181,7 @@ public abstract class Unit {
 	/**
 	 * Sets damage of the unit
 	 *
-	 * @param	damage
-	 * 			value to which damage is set
+	 * @param    damage value to which damage is set
 	 */
 	public void setDamage(int damage) {
 		this.damage = damage;
@@ -197,11 +195,11 @@ public abstract class Unit {
 	public int getPrice() {
 		return price;
 	}
+
 	/**
 	 * Sets price of the unit
 	 *
-	 * @param	price
-	 * 			value to which damage is set
+	 * @param    price value to which damage is set
 	 */
 	public void setPrice(int price) {
 		this.price = price;
@@ -228,14 +226,12 @@ public abstract class Unit {
 	/**
 	 * Attacks other unit
 	 *
-	 * @param	unit
-	 *			unit which is attacked
-	 *
 	 * @return true if attacked unit is killed in the attack, false otherwise
+	 * @param    unit unit which is attacked
 	 */
-	public boolean attack(Unit unit){
+	public boolean attack(Unit unit) {
 		int totalChanceOfHit = unit.hitChance;
-		if (Util.getRandInt(100)>=totalChanceOfHit) return false;
+		if (Util.getRandInt(100) >= totalChanceOfHit) return false;
 		int damageDealt = damage - unit.getArmor();
 		if (damageDealt < 0) damageDealt = 0;
 		unit.removeHp(damageDealt);
@@ -259,16 +255,16 @@ public abstract class Unit {
 	 *
 	 * @return name of the unit
 	 */
-	public String getName(){
+	public String getName() {
 		return name;
-	};
+	}
 
+	// TODO: Update equals and hashCode methods to match unit's fields
 	/**
 	 * Checks if units are equal
 	 *
-	 * @param	o
-	 * 			we check if o equals this unit
 	 * @return true if they are equal, false otherwise
+	 * @param    o we check if o equals this unit
 	 */
 	@Override
 	public boolean equals(Object o) {

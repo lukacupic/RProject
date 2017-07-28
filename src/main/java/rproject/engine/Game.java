@@ -290,18 +290,18 @@ public class Game {
 		Output.writeln("list of units:");
 		List < Unit > allUnits = Unit.getAllUnits();
 		for (Unit unit : allUnits) {
-			if (T.getNumberOfUnits(unit.getName()) == 0) continue;
+			if (T.countSpecificUnits(unit.getName()) == 0) continue;
 			Output.writeln(unit.getName() + " (dmg: " + unit.getDamage() + ", hp: " + unit.getHp()
-					+ ", quantity: " + T.getNumberOfUnits(unit.getName()) + "x)");
+					+ ", quantity: " + T.countSpecificUnits(unit.getName()) + "x)");
 		}
 		List<Unit> selectedUnits = new ArrayList<>();
 		boolean isAllSelected = true;
 		for (Unit unit : allUnits) {
-			if (T.getNumberOfUnits(unit.getName()) == 0) continue;
+			if (T.countSpecificUnits(unit.getName()) == 0) continue;
 			if (!unit.isMovable()) continue;
 			Output.writeln("how many " + unit.getName() + "?");
 			int cntSelectedUnits = Input.readInt();
-			while (cntSelectedUnits > T.getNumberOfUnits(unit.getName()) || cntSelectedUnits < 0) {
+			while (cntSelectedUnits > T.countSpecificUnits(unit.getName()) || cntSelectedUnits < 0) {
 				Output.writeln("input number not valid");
 				if (getYNAnswer("input again")) {
 					Output.writeln("how many " + unit.getName() + "?");
@@ -345,7 +345,7 @@ public class Game {
 			Territory defTerritory = getTerritory("att what?");
 			if (!checkValidAttack(attTerritory, defTerritory, player)) continue;
 			List<Unit> attUnits = getUnits(attTerritory);
-			if (attUnits.size() == attTerritory.getCntUnits()){
+			if (attUnits.size() == attTerritory.countAllUnits()){
 				Output.writeln("you cant attack with all units");
 				continue;
 			}
@@ -413,7 +413,7 @@ public class Game {
 			Territory ending = getTerritory("move to?");
 			if (!checkValidMoving(starting, ending, player)) continue;
 			List<Unit> movingUnits = getUnits(starting);
-			if (movingUnits.size() == starting.getCntUnits()){
+			if (movingUnits.size() == starting.countAllUnits()){
 				Output.writeln("you cant attack with all units");
 				continue;
 			}

@@ -109,7 +109,7 @@ public class Player {
 	public void addTerritory(Territory T) {
 		territories.add(T);
 		T.setOwner(this);
-		addUnits(T.getCntUnits());
+		addUnits(T.countAllUnits());
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class Player {
 	 */
 	public void removeTerritory(Territory T) {
 		territories.remove(T);
-		addUnits(-T.getCntUnits());
+		addUnits(-T.countAllUnits());
 	}
 
 	/**

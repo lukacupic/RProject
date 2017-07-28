@@ -1,5 +1,7 @@
 package rproject.units;
 
+import rproject.utils.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,18 @@ public abstract class Unit {
 	 */
 
 	protected int price;
+
+	/**
+	 * Chance of hitting another unit
+	 */
+
+	protected int hitChance;
+
+	/**
+	 * If unit isn't movable, it can't be part of attacking army, and can't be moved
+	 * in any moving phase
+	 */
+	protected boolean movable;
 
 	/**
 	 * Target chance coefficient of unit (or simply "coef").
@@ -62,6 +76,9 @@ public abstract class Unit {
 		allUnits.add(new Fighter());
 		allUnits.add(new Knight());
 		allUnits.add(new Archer());
+		allUnits.add(new Catapult());
+		allUnits.add(new Tower());
+		allUnits.add(new Centurion());
 		return allUnits;
 	}
 
@@ -109,6 +126,13 @@ public abstract class Unit {
 	}
 
 	/**
+	 * Returns true if the unit is movable, false otherwise
+	 *
+	 * @return true if the unit is movable, false otherwise
+	 */
+	public boolean isMovable(){ return this.movable; }
+
+	/**
 	 * Returns hp of the unit
 	 *
 	 * @return hp of the unit
@@ -125,6 +149,25 @@ public abstract class Unit {
 	 */
 	public void setHp(int hp) {
 		this.hp = hp;
+	}
+
+	/**
+	 * Returns hitChance of the unit
+	 *
+	 * @return hitChance of the unit
+	 */
+	public int getHitChance() {
+		return hitChance;
+	}
+
+	/**
+	 * Sets hitChance of the unit
+	 *
+	 * @param	hitChance
+	 * 			value to which hitChance is set
+	 */
+	public void setHitChance(int hitChance) {
+		this.hitChance = hitChance;
 	}
 
 	/**
@@ -191,6 +234,8 @@ public abstract class Unit {
 	 * @return true if attacked unit is killed in the attack, false otherwise
 	 */
 	public boolean attack(Unit unit){
+		int totalChanceOfHit = unit.hitChance;
+		if (Util.getRandInt(100)>=totalChanceOfHit) return false;
 		int damageDealt = damage - unit.getArmor();
 		if (damageDealt < 0) damageDealt = 0;
 		unit.removeHp(damageDealt);
@@ -248,11 +293,11 @@ public abstract class Unit {
 	@Override
 	public int hashCode() {
 		int result = hp;
-		result = 31 * result + damage;
-		result = 31 * result + price;
-		result = 31 * result + targetChanceCoef;
-		result = 31 * result + armor;
-		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 2099 * result + damage;
+		result = 2099 * result + price;
+		result = 2099 * result + targetChanceCoef;
+		result = 2099 * result + armor;
+		result = 2099 * result + (name != null ? name.hashCode() : 0);
 		return result;
 	}
 }

@@ -8,8 +8,10 @@ public class Fighter extends Unit {
 	private static final int DEFAULT_HP = 100;
 	private static final int DEFAULT_DMG = 15;
 	private static final int DEFAULT_PRICE = 1;
+	private static final int DEFAULT_HIT_CHANCE = 50;
 	private static final int DEFAULT_ARMOR = 2;
 	private static final int DEFAULT_TARGETED_CHANCE_COEF = 100;
+	private static final boolean DEFAULT_MOVABLE = true;
 
 	/**
 	 * Constructor
@@ -18,8 +20,10 @@ public class Fighter extends Unit {
 		hp = DEFAULT_HP;
 		damage = DEFAULT_DMG;
 		price = DEFAULT_PRICE;
+		hitChance = DEFAULT_HIT_CHANCE;
 		targetChanceCoef = DEFAULT_TARGETED_CHANCE_COEF;
 		armor = DEFAULT_ARMOR;
+		movable = DEFAULT_MOVABLE;
 		name = "Fighter";
 	}
 

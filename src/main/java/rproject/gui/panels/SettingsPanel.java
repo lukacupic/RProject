@@ -98,8 +98,6 @@ public class SettingsPanel extends JPanel {
 
 	/**
 	 * Creates a new combo box filled with the given values.
-	 * See {@link GridBagConstraints} class fields for
-	 * more information.
 	 *
 	 * @param strings the values to go into the combo box' selection
 	 * @param gridx   the column of the {@link GridBagLayout}
@@ -108,6 +106,7 @@ public class SettingsPanel extends JPanel {
 	 *                in which to put this component into
 	 * @param insets  the external padding of the component
 	 * @return a new combo box with the given values
+	 * @see GridBagConstraints
 	 */
 	private JComboBox<String> initComboBox(String[] strings, int gridx, int gridy, Insets insets) {
 		JComboBox<String> playersComboBox = new JComboBox<>(strings);
@@ -121,8 +120,6 @@ public class SettingsPanel extends JPanel {
 
 	/**
 	 * Creates a new label with the given values.
-	 * See {@link GridBagConstraints} class fields for
-	 * more information.
 	 *
 	 * @param text   the text to go inside the component
 	 * @param gridx  the column of the {@link GridBagLayout}
@@ -131,6 +128,7 @@ public class SettingsPanel extends JPanel {
 	 *               in which to put this component into
 	 * @param insets the external padding of the component
 	 * @return a new label with the given values
+	 * @see GridBagConstraints
 	 */
 	private JLabel initLabel(String text, int gridx, int gridy, Insets insets) {
 		JLabel boardsLabel = new JLabel(text);

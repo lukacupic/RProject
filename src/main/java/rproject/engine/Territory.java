@@ -185,6 +185,7 @@ public class Territory {
 
 		for (Unit unit : units) {
 			for (Unit u : Unit.getAllUnits()) {
+				unitsCount.put(u.getName(), 0);
 				if (unit.getClass().equals(u.getClass())) {
 					unitsCount.merge(unit.getName(), 1, (a, b) -> a + b);
 				}

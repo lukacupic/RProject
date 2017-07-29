@@ -6,7 +6,7 @@ import rproject.engine.Territory;
 import rproject.gui.map.BoardMap;
 import rproject.utils.GUIUtil;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 

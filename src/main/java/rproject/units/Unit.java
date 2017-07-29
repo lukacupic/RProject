@@ -3,40 +3,37 @@ package rproject.units;
 import rproject.utils.Util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public abstract class Unit {
 
 	/**
+	 * list of all units
+	 */
+	private static final List<Unit> allUnits = initAllUnits();
+	/**
 	 * Hp of the unit
 	 */
 	protected int hp;
-
 	/**
 	 * Damage of the unit
 	 */
 	protected int damage;
-
 	/**
 	 * Price of the unit
 	 */
 
 	protected int price;
-
 	/**
 	 * Chance of hitting another unit
 	 */
 
 	protected int hitChance;
-
 	/**
 	 * If unit isn't movable, it can't be part of attacking army, and can't be moved
 	 * in any moving phase
 	 */
 	protected boolean movable;
-
 	/**
 	 * Target chance coefficient of unit (or simply "coef").
 	 * Chance of being attacked equals coef divided by the sum of
@@ -47,7 +44,6 @@ public abstract class Unit {
 	 * chance of B being attacked equals 100 / (300 + 100) = 25%
 	 */
 	protected int targetChanceCoef;
-
 	/**
 	 * Armor of unit. Reduces damage taken, damage dealt equals damage of attacker
 	 * reduced by armor of defender
@@ -56,16 +52,16 @@ public abstract class Unit {
 	 * when A attacks B, only (20 - 15) = 5 damage will be dealt
 	 */
 	protected int armor;
-
 	/**
 	 * name of unit ("Centurion", "Archer"...)
 	 */
 	protected String name;
 
 	/**
-	 * list of all units
+	 * Default constructor
 	 */
-	private static final List<Unit> allUnits = initAllUnits();
+	public Unit() {
+	}
 
 	/**
 	 * Initializes the list of all units
@@ -82,11 +78,6 @@ public abstract class Unit {
 		allUnits.add(new Tower());
 		allUnits.add(new Knight());
 		return allUnits;
-	}
-	/**
-	 * Default constructor
-	 */
-	public Unit() {
 	}
 
 	/**
@@ -145,7 +136,7 @@ public abstract class Unit {
 	/**
 	 * Sets hp of the unit
 	 *
-	 * @param    hp value to which hp is set
+	 * @param hp value to which hp is set
 	 */
 	public void setHp(int hp) {
 		this.hp = hp;
@@ -163,7 +154,7 @@ public abstract class Unit {
 	/**
 	 * Sets hitChance of the unit
 	 *
-	 * @param    hitChance value to which hitChance is set
+	 * @param hitChance value to which hitChance is set
 	 */
 	public void setHitChance(int hitChance) {
 		this.hitChance = hitChance;
@@ -181,7 +172,7 @@ public abstract class Unit {
 	/**
 	 * Sets damage of the unit
 	 *
-	 * @param    damage value to which damage is set
+	 * @param damage value to which damage is set
 	 */
 	public void setDamage(int damage) {
 		this.damage = damage;
@@ -199,7 +190,7 @@ public abstract class Unit {
 	/**
 	 * Sets price of the unit
 	 *
-	 * @param    price value to which damage is set
+	 * @param price value to which damage is set
 	 */
 	public void setPrice(int price) {
 		this.price = price;
@@ -226,8 +217,8 @@ public abstract class Unit {
 	/**
 	 * Attacks other unit
 	 *
+	 * @param unit unit which is attacked
 	 * @return true if attacked unit is killed in the attack, false otherwise
-	 * @param    unit unit which is attacked
 	 */
 	public boolean attack(Unit unit) {
 		int totalChanceOfHit = unit.hitChance;
@@ -260,11 +251,12 @@ public abstract class Unit {
 	}
 
 	// TODO: Update equals and hashCode methods to match unit's fields
+
 	/**
 	 * Checks if units are equal
 	 *
+	 * @param o we check if o equals this unit
 	 * @return true if they are equal, false otherwise
-	 * @param    o we check if o equals this unit
 	 */
 	@Override
 	public boolean equals(Object o) {

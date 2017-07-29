@@ -7,7 +7,8 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import rproject.engine.Territory;
 import rproject.gui.CGBridge;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Point;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

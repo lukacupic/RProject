@@ -12,31 +12,27 @@ import java.util.Map;
 public class Territory {
 
 	/**
+	 * Holds the total number of territories on the current
+	 * board.
+	 */
+	private static int territoryCount;
+	/**
 	 * The name of the territory.
 	 */
 	private String name;
-
 	/**
 	 * Represents the ordinal number of this territory in
 	 * respect to all other territories.
 	 */
 	private int index;
-
 	/**
 	 * The owner of the territory.
 	 */
 	private Player owner;
-
 	/**
 	 * A list of all units currently on the territory.
 	 */
 	private List<Unit> units;
-
-	/**
-	 * Holds the total number of territories on the current
-	 * board.
-	 */
-	private static int territoryCount;
 
 	/**
 	 * Creates a new territory of the given name.

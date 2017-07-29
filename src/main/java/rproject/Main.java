@@ -1,9 +1,9 @@
 package rproject;
 
 import rproject.engine.Game;
-import rproject.utils.FileUtil;
 import rproject.io.Input;
 import rproject.io.Output;
+import rproject.utils.FileUtil;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ public class Main {
 		Game engine = new Game(map, playerNames);
 		engine.start();*/
 
-		Game game = new Game("continentsShort", new String[]{"asd","qwe"});
+		Game game = new Game("continentsShort", new String[]{"asd", "qwe"});
 		game.start();
 	}
 

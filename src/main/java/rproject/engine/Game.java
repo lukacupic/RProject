@@ -7,7 +7,7 @@ import rproject.io.Output;
 import rproject.units.Unit;
 import rproject.utils.Util;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,26 +16,95 @@ import java.util.List;
 public class Game {
 
 	/**
+	 * Colors of the players, if there are n players, first n colors are used
+	 */
+	private final Color colors[] = new Color[]{
+			new Color(255, 0, 0),
+			new Color(0, 255, 0),
+			new Color(0, 0, 255),
+			new Color(255, 255, 0),
+			new Color(255, 0, 255),
+			new Color(0, 255, 255),
+	};
+	/**
 	 * The board on which the game is played
 	 */
 	private Board board;
-
 	/**
 	 * The list of all players in this game
 	 */
 	private List<Player> players = new ArrayList<>();
 
 	/**
-	 * Colors of the players, if there are n players, first n colors are used
+	 * Initializes the board
+	 *
+	 * @param boardName   name of the board
+	 * @param playerNames List of names of players
 	 */
-	private final Color colors[] = new Color[]{
-			new Color (255,0,0),
-			new Color (0,255,0),
-			new Color (0,0,255),
-			new Color (255,255,0),
-			new Color (255,0,255),
-			new Color (0,255,255),
-	};
+	public Game(String boardName, String[] playerNames) {
+		board = new Board(boardName);
+		BoardProvider.setBoard(board);
+
+		createPlayers(new ArrayList<>(Arrays.asList(playerNames)));
+	}
+
+	/**
+	 * Returns (weighted) random index of some unit from the army. Each unit has weighted
+	 * coefficient (or simply "coef", and chance of being selected equals:
+	 * chance = (coef of unit) / (sum of coefs of all units in army)
+	 * <p>
+	 * for example, if army consist of units A and B, with weighted coefficients 300 and 100 respectively,
+	 * chance of A being attacked equals 300 / (300 + 100) = 75%
+	 * chance of B being attacked equals 100 / (300 + 100) = 25%
+	 *
+	 * @param army army from which weighted random index is requested
+	 * @return weighted random index
+	 */
+	private static int getRandomIndex(List<Unit> army) {
+		int sumOfCoefs = 0;
+		for (Unit unit : army) sumOfCoefs += unit.getTargetChanceCoef();
+		int randInt = Util.getRandInt(sumOfCoefs);
+		for (int i = 0; i < army.size(); i++) {
+			Unit unit = army.get(i);
+			randInt -= unit.getTargetChanceCoef();
+			if (randInt < 0) return i;
+		}
+		return 0;
+	}
+
+	/**
+	 * Simulates the battle, returns surviving army (empty if the attacker lost)
+	 *
+	 * @param attTerritory attacking territory
+	 * @param defTerritory defending territory
+	 * @param attArmy      attacking army
+	 * @return surviving army (empty if the attacker lost)
+	 */
+	private static List<Unit> battle(Territory attTerritory, Territory defTerritory, List<Unit> attArmy) {
+		List<Unit> defArmy = defTerritory.getUnits();
+		Collections.shuffle(attArmy);
+		Collections.shuffle(defArmy);
+		while (!attArmy.isEmpty() && !defArmy.isEmpty()) {
+			for (Unit unit : defArmy) {
+				if (attArmy.size() == 0) break;
+				int targetIndex = getRandomIndex(attArmy);
+				if (unit.attack(attArmy.get(targetIndex))) attArmy.remove(targetIndex);
+			}
+			for (Unit unit : attArmy) {
+				if (defArmy.size() == 0) break;
+				int targetIndex = getRandomIndex(defArmy);
+				if (unit.attack(defArmy.get(targetIndex))) defArmy.remove(targetIndex);
+			}
+		}
+		Output.writeln("att army size: " + attArmy.size());
+		Output.writeln("def army size: " + defArmy.size());
+		for (Unit unit : attArmy)
+			unit.resetHp();
+		for (Unit unit : defArmy)
+			unit.resetHp();
+		defTerritory.setUnits(defArmy);
+		return attArmy;
+	}
 
 	/**
 	 * Returns the list of all players
@@ -44,22 +113,6 @@ public class Game {
 	 */
 	public List<Player> getPlayers() {
 		return players;
-	}
-
-	/**
-	 * Initializes the board
-	 *
-	 * @param 	boardName
-	 * 			name of the board
-	 *
-	 * @param 	playerNames
-	 *			List of names of players
-	 */
-	public Game(String boardName, String[] playerNames) {
-		board = new Board(boardName);
-		BoardProvider.setBoard(board);
-
-		createPlayers(new ArrayList<>(Arrays.asList(playerNames)));
 	}
 
 	/**
@@ -73,8 +126,7 @@ public class Game {
 	/**
 	 * Adds players to the list of players, and assigns colors to them
 	 *
-	 * @param 	playerNames
-	 * 			List of names of players
+	 * @param playerNames List of names of players
 	 */
 	private void createPlayers(List<String> playerNames) {
 		for (int i = 0; i < playerNames.size(); i++) {
@@ -88,7 +140,7 @@ public class Game {
 	 * Runs spawn phase which is at the beginning of the game,
 	 * every player is given few gold to place first few units.
 	 */
-	private void runInitSpawnPhase(){
+	private void runInitSpawnPhase() {
 		Output.writeln("*** init phase, place your units! ***");
 		for (Player player : players) {
 			player.addGold(2);
@@ -124,8 +176,7 @@ public class Game {
 	/**
 	 * Runs the turn for player, calls all phases
 	 *
-	 * @param 	player
-	 * 			current player
+	 * @param player current player
 	 */
 	private void runPlayer(Player player) {
 		Output.write("***** ");
@@ -159,15 +210,9 @@ public class Game {
 	/**
 	 * Checks if attack is valid
 	 *
-	 * @param 	attTerritory
-	 * 			attacking territory
-	 *
-	 * @param 	defTerritory
-	 * 			defending territory
-	 *
-	 * @param 	player
-	 * 			current player
-	 *
+	 * @param attTerritory attacking territory
+	 * @param defTerritory defending territory
+	 * @param player       current player
 	 * @return true if attack is valid, false if it's not
 	 */
 	private boolean checkValidAttack(Territory attTerritory, Territory defTerritory, Player player) {
@@ -196,77 +241,9 @@ public class Game {
 	}
 
 	/**
-	 * Returns (weighted) random index of some unit from the army. Each unit has weighted
-	 * coefficient (or simply "coef", and chance of being selected equals:
-	 * chance = (coef of unit) / (sum of coefs of all units in army)
-	 *
-	 * for example, if army consist of units A and B, with weighted coefficients 300 and 100 respectively,
-	 * chance of A being attacked equals 300 / (300 + 100) = 75%
-	 * chance of B being attacked equals 100 / (300 + 100) = 25%
-	 *
-	 * @param 	army
-	 * 			army from which weighted random index is requested
-	 *
-	 * @return weighted random index
-	 */
-	private static int getRandomIndex(List < Unit > army){
-		int sumOfCoefs = 0;
-		for (Unit unit : army) sumOfCoefs += unit.getTargetChanceCoef();
-		int randInt = Util.getRandInt(sumOfCoefs);
-		for (int i = 0; i < army.size(); i++) {
-			Unit unit = army.get(i);
-			randInt -= unit.getTargetChanceCoef();
-			if (randInt < 0) return i;
-		}
-		return 0;
-	}
-
-	/**
-	 * Simulates the battle, returns surviving army (empty if the attacker lost)
-	 *
-	 * @param 	attTerritory
-	 * 			attacking territory
-	 *
-	 * @param 	defTerritory
-	 * 			defending territory
-	 *
-	 * @param 	attArmy
-	 * 			attacking army
-	 *
-	 * @return surviving army (empty if the attacker lost)
-	 */
-	private static List<Unit> battle(Territory attTerritory, Territory defTerritory, List<Unit> attArmy) {
-		List<Unit> defArmy = defTerritory.getUnits();
-		Collections.shuffle(attArmy);
-		Collections.shuffle(defArmy);
-		while (!attArmy.isEmpty() && !defArmy.isEmpty()) {
-			for (Unit unit : defArmy) {
-				if (attArmy.size() == 0) break;
-				int targetIndex = getRandomIndex(attArmy);
-				if (unit.attack(attArmy.get(targetIndex))) attArmy.remove(targetIndex);
-			}
-			for (Unit unit : attArmy) {
-				if (defArmy.size() == 0) break;
-				int targetIndex = getRandomIndex(defArmy);
-				if (unit.attack(defArmy.get(targetIndex))) defArmy.remove(targetIndex);
-			}
-		}
-		Output.writeln("att army size: " + attArmy.size());
-		Output.writeln("def army size: " + defArmy.size());
-		for (Unit unit : attArmy)
-			unit.resetHp();
-		for (Unit unit : defArmy)
-			unit.resetHp();
-		defTerritory.setUnits(defArmy);
-		return attArmy;
-	}
-
-	/**
 	 * reads until y/n answer is given, returns that answer
 	 *
-	 * @param 	message
-	 * 			printed message
-	 *
+	 * @param message printed message
 	 * @return true if y is given, false if n
 	 */
 	private boolean getYNAnswer(String message) {
@@ -281,14 +258,12 @@ public class Game {
 	/**
 	 * asks player to select units from given territory
 	 *
-	 * @param T
-	 * 			territory for which the list of selected units is requested
-	 *
+	 * @param T territory for which the list of selected units is requested
 	 * @return the list of the selected units
 	 */
 	private List<Unit> getUnits(Territory T) {
 		Output.writeln("list of units:");
-		List < Unit > allUnits = Unit.getAllUnits();
+		List<Unit> allUnits = Unit.getAllUnits();
 		for (Unit unit : allUnits) {
 			if (T.countSpecificUnits(unit.getName()) == 0) continue;
 			Output.writeln(unit.getName() + " (dmg: " + unit.getDamage() + ", hp: " + unit.getHp()
@@ -309,7 +284,7 @@ public class Game {
 				} else
 					cntSelectedUnits = 0;
 			}
-			for(int i = 0; i < cntSelectedUnits; ++i)
+			for (int i = 0; i < cntSelectedUnits; ++i)
 				selectedUnits.add(unit.clone());
 		}
 		return selectedUnits;
@@ -318,9 +293,7 @@ public class Game {
 	/**
 	 * Asks player to select some territory
 	 *
-	 * @param 	message
-	 * 			message which is printed
-	 *
+	 * @param message message which is printed
 	 * @return selected territory
 	 */
 	private Territory getTerritory(String message) {
@@ -332,8 +305,7 @@ public class Game {
 	/**
 	 * simulates attack phase
 	 *
-	 * @param 	player
-	 * 			current player
+	 * @param player current player
 	 * @return
 	 */
 	private boolean attackPhase(Player player) {
@@ -345,7 +317,7 @@ public class Game {
 			Territory defTerritory = getTerritory("att what?");
 			if (!checkValidAttack(attTerritory, defTerritory, player)) continue;
 			List<Unit> attUnits = getUnits(attTerritory);
-			if (attUnits.size() == attTerritory.countAllUnits()){
+			if (attUnits.size() == attTerritory.countAllUnits()) {
 				Output.writeln("you cant attack with all units");
 				continue;
 			}
@@ -367,15 +339,9 @@ public class Game {
 	/**
 	 * Checks if moving is valid
 	 *
-	 * @param 	startingTerritory
-	 * 			starting territory
-	 *
-	 * @param 	endingTerritory
-	 * 			ending territory
-	 *
-	 * @param 	player
-	 * 			current player
-	 *
+	 * @param startingTerritory starting territory
+	 * @param endingTerritory   ending territory
+	 * @param player            current player
 	 * @return true if moving is valid, false if it's not
 	 */
 	private boolean checkValidMoving(Territory startingTerritory, Territory endingTerritory, Player player) {
@@ -397,11 +363,11 @@ public class Game {
 		}
 		return true;
 	}
+
 	/**
 	 * simulates moving phase
 	 *
-	 * @param 	player
-	 * 			current player
+	 * @param player current player
 	 * @return
 	 */
 
@@ -413,7 +379,7 @@ public class Game {
 			Territory ending = getTerritory("move to?");
 			if (!checkValidMoving(starting, ending, player)) continue;
 			List<Unit> movingUnits = getUnits(starting);
-			if (movingUnits.size() == starting.countAllUnits()){
+			if (movingUnits.size() == starting.countAllUnits()) {
 				Output.writeln("you cant attack with all units");
 				continue;
 			}
@@ -424,8 +390,7 @@ public class Game {
 	/**
 	 * Return how many gold should player get for spawning
 	 *
-	 * @param 	player
-	 * 			current player
+	 * @param player current player
 	 * @return how many gold should player get for spawning
 	 */
 	private int getSpawnCount(Player player) {
@@ -435,12 +400,8 @@ public class Game {
 	/**
 	 * Checks if spawning is valid
 	 *
-	 * @param 	spawn
-	 * 			spawning territory
-	 *
-	 * @param 	player
-	 * 			current player
-	 *
+	 * @param spawn  spawning territory
+	 * @param player current player
 	 * @return true if spawning is valid, false if it's not
 	 */
 	private boolean checkValidSpawning(Territory spawn, Player player) {
@@ -458,15 +419,13 @@ public class Game {
 	/**
 	 * asks player to select spawning units
 	 *
-	 * @param player
-	 * 			current player
-	 *
+	 * @param player current player
 	 * @return the list of the selected units
 	 */
 	private List<Unit> getSpawnUnits(Player player) {
 		List<Unit> units = new ArrayList<>();
 		Output.writeln("current gold: " + player.getGold());
-		List < Unit > allUnits = Unit.getAllUnits();
+		List<Unit> allUnits = Unit.getAllUnits();
 		Output.writeln("all units:");
 		for (Unit unit : allUnits) {
 			Output.writeln(unit.getName() + " (dmg: " + unit.getDamage() + ", hp: " + unit.getHp()
@@ -475,17 +434,16 @@ public class Game {
 		for (Unit unit : allUnits) {
 			Output.writeln("how many " + unit.getName() + "?");
 			int cntSpawnUnits = Input.readInt();
-			while(cntSpawnUnits * unit.getPrice() > player.getGold() || cntSpawnUnits < 0){
+			while (cntSpawnUnits * unit.getPrice() > player.getGold() || cntSpawnUnits < 0) {
 				Output.writeln("input number not valid");
-				if(getYNAnswer("input again")) {
+				if (getYNAnswer("input again")) {
 					Output.writeln("how many " + unit.getName() + "?");
 					cntSpawnUnits = Input.readInt();
-				}
-				else
+				} else
 					cntSpawnUnits = 0;
 			}
 			player.removeGold(cntSpawnUnits * unit.getPrice());
-			for(int i = 0; i < cntSpawnUnits; ++i)
+			for (int i = 0; i < cntSpawnUnits; ++i)
 				units.add(unit.clone());
 		}
 		return units;
@@ -494,8 +452,7 @@ public class Game {
 	/**
 	 * simulates spawn phase
 	 *
-	 * @param 	player
-	 * 			current player
+	 * @param player current player
 	 * @return
 	 */
 	private void spawnPhase(Player player) {
@@ -514,8 +471,7 @@ public class Game {
 	/**
 	 * gives the bonus to the player
 	 *
-	 * @param 	player
-	 * 			current player
+	 * @param player current player
 	 */
 	private void bonusPhase(Player player) {
 		player.addBonus(1);

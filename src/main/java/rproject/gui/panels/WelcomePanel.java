@@ -2,8 +2,12 @@ package rproject.gui.panels;
 
 import rproject.gui.MainWindow;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 public class WelcomePanel extends JPanel {
 

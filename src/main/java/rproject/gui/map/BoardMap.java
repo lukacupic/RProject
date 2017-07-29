@@ -20,7 +20,8 @@ import rproject.gui.map.components.Legend;
 import rproject.utils.FileUtil;
 import rproject.utils.GUIUtil;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;

@@ -6,7 +6,7 @@ import rproject.engine.Player;
 import rproject.utils.GUIUtil;
 import rproject.utils.Util;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 import java.util.stream.Collectors;
 

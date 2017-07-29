@@ -5,7 +5,7 @@ public class Archer extends Unit {
 	/**
 	 * Default stats for every archer
 	 */
- 	private static final int DEFAULT_HP = 60;
+	private static final int DEFAULT_HP = 60;
 	private static final int DEFAULT_DMG = 35;
 	private static final int DEFAULT_PRICE = 2;
 	private static final int DEFAULT_HIT_CHANCE = 90;

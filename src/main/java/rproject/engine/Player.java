@@ -1,6 +1,6 @@
 package rproject.engine;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +39,8 @@ public class Player {
 	/**
 	 * Constructor
 	 *
-	 * @param 	name
-	 * 			name of the player
-	 *
-	 * @param 	color
-	 * 			color of the player
+	 * @param name  name of the player
+	 * @param color color of the player
 	 */
 	public Player(String name, Color color) {
 		this.name = name;
@@ -54,8 +51,7 @@ public class Player {
 	/**
 	 * Adds gold to the player
 	 *
-	 * @param 	n
-	 * 			amount of gold added
+	 * @param n amount of gold added
 	 */
 	public void addGold(int n) {
 		cntGold += n;
@@ -64,8 +60,7 @@ public class Player {
 	/**
 	 * Removes gold from the player
 	 *
-	 * @param 	n
-	 * 			amount of gold removed
+	 * @param n amount of gold removed
 	 */
 	public void removeGold(int n) {
 		addGold(-n);
@@ -83,8 +78,7 @@ public class Player {
 	/**
 	 * Increases count of the units
 	 *
-	 * @param 	n
-	 * 			amount of units added
+	 * @param n amount of units added
 	 */
 	private void addUnits(int n) {
 		cntUnits += n;
@@ -93,8 +87,7 @@ public class Player {
 	/**
 	 * Adds bonuses to the player
 	 *
-	 * @param 	n
-	 * 			amount of bonuses added
+	 * @param n amount of bonuses added
 	 */
 	public void addBonus(int n) {
 		cntBonus += n;
@@ -103,8 +96,7 @@ public class Player {
 	/**
 	 * Adds territory to the player
 	 *
-	 * @param 	T
-	 * 			added territory
+	 * @param T added territory
 	 */
 	public void addTerritory(Territory T) {
 		territories.add(T);
@@ -115,8 +107,7 @@ public class Player {
 	/**
 	 * Removes territory from the player
 	 *
-	 * @param 	T
-	 * 			removed territory
+	 * @param T removed territory
 	 */
 	public void removeTerritory(Territory T) {
 		territories.remove(T);
@@ -131,6 +122,7 @@ public class Player {
 	public List<Territory> getTerritories() {
 		return territories;
 	}
+
 	/**
 	 * Returns how many gold the player owns
 	 *

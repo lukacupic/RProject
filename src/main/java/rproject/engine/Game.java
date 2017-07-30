@@ -49,6 +49,14 @@ public class Game {
 	}
 
 	/**
+	 * Assigns territories to players and starts the game
+	 */
+	public void start() {
+		shuffle();
+		runGame();
+	}
+
+	/**
 	 * Returns (weighted) random index of some unit from the army. Each unit has weighted
 	 * coefficient (or simply "coef", and chance of being selected equals:
 	 * chance = (coef of unit) / (sum of coefs of all units in army)
@@ -113,14 +121,6 @@ public class Game {
 	 */
 	public List<Player> getPlayers() {
 		return players;
-	}
-
-	/**
-	 * Assigns territories to players and starts the game
-	 */
-	public void start() {
-		shuffle();
-		runGame();
 	}
 
 	/**

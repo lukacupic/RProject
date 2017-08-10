@@ -52,6 +52,20 @@ public class Util {
 	}
 
 	/**
+	 * Tests if event P with given probability successChance happens.
+	 *
+	 * For example, if successChance equals 70, there is 70% chance that the method will
+	 * return true, and 30% chance that it will return false.
+	 *
+	 * @param 	successChance
+	 * 			chance of success, in percentage
+	 * @return	(successChance)% of returning true, (100 - successChance)% of returning false
+	 */
+	public boolean testChance(int successChance){
+		return Util.getRandInt(100) >= successChance;
+	}
+
+	/**
 	 * Extracts and returns the names of the given players.
 	 *
 	 * @param players the players whose names to return

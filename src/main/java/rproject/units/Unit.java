@@ -143,18 +143,28 @@ public abstract class Unit {
 	}
 
 	/**
-	 * Returns hitChance of the unit
+	 * Returns hit chance of the unit (in percents)
+	 * for example, if hit chance equals 75%, getter will return 75.
 	 *
-	 * @return hitChance of the unit
+	 * @return hit chance of the unit
 	 */
 	public int getHitChance() {
 		return hitChance;
 	}
 
 	/**
+	 * Increases hitChance of the unit
+	 *
+	 * @param hitChance value by which hit chance of the unit is increased
+	 */
+
+	public void addHitChance(int hitChance) {
+		this.hitChance += hitChance;
+	}
+	/**
 	 * Sets hitChance of the unit
 	 *
-	 * @param hitChance value to which hitChance is set
+	 * @param hitChance value to which hit chance of the unit is set
 	 */
 	public void setHitChance(int hitChance) {
 		this.hitChance = hitChance;

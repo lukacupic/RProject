@@ -19,12 +19,12 @@ public class Game implements IGameChangesProvider {
 	 * Colors of the players, if there are n players, first n colors are used
 	 */
 	private final Color colors[] = new Color[]{
-			new Color(255, 0, 0),
-			new Color(0, 255, 0),
-			new Color(0, 0, 255),
-			new Color(255, 255, 0),
-			new Color(255, 0, 255),
-			new Color(0, 255, 255),
+			new Color(155, 0, 0),
+			new Color(0, 155, 0),
+			new Color(0, 0, 155),
+			new Color(155, 155, 0),
+			new Color(155, 0, 155),
+			new Color(0, 155, 155),
 	};
 	/**
 	 * The board on which the game is played

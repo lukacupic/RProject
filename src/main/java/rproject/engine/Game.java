@@ -408,7 +408,6 @@ public class Game implements IGameChangesProvider {
 	 * simulates moving phase
 	 *
 	 * @param player current player
-	 * @return
 	 */
 
 	private void movePhase(Player player) {
@@ -495,7 +494,6 @@ public class Game implements IGameChangesProvider {
 	 * simulates spawn phase
 	 *
 	 * @param player current player
-	 * @return
 	 */
 	private void spawnPhase(Player player) {
 		player.addGold(getSpawnCount(player));

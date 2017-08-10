@@ -183,14 +183,11 @@ public class Territory {
 	public Map<String, Integer> getUnitsCount() {
 		Map<String, Integer> unitsCount = new HashMap<>();
 
-		for (Unit unit : units) {
-			for (Unit u : Unit.getAllUnits()) {
-				unitsCount.put(u.getName(), 0);
-				if (unit.getClass().equals(u.getClass())) {
+		for (Unit u : Unit.getAllUnits()) unitsCount.put(u.getName(), 0);
+		for (Unit unit : units)
+			for (Unit u : Unit.getAllUnits())
+				if (unit.getClass().equals(u.getClass()))
 					unitsCount.merge(unit.getName(), 1, (a, b) -> a + b);
-				}
-			}
-		}
 		return unitsCount;
 	}
 

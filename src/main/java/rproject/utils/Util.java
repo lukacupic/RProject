@@ -61,7 +61,7 @@ public class Util {
 	 * 			chance of success, in percentage
 	 * @return	(successChance)% of returning true, (100 - successChance)% of returning false
 	 */
-	public boolean testChance(int successChance){
+	public static boolean testChance(int successChance){
 		return Util.getRandInt(100) >= successChance;
 	}
 

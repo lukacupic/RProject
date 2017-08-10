@@ -10,48 +10,54 @@ public abstract class Unit {
 	/**
 	 * list of all units
 	 */
+
 	private static final List<Unit> allUnits = initAllUnits();
 	/**
 	 * Hp of the unit
 	 */
+
 	protected int hp;
 	/**
 	 * Damage of the unit
 	 */
 	protected int damage;
+
 	/**
 	 * Price of the unit
 	 */
-
 	protected int price;
+
 	/**
 	 * Chance of hitting another unit
 	 */
-
 	protected int hitChance;
+
 	/**
 	 * If unit isn't movable, it can't be part of attacking army, and can't be moved
 	 * in any moving phase
 	 */
 	protected boolean movable;
+
 	/**
 	 * Target chance coefficient of unit (or simply "coef").
 	 * Chance of being attacked equals coef divided by the sum of
 	 * coefs of all units in that army
-	 * <p>
+	 *
 	 * for example, if there are units A and B, with coefs 300 and 100 respectively,
 	 * chance of A being attacked equals 300 / (300 + 100) = 75%
 	 * chance of B being attacked equals 100 / (300 + 100) = 25%
 	 */
 	protected int targetChanceCoef;
+
 	/**
-	 * Armor of unit. Reduces damage taken, damage dealt equals damage of attacker
-	 * reduced by armor of defender
-	 * <p>
-	 * for example, if unit A has damage 20 and unit B has armor 15,
-	 * when A attacks B, only (20 - 15) = 5 damage will be dealt
+	 * Armor of unit. Reduces damage taken by armor%. In other words, damage dealt
+	 * equals damage of attacker multiplied by (100 - armor)/100, rounded down
+	 *
+	 * for example, if unit A has damage 20 and unit B has armor 40,
+	 * when A attacks B only 20 * (100 - 40) / 100 = 12 damage will be dealt
 	 */
 	protected int armor;
+
 	/**
 	 * name of unit ("Knight", "Archer"...)
 	 */
@@ -232,7 +238,7 @@ public abstract class Unit {
 	public boolean attack(Unit unit) {
 		int totalChanceOfHit = unit.hitChance;
 		if (Util.testChance(totalChanceOfHit)) return false;
-		int damageDealt = damage - unit.getArmor();
+		int damageDealt = damage * (100 - unit.getArmor()) / 100;
 		if (damageDealt < 0) damageDealt = 0;
 		unit.removeHp(damageDealt);
 		return unit.hp == 0;

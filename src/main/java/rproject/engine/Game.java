@@ -310,7 +310,6 @@ public class Game implements IGameChangesProvider {
 					+ ", quantity: " + T.countSpecificUnits(unit.getName()) + "x)");
 		}
 		List<Unit> selectedUnits = new ArrayList<>();
-		boolean isAllSelected = true;
 		for (Unit unit : allUnits) {
 			if (T.countSpecificUnits(unit.getName()) == 0) continue;
 			if (!unit.isMovable()) continue;

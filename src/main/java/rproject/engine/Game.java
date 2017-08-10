@@ -35,14 +35,6 @@ public class Game {
 	 */
 	private List<Player> players = new ArrayList<>();
 
-	public Player getCurrentPlayer() {
-		return currentPlayer;
-	}
-
-	public void setCurrentPlayer(Player currentPlayer) {
-		this.currentPlayer = currentPlayer;
-	}
-
 	private Player currentPlayer;
 
 	/**
@@ -122,6 +114,25 @@ public class Game {
 			unit.resetHp();
 		defTerritory.setUnits(defArmy);
 		return attArmy;
+	}
+
+	/**
+	 * Returns current player
+	 *
+	 * @return current player
+	 */
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	/**
+	 * sets the given player as the current player
+	 *
+	 * @param 	currentPlayer
+	 * 			player which will be set as the current player
+	 */
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
 	}
 
 	/**

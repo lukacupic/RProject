@@ -35,7 +35,15 @@ public class Game {
 	 */
 	private List<Player> players = new ArrayList<>();
 
-	public Player currentPlayer;
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	private Player currentPlayer;
 
 	/**
 	 * Initializes the board
@@ -184,7 +192,7 @@ public class Game {
 		Output.write("***** ");
 		Output.write(player.getName());
 		Output.writeln(" ******");
-		currentPlayer = player;
+		setCurrentPlayer(player);
 		spawnPhase(player);
 		boolean getBonus = attackPhase(player);
 		if (numberOfPlayers() == 1) return;

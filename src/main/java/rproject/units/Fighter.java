@@ -8,9 +8,9 @@ public class Fighter extends Unit {
 	private static final int DEFAULT_HP = 100;
 	private static final int DEFAULT_DMG = 15;
 	private static final int DEFAULT_PRICE = 1;
-	private static final int DEFAULT_HIT_CHANCE = 50;
-	private static final int DEFAULT_ARMOR = 2;
-	private static final int DEFAULT_TARGETED_CHANCE_COEF = 100;
+	private static final int DEFAULT_HIT_CHANCE = 65;
+	private static final int DEFAULT_ARMOR = 25;
+	private static final int DEFAULT_TARGETED_CHANCE_COEF = 200;
 	private static final boolean DEFAULT_MOVABLE = true;
 
 	/**

@@ -5,12 +5,12 @@ public class Catapult extends Unit {
 	/**
 	 * Default stats for every catapult
 	 */
-	private static final int DEFAULT_HP = 300;
-	private static final int DEFAULT_DMG = 70;
-	private static final int DEFAULT_PRICE = 10;
-	private static final int DEFAULT_HIT_CHANCE = 67;
-	private static final int DEFAULT_ARMOR = 20;
-	private static final int DEFAULT_TARGETED_CHANCE_COEF = 130;
+	private static final int DEFAULT_HP = 1000;
+	private static final int DEFAULT_DMG = 100;
+	private static final int DEFAULT_PRICE = 15;
+	private static final int DEFAULT_HIT_CHANCE = 40;
+	private static final int DEFAULT_ARMOR = 50;
+	private static final int DEFAULT_TARGETED_CHANCE_COEF = 125;
 	private static final boolean DEFAULT_MOVABLE = true;
 
 	/**

@@ -5,12 +5,12 @@ public class Tower extends Unit {
 	/**
 	 * Default stats for every tower
 	 */
-	private static final int DEFAULT_HP = 1000;
+	private static final int DEFAULT_HP = 4200;
 	private static final int DEFAULT_DMG = 50;
-	private static final int DEFAULT_PRICE = 15;
-	private static final int DEFAULT_HIT_CHANCE = 75;
-	private static final int DEFAULT_ARMOR = 30;
-	private static final int DEFAULT_TARGETED_CHANCE_COEF = 130;
+	private static final int DEFAULT_PRICE = 30;
+	private static final int DEFAULT_HIT_CHANCE = 60;
+	private static final int DEFAULT_ARMOR = 50;
+	private static final int DEFAULT_TARGETED_CHANCE_COEF = 200;
 
 	/**
 	 * Tower isn't movable. Once placed, it stays there until destroyed

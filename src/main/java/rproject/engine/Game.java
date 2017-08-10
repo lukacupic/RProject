@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Game {
+public class Game implements IGameChangesProvider {
 
 	/**
 	 * Colors of the players, if there are n players, first n colors are used
@@ -46,6 +46,12 @@ public class Game {
 	private String currentPhase;
 
 	/**
+	 * Listeners for changes to some arbitrary game elements, such
+	 * as: list of currently active players, current player, etc.
+	 */
+	private List<IGameChangesListener> changeListeners = new ArrayList<>();
+
+	/**
 	 * Initializes the board
 	 *
 	 * @param boardName   name of the board
@@ -70,7 +76,7 @@ public class Game {
 	 * Returns (weighted) random index of some unit from the army. Each unit has weighted
 	 * coefficient (or simply "coef", and chance of being selected equals:
 	 * chance = (coef of unit) / (sum of coefs of all units in army)
-	 *
+	 * <p>
 	 * for example, if army consist of units A and B, with weighted coefficients 300 and 100 respectively,
 	 * chance of A being attacked equals 300 / (300 + 100) = 75%
 	 * chance of B being attacked equals 100 / (300 + 100) = 25%
@@ -509,5 +515,24 @@ public class Game {
 	 */
 	private void bonusPhase(Player player) {
 		player.addBonus(1);
+	}
+
+	// IGameChangesProvider methods
+
+	@Override
+	public void addGameListener(IGameChangesListener listener) {
+		changeListeners.add(listener);
+	}
+
+	@Override
+	public void removeGameListener(IGameChangesListener listener) {
+		changeListeners.remove(listener);
+	}
+
+	@Override
+	public void fire() {
+		for(IGameChangesListener l : changeListeners) {
+			l.gameChanged();
+		}
 	}
 }

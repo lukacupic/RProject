@@ -35,7 +35,15 @@ public class Game {
 	 */
 	private List<Player> players = new ArrayList<>();
 
+	/**
+	 * Current player
+	 */
 	private Player currentPlayer;
+
+	/**
+	 * Current phase, one from {"Spawn phase", "Attack phase", "Move phase"}
+	 */
+	private String currentPhase;
 
 	/**
 	 * Initializes the board
@@ -62,7 +70,7 @@ public class Game {
 	 * Returns (weighted) random index of some unit from the army. Each unit has weighted
 	 * coefficient (or simply "coef", and chance of being selected equals:
 	 * chance = (coef of unit) / (sum of coefs of all units in army)
-	 * <p>
+	 *
 	 * for example, if army consist of units A and B, with weighted coefficients 300 and 100 respectively,
 	 * chance of A being attacked equals 300 / (300 + 100) = 75%
 	 * chance of B being attacked equals 100 / (300 + 100) = 25%
@@ -126,13 +134,12 @@ public class Game {
 	}
 
 	/**
-	 * sets the given player as the current player
+	 * Returns current phase
 	 *
-	 * @param 	currentPlayer
-	 * 			player which will be set as the current player
+	 * @return current phase
 	 */
-	public void setCurrentPlayer(Player currentPlayer) {
-		this.currentPlayer = currentPlayer;
+	public String getCurrentPhase() {
+		return currentPhase;
 	}
 
 	/**
@@ -203,10 +210,13 @@ public class Game {
 		Output.write("***** ");
 		Output.write(player.getName());
 		Output.writeln(" ******");
-		setCurrentPlayer(player);
+		currentPlayer = player;
+		currentPhase = "Spawn Phase";
 		spawnPhase(player);
+		currentPhase = "Attack Phase";
 		boolean getBonus = attackPhase(player);
 		if (numberOfPlayers() == 1) return;
+		currentPhase = "Move Phase";
 		movePhase(player);
 		if (getBonus) bonusPhase(player);
 	}

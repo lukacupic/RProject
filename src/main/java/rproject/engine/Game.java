@@ -35,6 +35,8 @@ public class Game {
 	 */
 	private List<Player> players = new ArrayList<>();
 
+	public Player currentPlayer;
+
 	/**
 	 * Initializes the board
 	 *
@@ -182,6 +184,7 @@ public class Game {
 		Output.write("***** ");
 		Output.write(player.getName());
 		Output.writeln(" ******");
+		currentPlayer = player;
 		spawnPhase(player);
 		boolean getBonus = attackPhase(player);
 		if (numberOfPlayers() == 1) return;
@@ -394,7 +397,9 @@ public class Game {
 	 * @return how many gold should player get for spawning
 	 */
 	private int getSpawnCount(Player player) {
-		return 3 + player.getCntBonus(); // todo
+		int ret = player.getTerritories().size() + player.getCntBonus();
+		if (ret < 3) ret = 3;
+		return ret + player.getCntBonus();
 	}
 
 	/**

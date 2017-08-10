@@ -58,6 +58,7 @@ public class Game implements IGameChangesProvider {
 	 * @param playerNames List of names of players
 	 */
 	public Game(String boardName, String[] playerNames) {
+		fire();
 		board = new Board(boardName);
 		BoardProvider.setBoard(board);
 
@@ -216,6 +217,7 @@ public class Game implements IGameChangesProvider {
 		Output.write("***** ");
 		Output.write(player.getName());
 		Output.writeln(" ******");
+		fire();
 		currentPlayer = player;
 		currentPhase = "Spawn Phase";
 		spawnPhase(player);
@@ -341,10 +343,10 @@ public class Game implements IGameChangesProvider {
 	}
 
 	/**
-	 * simulates attack phase
+	 * simulates attack phase, returns true if attacker won at least one battle
 	 *
 	 * @param player current player
-	 * @return
+	 * @return true if attacker won at least one battle, false otherwise
 	 */
 	private boolean attackPhase(Player player) {
 		boolean giveBonus = false;
@@ -363,6 +365,7 @@ public class Game implements IGameChangesProvider {
 			List<Unit> survivors = battle(attTerritory, defTerritory, attUnits);
 			if (!survivors.isEmpty()) {
 				giveBonus = true;
+				if (defTerritory.getOwner().getTerritories().size() == 1) fire();
 				defTerritory.changeOwner(player);
 				defTerritory.setUnits(survivors);
 				Output.writeln("attacker wins");

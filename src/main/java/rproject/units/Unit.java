@@ -53,7 +53,7 @@ public abstract class Unit {
 	 */
 	protected int armor;
 	/**
-	 * name of unit ("Centurion", "Archer"...)
+	 * name of unit ("Knight", "Archer"...)
 	 */
 	protected String name;
 
@@ -72,7 +72,6 @@ public abstract class Unit {
 		List<Unit> allUnits;
 		allUnits = new ArrayList<>();
 		allUnits.add(new Fighter());
-		allUnits.add(new Centurion());
 		allUnits.add(new Archer());
 		allUnits.add(new Catapult());
 		allUnits.add(new Tower());
@@ -232,7 +231,7 @@ public abstract class Unit {
 	 */
 	public boolean attack(Unit unit) {
 		int totalChanceOfHit = unit.hitChance;
-		if (Util.getRandInt(100) >= totalChanceOfHit) return false;
+		if (Util.testChance(totalChanceOfHit)) return false;
 		int damageDealt = damage - unit.getArmor();
 		if (damageDealt < 0) damageDealt = 0;
 		unit.removeHp(damageDealt);

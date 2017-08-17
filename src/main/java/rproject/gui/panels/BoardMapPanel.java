@@ -5,7 +5,9 @@ import rproject.engine.GameProvider;
 import rproject.gui.CGBridge;
 import rproject.gui.MainWindow;
 import rproject.gui.map.BoardMap;
+import rproject.gui.ui.PlayingPanel;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
@@ -17,6 +19,9 @@ public class BoardMapPanel extends JPanel {
 	 */
 	public static final String ID = "boardMapPanel";
 
+	/**
+	 * The board map, representing the map itself.
+	 */
 	private BoardMap boardMap;
 
 	/**
@@ -36,6 +41,7 @@ public class BoardMapPanel extends JPanel {
 	 */
 	public void init(String boardName, String[] playerNames) {
 		boardMap = new BoardMap(boardName);
+		add(new PlayingPanel(), BorderLayout.LINE_END);
 		add(boardMap, BorderLayout.CENTER);
 
 		new Thread(() -> {
@@ -50,5 +56,9 @@ public class BoardMapPanel extends JPanel {
 			GameProvider.setGame(game);
 			game.start();
 		}).start();
+	}
+
+	public BoardMap getBoardMap() {
+		return boardMap;
 	}
 }

@@ -30,22 +30,27 @@ public class MainWindow extends JFrame {
 	 * This is setup in the constructor.
 	 */
 	private static MainWindow mainWindow;
+
 	/**
 	 * The 'welcome screen' panel - first panel the user sees.
 	 */
 	public WelcomePanel welcomePanel = new WelcomePanel();
+
 	/**
 	 * The 'settings' panel - for choosing the game settings
 	 */
 	public SettingsPanel gameSettingsPanel = new SettingsPanel();
+
 	/**
 	 * The 'map' panel - for playing the game
 	 */
 	public BoardMapPanel mapPanel = new BoardMapPanel();
+
 	/**
 	 * The layout for displaying the panels.
 	 */
 	private CardLayout cl = new CardLayout();
+
 	/**
 	 * The container for holding the panels.
 	 */
@@ -92,6 +97,7 @@ public class MainWindow extends JFrame {
 		panelCont.add(welcomePanel, WelcomePanel.ID);
 		panelCont.add(gameSettingsPanel, SettingsPanel.ID);
 		panelCont.add(mapPanel, BoardMapPanel.ID);
+
 		add(panelCont);
 
 		cl.show(panelCont, WelcomePanel.ID); // default (first) panel

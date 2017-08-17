@@ -7,6 +7,9 @@ import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import rproject.engine.Territory;
 import rproject.gui.CGBridge;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.LinkedHashMap;
@@ -79,6 +82,28 @@ public class GUIUtil {
 			if (n == 0) continue;
 			p.put(entry.getKey() + (n > 1 ? "s" : ""), String.valueOf(n));
 		}
+		return p;
+	}
+
+	// TODO: clean up
+	private static JPanel createTablePanel(String[] labels) {
+		int numPairs = labels.length;
+
+		JPanel p = new JPanel(new SpringLayout());
+		for (int i = 0; i < numPairs; i++) {
+			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
+			p.add(l);
+
+			JLabel label = new JLabel("Test");
+			l.setLabelFor(label);
+			p.add(label);
+		}
+
+		SpringUtilities.makeCompactGrid(p,
+				numPairs, 2,     // rows, cols
+				6, 6,   // initX, initY
+				6, 6       // xPad, yPad
+		);
 		return p;
 	}
 }

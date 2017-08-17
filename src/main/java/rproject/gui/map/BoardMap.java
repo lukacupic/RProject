@@ -86,7 +86,7 @@ public class BoardMap extends PApplet {
 
 	@Override
 	public void setup() {
-		Component applet = MainWindow.getMainWindow().mapPanel.getComponent(0);
+		Component applet = MainWindow.getMainWindow().mapPanel.getBoardMap();
 		int appletWidth = applet.getWidth();
 		int appletHeight = applet.getHeight();
 		size(appletWidth, appletHeight, OPENGL);

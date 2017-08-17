@@ -1,6 +1,7 @@
 package rproject.gui;
 
 import rproject.gui.panels.BoardMapPanel;
+import rproject.gui.panels.MapPanel;
 import rproject.gui.panels.SettingsPanel;
 import rproject.gui.panels.WelcomePanel;
 
@@ -32,19 +33,20 @@ public class MainWindow extends JFrame {
 	private static MainWindow mainWindow;
 
 	/**
-	 * The 'welcome screen' panel - first panel the user sees.
+	 * The 'welcome screen' panel - the first panel the user sees.
 	 */
 	public WelcomePanel welcomePanel = new WelcomePanel();
 
 	/**
-	 * The 'settings' panel - for choosing the game settings
+	 * The 'map' panel - for playing the game.
+	 */
+	public MapPanel mapPanel = new MapPanel();
+
+	/**
+	 * The 'settings' panel - for choosing the game settings.
 	 */
 	public SettingsPanel gameSettingsPanel = new SettingsPanel();
 
-	/**
-	 * The 'map' panel - for playing the game
-	 */
-	public BoardMapPanel mapPanel = new BoardMapPanel();
 
 	/**
 	 * The layout for displaying the panels.
@@ -96,7 +98,7 @@ public class MainWindow extends JFrame {
 
 		panelCont.add(welcomePanel, WelcomePanel.ID);
 		panelCont.add(gameSettingsPanel, SettingsPanel.ID);
-		panelCont.add(mapPanel, BoardMapPanel.ID);
+		panelCont.add(mapPanel, MapPanel.ID);
 
 		add(panelCont);
 

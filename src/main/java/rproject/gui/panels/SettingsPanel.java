@@ -152,8 +152,8 @@ public class SettingsPanel extends JPanel {
 		playButton.addActionListener(e -> {
 			// TODO: here should the loading process be implemented or called!
 
-			MainWindow.getMainWindow().mapPanel.init(selectedBoard, playerNames.getNames());
-			MainWindow.getMainWindow().showPanel(BoardMapPanel.ID);
+			MainWindow.getMainWindow().mapPanel.getBoardMapPanel().init(selectedBoard, playerNames.getNames());
+			MainWindow.getMainWindow().showPanel(MapPanel.ID);
 		});
 
 		c.insets = new Insets(40, 0, 0, 0);

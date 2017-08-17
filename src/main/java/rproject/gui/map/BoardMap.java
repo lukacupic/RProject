@@ -5,17 +5,11 @@ import de.fhpotsdam.unfolding.data.Feature;
 import de.fhpotsdam.unfolding.data.GeoJSONReader;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
-import de.fhpotsdam.unfolding.marker.MultiMarker;
-import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
-import de.fhpotsdam.unfolding.utils.GeneralizationUtils;
 import de.fhpotsdam.unfolding.utils.GeoUtils;
 import de.fhpotsdam.unfolding.utils.MapUtils;
-import de.fhpotsdam.unfolding.utils.ScreenPosition;
 import processing.core.PApplet;
-import processing.core.PVector;
-import rproject.engine.Territory;
+import rproject.engine.GameProvider;
 import rproject.gui.CGBridge;
-import rproject.gui.MainWindow;
 import rproject.gui.map.components.Legend;
 import rproject.utils.FileUtil;
 import rproject.utils.GUIUtil;
@@ -109,7 +103,7 @@ public class BoardMap extends PApplet {
 		// simplify polygons for some specific maps
 		// todo: automate verification process: e.g. vertex count as a threshold
 		if (name.equals("continents")) {
-			simplifyMarkers(markersList, 1.5);
+			GUIUtil.simplifyMarkers(markersList, 1.5, map);
 		}
 
 		map.addMarkers(markersList);
@@ -144,14 +138,8 @@ public class BoardMap extends PApplet {
 
 	@Override
 	public void mouseClicked() {
-		Territory t = CGBridge.getSelectedTerritory();
-		Map<String, String> p = GUIUtil.getTerritoryProperties(t);
-
-		System.out.println("==================================");
-		for (Map.Entry<String, String> entry : p.entrySet()) {
-			System.out.println(entry.getKey() + ": " + entry.getValue());
-		}
-		System.out.println("==================================");
+		// heavy abuse, but it's the easiest solution :/
+		GameProvider.getGame().fire();
 	}
 
 	/**
@@ -162,58 +150,6 @@ public class BoardMap extends PApplet {
 	private void selectMarker(Marker marker) {
 		Color c = GUIUtil.getMarkerColor(marker);
 		marker.setColor(GUIUtil.colorToInt(c.darker()));
-	}
-
-	/**
-	 * Simplifies the given markers by simplifying locations of the underlying
-	 * polygons for each of the given marker.
-	 *
-	 * @param markers the markers to simplify
-	 * @param factor  the simplification factor; see {@link GeneralizationUtils#simplify}
-	 */
-	private void simplifyMarkers(List<Marker> markers, double factor) {
-		for (Marker m : markers) {
-			simplifyRecursively(m, factor);
-		}
-	}
-
-	/**
-	 * Simplifies the given marker by simplifying locations of the underlying
-	 * polygon of the given marker.
-	 *
-	 * @param m      the marker to simplify
-	 * @param factor the simplification factor
-	 */
-	private void simplifyRecursively(Marker m, double factor) {
-		if (m instanceof MultiMarker) {
-			for (Marker subm : ((MultiMarker) m).getMarkers()) {
-				simplifyRecursively(subm, factor);
-			}
-		} else if (m instanceof SimplePolygonMarker) {
-			SimplePolygonMarker sm = (SimplePolygonMarker) m;
-			simplify(sm, factor);
-		}
-	}
-
-	/**
-	 * Simplifies the given polygon marker, i.e. simplifies it's location
-	 * vectors.
-	 *
-	 * @param marker the marker to simplify
-	 * @param factor the simplification factor
-	 */
-	private void simplify(SimplePolygonMarker marker, double factor) {
-		List<PVector> vectors = new ArrayList<>();
-		for (Location l : marker.getLocations()) {
-			vectors.add(map.getScreenPosition(l));
-		}
-		vectors = GeneralizationUtils.simplify(vectors, (float) factor, true);
-
-		List<Location> locations = new ArrayList<>();
-		for (PVector v : vectors) {
-			locations.add(map.getLocation((ScreenPosition) v));
-		}
-		marker.setLocations(locations);
 	}
 
 	/**

@@ -1,9 +1,8 @@
 package rproject.gui.panels;
 
 import rproject.gui.MainWindow;
-import rproject.gui.map.BoardMap;
 import rproject.gui.ui.BoardMapPanel;
-import rproject.gui.ui.PlayingPanel;
+import rproject.gui.ui.playing.PlayingPanel;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;

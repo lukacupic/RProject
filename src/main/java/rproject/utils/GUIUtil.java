@@ -3,7 +3,11 @@ package rproject.utils;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.marker.Marker;
+import de.fhpotsdam.unfolding.marker.MultiMarker;
+import de.fhpotsdam.unfolding.marker.SimplePolygonMarker;
+import de.fhpotsdam.unfolding.utils.GeneralizationUtils;
 import de.fhpotsdam.unfolding.utils.ScreenPosition;
+import processing.core.PVector;
 import rproject.engine.Territory;
 import rproject.gui.CGBridge;
 
@@ -12,7 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -85,16 +91,71 @@ public class GUIUtil {
 		return p;
 	}
 
+	/**
+	 * Simplifies the given markers by simplifying locations of the underlying
+	 * polygons for each of the given marker.
+	 *
+	 * @param markers the markers to simplify
+	 * @param factor  the simplification factor; see {@link GeneralizationUtils#simplify}
+	 * @param map     the map containing the polygon
+	 */
+	public static void simplifyMarkers(List<Marker> markers, double factor, UnfoldingMap map) {
+		for (Marker m : markers) {
+			simplifyRecursively(m, factor, map);
+		}
+	}
+
+	/**
+	 * Simplifies the given marker by simplifying locations of the underlying
+	 * polygon of the given marker.
+	 *
+	 * @param m      the marker to simplify
+	 * @param factor the simplification factor
+	 * @param map    the map containing the polygon
+	 */
+	public static void simplifyRecursively(Marker m, double factor, UnfoldingMap map) {
+		if (m instanceof MultiMarker) {
+			for (Marker subm : ((MultiMarker) m).getMarkers()) {
+				simplifyRecursively(subm, factor, map);
+			}
+		} else if (m instanceof SimplePolygonMarker) {
+			SimplePolygonMarker sm = (SimplePolygonMarker) m;
+			simplify(sm, factor, map);
+		}
+	}
+
+	/**
+	 * Simplifies the given polygon marker, i.e. simplifies it's location
+	 * vectors.
+	 *
+	 * @param marker the marker to simplify
+	 * @param factor the simplification factor
+	 * @param map    the map containing the polygon
+	 */
+	public static void simplify(SimplePolygonMarker marker, double factor, UnfoldingMap map) {
+		List<PVector> vectors = new ArrayList<>();
+		for (Location l : marker.getLocations()) {
+			vectors.add(map.getScreenPosition(l));
+		}
+		vectors = GeneralizationUtils.simplify(vectors, (float) factor, true);
+
+		List<Location> locations = new ArrayList<>();
+		for (PVector v : vectors) {
+			locations.add(map.getLocation((ScreenPosition) v));
+		}
+		marker.setLocations(locations);
+	}
+
 	// TODO: clean up
-	private static JPanel createTablePanel(String[] labels) {
-		int numPairs = labels.length;
+	public static JPanel createTablePanel(Map<String, String> table) {
+		int numPairs = table.size();
 
 		JPanel p = new JPanel(new SpringLayout());
-		for (int i = 0; i < numPairs; i++) {
-			JLabel l = new JLabel(labels[i], JLabel.TRAILING);
+		for (Map.Entry<String, String> entry : table.entrySet()) {
+			JLabel l = new JLabel(entry.getKey(), JLabel.TRAILING);
 			p.add(l);
 
-			JLabel label = new JLabel("Test");
+			JLabel label = new JLabel(entry.getValue());
 			l.setLabelFor(label);
 			p.add(label);
 		}

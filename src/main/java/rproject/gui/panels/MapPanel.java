@@ -12,6 +12,8 @@ public class MapPanel extends JPanel {
 
 	private BoardMapPanel boardMapPanel = new BoardMapPanel();
 
+	private PlayingPanel playingPanel = new PlayingPanel();
+
 	/**
 	 * The unique identifier of this panel. Used to select
 	 * currently active panel from the {@link MainWindow}.
@@ -22,10 +24,14 @@ public class MapPanel extends JPanel {
 		setLayout(new BorderLayout());
 
 		add(boardMapPanel, BorderLayout.CENTER);
-		add(new PlayingPanel(), BorderLayout.LINE_END);
+		add(playingPanel, BorderLayout.LINE_END);
 	}
 
 	public BoardMapPanel getBoardMapPanel() {
 		return boardMapPanel;
+	}
+
+	public PlayingPanel getPlayingPanel() {
+		return playingPanel;
 	}
 }

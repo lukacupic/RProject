@@ -1,6 +1,5 @@
 package rproject.gui;
 
-import rproject.gui.panels.BoardMapPanel;
 import rproject.gui.panels.MapPanel;
 import rproject.gui.panels.SettingsPanel;
 import rproject.gui.panels.WelcomePanel;
@@ -46,7 +45,6 @@ public class MainWindow extends JFrame {
 	 * The 'settings' panel - for choosing the game settings.
 	 */
 	public SettingsPanel gameSettingsPanel = new SettingsPanel();
-
 
 	/**
 	 * The layout for displaying the panels.

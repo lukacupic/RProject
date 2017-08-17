@@ -50,6 +50,8 @@ public class BoardMapPanel extends JPanel {
 			}
 
 			Game game = new Game(boardName, playerNames);
+			game.addGameListener(MainWindow.getMainWindow().mapPanel.getPlayingPanel());
+
 			GameProvider.setGame(game);
 			game.start();
 		}).start();

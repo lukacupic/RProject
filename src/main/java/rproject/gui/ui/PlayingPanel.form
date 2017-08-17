@@ -2,23 +2,22 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="rproject.gui.ui.PlayingPanel">
   <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="274" height="432"/>
+      <xy x="20" y="20" width="150" height="429"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="f950f" binding="currentPlayerPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
+      <grid id="f950f" layout-manager="BorderLayout" hgap="0" vgap="0">
         <constraints border-constraint="North"/>
         <properties/>
         <border type="none"/>
         <children>
-          <component id="ea1ab" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
+          <component id="ea1ab" class="javax.swing.JLabel" binding="currentPlayer">
+            <constraints border-constraint="Center"/>
             <properties>
-              <text value="Label"/>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
@@ -51,7 +50,7 @@
                   <component id="caa48" class="javax.swing.JLabel" binding="territoryTitle">
                     <constraints border-constraint="North"/>
                     <properties>
-                      <text value="Label"/>
+                      <text value=""/>
                     </properties>
                   </component>
                 </children>
@@ -61,16 +60,7 @@
                 <constraints border-constraint="Center"/>
                 <properties/>
                 <border type="none"/>
-                <children>
-                  <component id="ce70a" class="javax.swing.JButton" binding="button1" default-binding="true">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Button"/>
-                    </properties>
-                  </component>
-                </children>
+                <children/>
               </grid>
             </children>
           </grid>
@@ -81,7 +71,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <grid id="59d2f" binding="playersTitlePanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+              <grid id="59d2f" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints border-constraint="North"/>
                 <properties/>
                 <border type="none"/>
@@ -89,7 +79,7 @@
                   <component id="7cada" class="javax.swing.JLabel" binding="playersTitle">
                     <constraints border-constraint="North"/>
                     <properties>
-                      <text value="Label"/>
+                      <text value=""/>
                     </properties>
                   </component>
                 </children>
@@ -99,16 +89,7 @@
                 <constraints border-constraint="Center"/>
                 <properties/>
                 <border type="none"/>
-                <children>
-                  <component id="cc6c4" class="javax.swing.JButton" binding="button2" default-binding="true">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Button"/>
-                    </properties>
-                  </component>
-                </children>
+                <children/>
               </grid>
             </children>
           </grid>

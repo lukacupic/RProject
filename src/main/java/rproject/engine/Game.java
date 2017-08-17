@@ -58,7 +58,6 @@ public class Game implements IGameChangesProvider {
 	 * @param playerNames List of names of players
 	 */
 	public Game(String boardName, String[] playerNames) {
-		fire();
 		board = new Board(boardName);
 		BoardProvider.setBoard(board);
 
@@ -178,7 +177,10 @@ public class Game implements IGameChangesProvider {
 	private void runInitSpawnPhase() {
 		Output.writeln("*** init phase, place your units! ***");
 		for (Player player : players) {
+			currentPlayer = player;
+			currentPhase = "Spawn Phase";
 			player.addGold(2);
+			fire();
 			spawnPhase(player);
 		}
 	}
@@ -217,9 +219,9 @@ public class Game implements IGameChangesProvider {
 		Output.write("***** ");
 		Output.write(player.getName());
 		Output.writeln(" ******");
-		fire();
 		currentPlayer = player;
 		currentPhase = "Spawn Phase";
+		fire();
 		spawnPhase(player);
 		currentPhase = "Attack Phase";
 		boolean getBonus = attackPhase(player);
